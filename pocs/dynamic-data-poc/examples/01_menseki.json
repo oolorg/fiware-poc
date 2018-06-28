@@ -1,0 +1,27 @@
+{
+  "contextElements": [
+    {
+      "type": "面積",
+      "isPattern": "false",
+      "id": "沖縄県",
+      "attributes": [
+        {
+          "name": "那覇市",
+          "type": "float",
+          "value": "39.27"
+        },
+        {
+          "name": "宜野湾市",
+          "type": "float",
+          "value": "19.7"
+        },
+        {
+          "name": "石垣市",
+          "type": "float",
+          "value": "229"
+        }
+      ]
+    }
+  ],
+  "updateAction": "APPEND"
+}

@@ -1,0 +1,27 @@
+{
+    "entities": [
+        {
+            "type": "面積",
+            "isPattern": "false",
+            "id": "沖縄県"
+        }
+    ],
+    "attributes": [
+        "那覇市",
+        "宜野湾市",
+        "石垣市"
+    ],
+    "reference": "http://cygnus:5050/notify",
+    "duration": "P1M",
+    "notifyConditions": [
+        {
+            "type": "ONCHANGE",
+            "condValues": [
+                "那覇市",
+                "宜野湾市",
+                "石垣市"
+            ]
+        }
+    ],
+    "throttling": "PT5S"
+}
