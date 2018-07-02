@@ -1,0 +1,81 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:3.2
+    container_name: mongodb
+    expose:
+        - "27017"
+    command: --smallfiles
+
+  orion:
+    image: fiware/orion:latest
+    container_name: orion
+    depends_on:
+        - mongodb
+    expose:
+        - "1026"
+    ports:
+        - "1026:1026"
+    command: -dbhost mongodb
+
+  idas:
+    image: fiware/iotagent-json:latest
+    container_name: idas
+    depends_on:
+        - mosquitto
+    expose:
+        - "4041"
+    ports:
+        - "4041:4041"
+    environment:
+        - IOTA_MQTT_HOST=mosquitto
+        - IOTA_MQTT_PORT=1883
+        - IOTA_MQTT_USERNAME=iota
+        - IOTA_MQTT_PASSWORD=password
+
+  mosquitto:
+    image: mosquitto
+    container_name: mosquitto
+    expose:
+        - "1883"
+    ports:
+        - "1883:1883"
+    environment:
+        - IOT_PASS=password
+
+  cygnus:
+    image: fiware/cygnus-ngsi
+    container_name: cygnus
+    depends_on:
+        - mongodb
+    expose:
+        - "5050"
+    environment:
+        - CYGNUS_MONGO_HOSTS=mongodb:27017
+
+  comet:
+    image: fiware/sth-comet
+    container_name: comet
+    depends_on:
+        - mongodb
+    expose:
+        - "8666"
+    ports: 
+        - "8666:8666"
+    environment:
+        - STH_HOST=0.0.0.0
+        - DEFAULT_SERVICE=myhome
+        - DEFAULT_SERVICE_PATH=/environment  
+        - DB_URI=mongodb:27017
+        - LOGOPS_LEVEL=DEBUG
+
+# graph:
+#   image: graph
+#   container_name: graph
+#   depends_on:
+#       - comet
+#   expose:
+#       - "81"
+#   ports:
+#       - "81:81"
+#   command: /bin/sh -c "while true; do echo hello world; sleep 1; done"
