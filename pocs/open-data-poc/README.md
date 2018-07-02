@@ -9,127 +9,10 @@
 
 ## 構築
 
-CKANをGitHubからCloneし、docker-compose.ymlを編集する。
+構築はdocker-compose.ymlを使用する。
 
 ```bash
-$ git clone https://github.com/ckan/ckan.git && cd ckan/contrib/docker/
-$ vim docker-compose.yml
-```
-
-```yaml
-version: "3"
-
-volumes:
-  ckan_config:
-  ckan_home:
-  ckan_storage:
-  pg_data:
-
-services:
-  ckan:
-    container_name: ckan
-    build:
-      context: ../../
-      args:
-          - CKAN_SITE_URL=${CKAN_SITE_URL}
-    links:
-      - db
-      - solr
-      - redis
-    ports:
-#      - "0.0.0.0:${CKAN_PORT}:5000"
-      - "0.0.0.0:5000:5000"
-    environment:
-      # Defaults work with linked containers, change to use own Postgres, SolR, Redis or Datapusher
-      - CKAN_SQLALCHEMY_URL=postgresql://ckan:${POSTGRES_PASSWORD}@db/ckan
-      - CKAN_DATASTORE_WRITE_URL=postgresql://ckan:${POSTGRES_PASSWORD}@db/datastore
-      - CKAN_DATASTORE_READ_URL=postgresql://datastore_ro:${DATASTORE_READONLY_PASSWORD}@db/datastore
-      - CKAN_SOLR_URL=http://solr:8983/solr/ckan
-      - CKAN_REDIS_URL=redis://redis:6379/1
-      - CKAN_DATAPUSHER_URL=http://datapusher:8800
-      - CKAN_SITE_URL=${CKAN_SITE_URL}
-      - CKAN_MAX_UPLOAD_SIZE_MB=${CKAN_MAX_UPLOAD_SIZE_MB}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - DS_RO_PASS=${DATASTORE_READONLY_PASSWORD}
-
-    volumes:
-      - ckan_config:/etc/ckan
-      - ckan_home:/usr/lib/ckan
-      - ckan_storage:/var/lib/ckan
-
-  datapusher:
-    container_name: datapusher
-    image: clementmouchet/datapusher
-    ports:
-      - "8800:8800"
-
-  db:
-    container_name: db
-    build:
-      context: ../../
-      dockerfile: contrib/docker/postgresql/Dockerfile
-      args:
-        - DS_RO_PASS=${DATASTORE_READONLY_PASSWORD}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    environment:
-      - DS_RO_PASS=${DATASTORE_READONLY_PASSWORD}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-
-  solr:
-    container_name: solr
-    build:
-      context: ../../
-      dockerfile: contrib/docker/solr/Dockerfile
-
-
-  redis:
-    container_name: redis
-    image: redis:latest
-
-  mongo:
-    container_name: mongo
-    image: mongo:3.4
-    command: --nojournal
-
-  orion:
-    container_name: orion
-    image: fiware/orion
-    links:
-      - mongo
-      - cygnus
-    ports:
-      - "1026:1026"
-    command: -dbhost mongo
-
-  cygnus:
-    container_name: cygnus
-    image: fiware/cygnus-ngsi:1.7.1
-    links:
-      - mysql
-      - ckan
-    ports:
-      - "5050:5050"
-      - "8081:8081"
-    environment:
-      - CYGNUS_LOG_LEVEL=DEBUG
-      - CYGNUS_MYSQL_HOST=mysql
-      - CYGNUS_MYSQL_USER=root
-      - CYGNUS_MYSQL_PASS=mysql
-      - CYGNUS_CKAN_HOST=ckan
-      - CYGNUS_CKAN_PORT=5000
-      - CYGNUS_CKAN_API_KEY=8501b681-4b92-4cb1-b4f7-e7ed88f101ee
-      - CYGNUS_CKAN_ATTR_PERSISTENCE=row
-      - CYGNUS_CKAN_ORION_URL=http://orion:1026
-
-  mysql:
-    container_name: mysql
-    image: mysql:5.5
-    ports:
-      - "0.0.0.0:3306:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=mysql
+$ git clone https://github.com/oolorg/fiware-poc.git && cd fiware-poc/pocs/dynamic-data-poc/ckan-demo/
 ```
 
 コンテナを起動する。
@@ -139,132 +22,70 @@ $ docker-compose up -d
 
 ```
 
-## CKAN Datastore Extensionの設定
+PostgreSQLが立ち上がるのに時間がかかるため、CKANの起動が失敗する。
+起動後数十秒待ち、CKANを再起動する。
 
-CygnusからCKANにデータを転送するにはCKAN Datastore Extensionを有効化する必要がある。
-
-datastoreの設定は[CKANドキュメント](http://docs.ckan.org/en/2.8/maintaining/datastore.html)に従って行う。
-
-
-/etc/ckan/production.iniを修正する。[app:main]セクションのckan.pluginsにdatastoreとdatapusherを追加する。
-
-```ini
-[app:main]
-
-ckan.plugins = stats text_view image_view recline_view ngsiview datastore datapusher
-```
-
-データベースを設定する。
-
-
-## 動作確認
-
-### テスト用のコンテキストデータを登録する
-
-JSON形式のコンテキストデータを作成する。
-
-```json:v1enti.json
-{
-    "contextElements": [
-        {
-            "type": "Room",
-            "isPattern": "false",
-            "id": "Room1",
-            "attributes": [
-                {
-                    "name": "temperature",
-                    "type": "float",
-                    "value": "23"
-                },
-                {
-                    "name": "pressure",
-                    "type": "integer",
-                    "value": "720"
-                }
-            ]
-        }
-    ],
-    "updateAction": "APPEND"
-}
-```
+ckan-demoのコンテナを削除する。
 
 ```bash
-$ curl localhost:1026/v1/updateContext -s -S -H 'Content-Type: application/json' -H 'Accept: application/json' -d @v1enti.json
+$ docker-compose rm ckan-demo
 ```
-
-## サブスクリプションを登録する
-
-```json:v1sub.json
-{
-    "entities": [
-        {
-            "type": "Room",
-            "isPattern": "false",
-            "id": "Room1"
-        }
-    ],
-    "attributes": [
-        "temperature"
-    ],
-    "reference": "http://cygnus:5050/notify",
-    "duration": "P1M",
-    "notifyConditions": [
-        {
-            "type": "ONCHANGE",
-            "condValues": [
-                "pressure"
-            ]
-        }
-    ],
-    "throttling": "PT5S"
-}
-```
+再起動する。
 
 ```bash
-$ curl localhost:1026/v1/subscribeContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @v1sub.json
+$ docker-compose up -d
 ```
 
-## コンテキストデータを変更する
+## CKANユーザーの作成
 
-```json:v1upd.json
-{
-    "contextElements": [
-        {
-            "type": "Room",
-            "isPattern": "false",
-            "id": "Room1",
-            "attributes": [
-                {
-                    "name": "temperature",
-                    "type": "float",
-                    "value": "26.5"
-                },
-                {
-                    "name": "pressure",
-                    "type": "integer",
-                    "value": "763"
-                }
-            ]
-        }
-    ],
-    "updateAction": "UPDATE"
-}
-```
+CygnusがCKANにデータを登録するために書き込み権限を持ったユーザーを作成する必要がある。
+ここでは、管理者権限を持ったadminユーザーを作成する。
 
 ```bash
-$ curl localhost:1026/v1/updateContext -s -S --header 'Content-Type: application/json' --header 'Accept: application/json' -d @v1upd.json
+$ docker exec -it ckan /usr/local/bin/ckan-paster --plugin=ckan sysadmin -c /etc/ckan/production.ini add admin
 ```
 
-## CKANの準備
+API Keyが発行されるのでメモしておく。
 
-CKANドキュメントの[Provisioning a CKAN resource for the column mode](http://fiware-cygnus.readthedocs.io/en/latest/cygnus-ngsi/flume_extensions_catalogue/ngsi_ckan_sink/index.html#section4.1)に従ってリソースを作成する。
-※row modeでも必要な手順か要確認
+## Cygnusの設定
 
-CKANの管理者ユーザーを作成する。
+Cygnusの設定ファイルにCKANのadminユーザーのAPI Keyを登録する必要がある。
 
-生成されたAPIKEYは後で使うのでメモしておく。
+docker-compose.ymlのCYGNUS_CKAN_API_KEY環境変数として登録する。
+編集後、Cygnusのコンテナを再起動(削除+起動)する。
 
-### 
+```bash
+$ vim docker-compose.yml
+```
+
+```yaml
+  cygnus-demo:
+    container_name: cygnus-demo
+    image: fiware/cygnus-ngsi:1.7.1
+    links:
+      - ckan-demo
+    ports:
+      - "5050:5050"
+      - "8081:8081"
+    environment:
+      - CYGNUS_LOG_LEVEL=DEBUG
+      - CYGNUS_CKAN_HOST=ckan-demo
+      - CYGNUS_CKAN_PORT=5000
+      - CYGNUS_CKAN_API_KEY=8501b681-4b92-4cb1-b4f7-e7ed88f101ee
+      - CYGNUS_CKAN_ATTR_PERSISTENCE=row
+```
+
+cygnus-demoコンテナを削除する。
+
+```bash
+$ docker-compose rm cygnus-demo
+```
+
+cygnus-demoコンテナを起動する。
+
+```bash
+$ docker-compose up -d
+```
 
 # 実際に沖縄のオープンデータを使用する
 
@@ -362,7 +183,7 @@ $ curl -X POST "http://localhost:5000/api/3/action/datastore_create" -H  "Author
 ## データを登録してCKANに通知する
 
 ```bash
-$ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: 沖縄県' -H 'Fiware-ServicePath: /面積' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @opendata-oki.json
+$ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: 沖縄県' -H 'Fiware-ServicePath: /面積' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @01_menseki.json
 {"orionError":{"code":"400","reasonPhrase":"Bad Request","details":"a component of ServicePath contains an illegal character"}}
 ```
 
@@ -370,7 +191,7 @@ CKANにデータを登録することを考慮すると、Fiware-Serviceヘッ�
 本来は、日本語に対応すべきだがここでは回避策としてローマ字を使用する。
 
 ```bash
-$ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: okinawa-pref' -H 'Fiware-ServicePath: /area' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @opendata-oki.json
+$ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: okinawa-pref' -H 'Fiware-ServicePath: /area' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @01_menseki.json
 ```
 
 #### サブスクリプションの登録
@@ -378,7 +199,7 @@ $ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: okinawa-pref' -H 
 オープンデータが登録されると同時にCygnusに通知するためにサブスクリプションを登録する。
 
 ```bash
-$ curl localhost:1026/v1/subscribeContext -sS -H 'Fiware-Service: okinawa_pref' -H 'Fiware-ServicePath: /area' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @opendata-oki-sub.json
+$ curl localhost:1026/v1/subscribeContext -sS -H 'Fiware-Service: okinawa_pref' -H 'Fiware-ServicePath: /area' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @01_menseki_sub.json
 ```
 
 レスポンス
@@ -392,7 +213,7 @@ $ curl localhost:1026/v1/subscribeContext -sS -H 'Fiware-Service: okinawa_pref' 
 リクエスト
 
 ```bash
-$ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: okinawa_pref' -H 'Fiware-ServicePath: /area' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @opendata-oki.json
+$ curl localhost:1026/v1/updateContext -sS -H 'Fiware-Service: okinawa_pref' -H 'Fiware-ServicePath: /area' -H 'Content-Type: application/json' -H 'Accept: application/json' -d @01_menseki.json
 ```
 
 レスポンス
