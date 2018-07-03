@@ -13,16 +13,16 @@
     * [2.3.事前調査](#23事前調査)
     * [2.4.環境構築](#24環境構築)
     * [2.5.動作確認](#25動作確認)
-* [3.センサーデバイス操作、管理](#3センサーデバイス操作、管理)
+* [3.センサーデバイス操作、管理](#3センサーデバイス操作管理)
     * [3.1.目的](#31目的)
     * [3.2.ゴール](#32ゴール)
     * [3.3.事前調査](#33事前調査)
     * [3.4.測定値の取得](#34測定値の取得)
     * [3.5.デバイス側をトリガーとしたorionからの設定の取得](#35デバイス側をトリガーとしたorionからの設定の取得)
-    * [3.6.orionAPIをトリガーとしたデバイスへのコマンド発行と結果取得](#36orionAPIをトリガーとしたデバイスへのコマンド発行と結果取得)
+    * [3.6.orionAPIをトリガーとしたデバイスへのコマンド発行と結果取得](#36orionapiをトリガーとしたデバイスへのコマンド発行と結果取得)
 * [4.参考情報](#4参考情報)
-    * [4.1.API情報](#41API情報)
-    * [4.2.MongoDBのデータ](#42MongoDBのデータ)
+    * [4.1.API情報](#41api情報)
+    * [4.2.MongoDBのデータ](#42mongodbのデータ)
 
 ---
 
@@ -90,7 +90,7 @@ docker images
 
 - idasの設定ファイルを設定する必要がある
 - 動かすことを優先としているため、Dockerfileの作成はせず、pullしたイメージを起動し、設定変更してcommitする
-- 今回はMQTTとjsonを使用するため`iotagent-json`を使用する
+- 今回はMQTTとJSONを使用するため`iotagent-json`を使用する
 
 ```bash
 docker pull fiware/iotagent-json:latest
@@ -107,7 +107,7 @@ docker exec -it XXXXXXX /bin/bash
 
 - config.jsファイルを編集する
     - 全コンポーネントが同一サーバに入っている構成を想定しているためlocalhostで名前解決するようなになっている
-    - 今回はdockerで起動するため、名前解決できる名称を記載する必要がある。
+    - 今回はdockerで起動するため、名前解決できる名称を記載する必要がある
 
 ```bash
 /*
@@ -373,7 +373,7 @@ publish.single(topic_value, payload=payload_value, qos=qos_value,retain=retain_v
 
 - クローンで上記のランダムな数値をパブリッシュするサンプルプログラムを定期実行する(1分毎)
 
-`*/1 * * * * python /home/pi/fiware/test_mqtt_rundum.py`をcronに追加
+`*/1 * * * * python /home/pi/fiware/device/publish/publish_randum.py`をcronに追加
 
 --
 
@@ -598,6 +598,14 @@ curl -X GET http://172.16.254.26:8666/STH/v1/contextEntities/type/potSensor/id/R
 
 --
 
+##### docker起動＆ログイン
+
+- `docker run -dit ubuntu /bin/bash`
+- `docker ps`
+- `docker exec -it XXXXXXXX /bin/bash`
+
+--
+
 ##### npm
 
 - `apt install npm`
@@ -613,6 +621,7 @@ curl -X GET http://172.16.254.26:8666/STH/v1/contextEntities/type/potSensor/id/R
 ##### nginx
 
 - `apt install nginx`
+- `echo "daemon off;" >> /etc/nginx/nginx.conf`
 
 --
 
@@ -629,15 +638,15 @@ curl -X GET http://172.16.254.26:8666/STH/v1/contextEntities/type/potSensor/id/R
 - `cd fiware-sth-graphs`
 - `cp -p /var/www/html/fiware-sth-graphs/examples/jquery/* .`
 - `bower install`
-- `nginx`
+
 
 --
 
 #### 設定ファイル
 
-- lineChart.html
-    - ファイルのパス修正(htmlの中で読んでいるjsファイルをnginxのrootディレクトリにおいておかないといけない？？)
 
+- lineChart.html
+    - ファイルのパス修正(htmlの中で記載されているjsファイルをnginxのrootディレクトリにおいておかないといけないみたい)
 ```html
 <!doctype html>
 <html>
@@ -788,7 +797,7 @@ docker images
         - "81"
     ports:
         - "81:81"
-    command: /bin/sh -c "while true; do echo hello world; sleep 1; done"
+    command: nginx
 ```
 
 --
@@ -799,18 +808,20 @@ docker images
     - グラフの情報はjsに直接指定している
     - 指定情報は以下
     - (dataFromからdataToの間で後ろから30行表示)
-Fiware-Service: `myhome`
-Fiware-ServicePath: `/environment`
-url: `http://172.16.254.26:8666/STH/v1/contextEntities/type/potSensor/id/RosesPot/attributes/humidity`
-dateFrom: `2018-06-21T08:29:01.872Z`
-dateTo: `2018-06-21T10:08:02.150Z`
-lastN: `30`
+        - Fiware-Service: `myhome`
+        - Fiware-ServicePath: `/environment`
+        - url:`http://172.16.254.26:8666/STH/v1/contextEntities/type/potSensor/id/RosesPot/attributes/humidity` 
+        - dateFrom: `2018-06-21T08:29:01.872Z`
+        - dateTo: `2018-06-21T10:08:02.150Z`
+        - lastN: `30`
+
 
 ![グラフ](https://i.imgur.com/GGFiQQg.png)
 
+
 - グラフ化している情報をcometのAPIから取得
     - グラフと比較すると一致していることがわかる
-    - dockerのコンテナは、タイムゾーンがデフォルトでUTCで起動する。グラフの時刻が9時間ずれているのはJSTに変換されているからだと思われ る
+    - dockerのコンテナは、タイムゾーンがデフォルトでUTCで起動する。グラフの時刻が9時間ずれているのはJSTに変換されているからだと思われる
 
 リクエスト
 
@@ -897,7 +908,7 @@ curl -X GET 'http://172.16.254.26:8666/STH/v1/contextEntities/type/potSensor/id/
 
 ### 3.2.ゴール
 
-- IDAS(iotagent-json)の機能を理解する
+- Idas(iotagent-json)の機能を理解する
 - FIWAREからデバイスセンサーへの通知や操作が行えるかを調査/検証する
 - FIWAREからデバイスセンサーの数や状態を把握できるかを調査/検証する
 - (デバイスセンサーからFIWAREへ通知や操作が行えるかを調査/検証する)
@@ -934,7 +945,7 @@ https://fiware-iotagent-json.fisuda.jp/usermanual/index.html#mqttbinding
 
 ### 3.4.測定値の取得
 
-- デバイスで取得した情報をIDAS(Fiware)に送信する機能を提供する
+- デバイスで取得した情報をIdas(Fiware)に送信する機能を提供する
 - センサーデバイスで下記トピックにパブリッシュすることでデータをFIWAREに送信することが可能
 
     - 複数の測定値を送信するトピック
@@ -947,8 +958,8 @@ https://fiware-iotagent-json.fisuda.jp/usermanual/index.html#mqttbinding
 ### 3.5.デバイス側をトリガーとしたorionからの設定の取得
 
 - デバイスが設定やOrionに格納されている値を取り出す機能を提供する
-    - IDASの受け口(IDASのサブスクライブしているトピック) `/{{apikey}}/{{deviceid}}/configuration/commands`
-        - IDASは上記トピックでサブスクライブしているため、上記トピックにパブリッシュすることでセンサー側からIDASへ要求することができる
+    - Idasの受け口(Idasのサブスクライブしているトピック) `/{{apikey}}/{{deviceid}}/configuration/commands`
+        - Idasは上記トピックでサブスクライブしているため、上記トピックにパブリッシュすることでセンサー側からIdasへ要求することができる
         - ペイロードには下記2つの情報が含まれている必要がある。
             - type
                 - デバイスの要求の種類(2種類)
@@ -961,19 +972,20 @@ https://fiware-iotagent-json.fisuda.jp/usermanual/index.html#mqttbinding
 
     - センサーの受け口(センサーがサブスクライブしているトピック)
  `/{{apikey}}/{{deviceid}}/configuration/values`
-        - センサー側で上記トピックをサブスクライブしておくことで、IDASからの通知を受け取ることができる
+        - センサー側で上記トピックをサブスクライブしておくことで、Idasからの通知を受け取ることができる
 
 --
 
 ### 3.6.orionAPIをトリガーとしたデバイスへのコマンド発行と結果取得
+
 - センサーデバイスにコマンドの送信、実行結果を取得する機能を提供する
 - デバイス作成時にcommandsを登録しておくと、orionのAPIで(orionでattributesを更新すると)デバイスにメッセージが送信可能
 
 --
 
 #### commandsの登録方法
-- デバイス作成時のjsonにcommandsを記載する
 
+- デバイス作成時のJSONにcommandsを記載する
 ```
 curl -X POST -H "Fiware-Service: myhome" -H "Fiware-ServicePath: /environment" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
     "devices": [
@@ -1043,7 +1055,7 @@ curl -X GET -s -S http://172.16.254.26:1026/v2/registrations -H "Fiware-Service:
 ```
 
 - orionにentityが作成される
-    - 以下のようにdevice作成時にcommandsを記載すると、`$(コマンド名)_info`、`$(コマンド名)_status`、`$(コマンド名)`のattributesが作成 される
+    - 以下のようにdevice作成時にcommandsを記載すると、`$(コマンド名)_info`、`$(コマンド名)_status`、`$(コマンド名)`のattributesが作成される
 
 リクエスト
 
@@ -1329,7 +1341,7 @@ curl -X GET -s -S http://172.16.254.26:1026/v2/entities/RosesPot -H "Fiware-Serv
 
 --
 
-#### IDAS
+#### Idas
 - [API](https://github.com/telefonicaid/iotagent-node-lib/blob/df2ca2fe96e75f1dceed6f33ed5e947b1354d9cc/doc/apiary/iotagent.apib)
 
 --
@@ -1402,4 +1414,3 @@ sth_/environment_RosesPot_potSensor.aggr
 >
 
 ```
-
