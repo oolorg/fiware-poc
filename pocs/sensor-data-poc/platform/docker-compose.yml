@@ -78,4 +78,4 @@ services:
 #       - "81"
 #   ports:
 #       - "81:81"
-#   command: /bin/sh -c "while true; do echo hello world; sleep 1; done"
+#   command: nginx
