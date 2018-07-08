@@ -1,0 +1,93 @@
+version: '3'
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --smallfiles
+
+  orion:
+    container_name: orion
+    image: fiware/orion:1.14.0
+    depends_on:
+        - mongodb
+    expose:
+        - "1026"
+    ports:
+        - "1026:1026"
+    command: -dbhost mongodb
+
+  idas:
+    container_name: idas
+    build:
+      context: ./
+      dockerfile: idas/Dockerfile
+#      args:
+#        - 
+    image: idas/iotagent-json:latest
+    depends_on:
+        - mosquitto
+    expose:
+        - "4041"
+    ports:
+        - "4041:4041"
+    environment:
+        - IOTA_MQTT_HOST=mosquitto
+        - IOTA_MQTT_PORT=1883
+        - IOTA_MQTT_USERNAME=iota
+        - IOTA_MQTT_PASSWORD=password
+
+  mosquitto:
+    container_name: mosquitto
+    build:
+      context: ./
+      dockerfile: mosquitto/Dockerfile
+    image: mosquitto/mosquitto:latest
+    expose:
+        - "1883"
+    ports:
+        - "1883:1883"
+    environment:
+        - IOT_USERNAME=iota
+        - IOT_PASS=password
+
+  cygnus:
+    container_name: cygnus
+    image: fiware/cygnus-ngsi:1.9.0
+    depends_on:
+        - mongodb
+    expose:
+        - "5050"
+    environment:
+        - CYGNUS_MONGO_HOSTS=mongodb:27017
+
+  comet:
+    container_name: comet
+    image: fiware/sth-comet:2.3.0
+    depends_on:
+        - mongodb
+    expose:
+        - "8666"
+    ports: 
+        - "8666:8666"
+    environment:
+        - STH_HOST=0.0.0.0
+        - DEFAULT_SERVICE=myhome
+        - DEFAULT_SERVICE_PATH=/environment  
+        - DB_URI=mongodb:27017
+        - LOGOPS_LEVEL=DEBUG
+
+#  graph:
+#    container_name: graph
+#    build:
+#      context: ./
+#      dockerfile: graph/Dockerfile
+#    image: graph/graph:latest
+#    depends_on:
+#        - comet
+#    expose:
+#        - "81"
+#    ports:
+#        - "81:81"
