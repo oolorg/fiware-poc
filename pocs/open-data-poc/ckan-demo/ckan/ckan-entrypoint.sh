@@ -41,16 +41,17 @@ write_config () {
 }
 
 add_plugin () {
-  sed -i '/ckan.plugins/s/$/ datastore/g' ${CONFIG}
-  sed -i "$((`sed -n '/sqlalchemy.url/=' /etc/ckan/production.ini | head -1`))a sqlalchemy.url = postgresql://ckan:ckan@postgres-demo/ckan" /etc/ckan/production.ini
-  sed -i "$((`sed -n '/ckan.datastore.write_url/=' /etc/ckan/production.ini | head -1`))a ckan.datastore.write_url = postgresql://ckan:ckan@postgres-demo/datastore" /etc/ckan/production.ini
-  sed -i "$((`sed -n '/ckan.datastore.read_url/=' /etc/ckan/production.ini | head -1`))a ckan.datastore.read_url = postgresql://datastore:ckan@postgres-demo/datastore" /etc/ckan/production.ini
+  plugins=$(grep "ckan.plugins = " /etc/ckan/production.ini)
+  if echo " ${plugins}" | grep datastore; then
+    echo "Datastore plugin already enabled."
+  else
+    sed -i '/ckan.plugins/s/$/ datastore/g' ${CONFIG}
+    sed -i "$((`sed -n '/sqlalchemy.url/=' /etc/ckan/production.ini | head -1`))a sqlalchemy.url = postgresql://ckan:ckan@postgres-demo/ckan" /etc/ckan/production.ini
+    sed -i "$((`sed -n '/ckan.datastore.write_url/=' /etc/ckan/production.ini | head -1`))a ckan.datastore.write_url = postgresql://ckan:ckan@postgres-demo/datastore" /etc/ckan/production.ini
+    sed -i "$((`sed -n '/ckan.datastore.read_url/=' /etc/ckan/production.ini | head -1`))a ckan.datastore.read_url = postgresql://datastore:ckan@postgres-demo/datastore" /etc/ckan/production.ini
+  fi
 
-# TODO: PostgrSQL Configuration
-#  createuser -h postgres-demo -U postgres -S -D -R -P -l -w datastore
-#  createdb -h postgres-demo -O ckan datastore -E utf-8 -w
-
-  ckan-paster --plugin=ckan datastore set-permissions -c /etc/ckan/production.ini | psql -h postgres-demo -U postgres --set ON_ERROR_STOP=1
+    ckan-paster --plugin=ckan datastore set-permissions -c /etc/ckan/production.ini | psql -h postgres-demo -U postgres --set ON_ERROR_STOP=1
 }
 
 wait_starting_db () {
