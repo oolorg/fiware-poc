@@ -11,7 +11,7 @@ services:
         - CKAN_SOLR_URL=http://solr-demo:8983/solr/ckan
         - CKAN_REDIS_URL=redis://redis-demo:6379/1
         - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
-        - CKAN_SITE_URL=http://ckan-demo:5001
+        - CKAN_SITE_URL=http://ckan-demo:5000
         - POSTGRES_PASSWORD=ckan
     image: ckan/ckan:latest
     links:
@@ -19,13 +19,13 @@ services:
       - redis-demo
       - solr-demo
     ports:
-      - "0.0.0.0:5001:5000"
+      - "0.0.0.0:5000:5000"
     environment:
       - CKAN_SQLALCHEMY_URL=postgresql://ckan:ckan@postgres-demo/ckan
       - CKAN_SOLR_URL=http://solr-demo:8983/solr/ckan
       - CKAN_REDIS_URL=redis://redis-demo:6379/1
       - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
-      - CKAN_SITE_URL=http://ckan-demo:5001
+      - CKAN_SITE_URL=http://ckan-demo:5000
       - POSTGRES_PASSWORD=ckan
     privileged: true
 
