@@ -11,7 +11,7 @@
         "宜野湾市",
         "石垣市"
     ],
-    "reference": "http://cygnus:5050/notify",
+    "reference": "http://cygnus-demo:5050/notify",
     "duration": "P1M",
     "notifyConditions": [
         {
