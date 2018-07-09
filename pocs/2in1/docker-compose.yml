@@ -1,0 +1,139 @@
+version: "3"
+
+services:
+  ckan-demo:
+    container_name: ckan-demo
+    build:
+      context: ../open-data-poc/ckan-demo
+      dockerfile: ckan/Dockerfile
+      args:
+        - CKAN_SQLALCHEMY_URL=postgresql://ckan:ckan@postgres-demo/ckan
+        - CKAN_SOLR_URL=http://solr-demo:8983/solr/ckan
+        - CKAN_REDIS_URL=redis://redis-demo:6379/1
+        - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
+        - CKAN_SITE_URL=http://ckan-demo:5001
+        - POSTGRES_PASSWORD=ckan
+    image: ckan/ckan:latest
+    links:
+      - postgres-demo
+      - redis-demo
+      - solr-demo
+    ports:
+      - "0.0.0.0:5001:5000"
+    environment:
+      - CKAN_SQLALCHEMY_URL=postgresql://ckan:ckan@postgres-demo/ckan
+      - CKAN_SOLR_URL=http://solr-demo:8983/solr/ckan
+      - CKAN_REDIS_URL=redis://redis-demo:6379/1
+      - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
+      - CKAN_SITE_URL=http://ckan-demo:5001
+      - POSTGRES_PASSWORD=ckan
+    privileged: true
+
+  postgres-demo:
+    container_name: postgres-demo
+    build:
+      context: ../open-data-poc/ckan-demo
+      dockerfile: postgresql/Dockerfile
+      args:
+        - DS_RO_PASS=${DS_RO_PASS}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    environment:
+      - DS_RO_PASS=${DS_RO_PASS}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  solr-demo:
+    container_name: solr-demo
+    build:
+      context: ../open-data-poc/ckan-demo
+      dockerfile: solr/Dockerfile
+
+  redis-demo:
+    container_name: redis-demo
+    image: redis:latest
+
+  orion-demo:
+    container_name: orion-demo
+    image: fiware/orion:1.14.0
+    links:
+      - mongodb-demo
+    ports:
+      - "1026:1026"
+    command: -dbhost mongodb-demo
+
+  mongodb-demo:
+    container_name: mongodb-demo
+    image: mongo:3.4
+    command: --nojournal
+
+  cygnus-demo:
+    container_name: cygnus-demo
+    image: fiware/cygnus-ngsi:1.7.1
+    links:
+      - ckan-demo
+    ports:
+      - "5050:5050"
+      - "8081:8081"
+    environment:
+      - CYGNUS_LOG_LEVEL=DEBUG
+      - CYGNUS_MONGO_HOSTS=mongodb:27017
+      - CYGNUS_CKAN_HOST=ckan-demo
+      - CYGNUS_CKAN_PORT=5000
+      - CYGNUS_CKAN_API_KEY=8501b681-4b92-4cb1-b4f7-e7ed88f101ee
+      - CYGNUS_CKAN_ATTR_PERSISTENCE=row
+
+  comet:
+    container_name: comet
+    image: fiware/sth-comet:2.3.0
+    depends_on:
+      - mongodb-comet
+    expose:
+      - "8666"
+    ports:
+      - "8666:8666"
+    environment:
+      - STH_HOST=0.0.0.0
+      - DEFAULT_SERVICE=myhome
+      - DEFAULT_SERVICE_PATH=/environment
+      - DB_URI=mongodb:27017
+      - LOGOPS_LEVEL=DEBUG
+
+  mongodb-comet:
+    container_name: mongodb-comet
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --smallfiles
+
+  idas:
+    container_name: idas
+    build:
+      context: ../sensor-data-poc/platform-v3
+      dockerfile: idas/Dockerfile
+#      args:
+#        -
+    image: idas/iotagent-json:latest
+    depends_on:
+        - mosquitto
+    expose:
+        - "4041"
+    ports:
+        - "4041:4041"
+    environment:
+        - IOTA_MQTT_HOST=mosquitto
+        - IOTA_MQTT_PORT=1883
+        - IOTA_MQTT_USERNAME=iota
+        - IOTA_MQTT_PASSWORD=password
+
+  mosquitto:
+    container_name: mosquitto
+    build:
+      context: ../sensor-data-poc/platform-v3
+      dockerfile: mosquitto/Dockerfile
+    image: mosquitto/mosquitto:latest
+    expose:
+      - "1883"
+    ports:
+      - "1883:1883"
+    environment:
+      - IOT_USERNAME=iota
+      - IOT_PASS=password
