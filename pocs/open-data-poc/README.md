@@ -19,18 +19,18 @@ $ git clone https://github.com/oolorg/fiware-poc.git && cd fiware-poc/pocs/dynam
 
 ```bash
 $ docker-compose up -d
-
+Creating network "ckandemo_default" with the default driver
+Creating redis-demo    ... done
+Creating mongodb-demo  ... done
+Creating postgres-demo ... done
+Creating solr-demo     ... done
+Creating ckan-demo     ... done
+Creating orion-demo    ... done
+Creating cygnus-demo   ... done
 ```
 
 PostgreSQLが立ち上がるのに時間がかかるため、CKANの起動が失敗する。
 起動後数十秒待ち、CKANを再起動する。
-
-ckan-demoのコンテナを削除する。
-
-```bash
-$ docker-compose rm ckan-demo
-```
-再起動する。
 
 ```bash
 $ docker-compose up -d
