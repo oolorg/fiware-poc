@@ -24,8 +24,6 @@ services:
     build:
       context: ./
       dockerfile: idas/Dockerfile
-#      args:
-#        - 
     image: idas/iotagent-json:latest
     depends_on:
         - mosquitto
