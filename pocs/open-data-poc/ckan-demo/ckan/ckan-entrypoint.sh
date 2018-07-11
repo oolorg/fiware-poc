@@ -54,11 +54,6 @@ add_plugin () {
     ckan-paster --plugin=ckan datastore set-permissions -c /etc/ckan/production.ini | psql -h postgres-demo -U postgres --set ON_ERROR_STOP=1
 }
 
-wait_starting_db () {
-  # TODO: Waiting for starting PostgreSQL
-  ls
-}
-
 # If we don't already have a config file, bootstrap
 if [ ! -e "$CONFIG" ]; then
   write_config

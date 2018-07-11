@@ -29,13 +29,6 @@ Creating orion-demo    ... done
 Creating cygnus-demo   ... done
 ```
 
-PostgreSQLが立ち上がるのに時間がかかるため、CKANの起動が失敗する。
-起動後数十秒待ち、CKANを再起動する。
-
-```bash
-$ docker-compose up -d
-```
-
 ## CKANユーザーの作成
 
 CygnusがCKANにデータを登録するために書き込み権限を持ったユーザーを作成する必要がある。
@@ -75,13 +68,7 @@ $ vim docker-compose.yml
       - CYGNUS_CKAN_ATTR_PERSISTENCE=row
 ```
 
-cygnus-demoコンテナを削除する。
-
-```bash
-$ docker-compose rm cygnus-demo
-```
-
-cygnus-demoコンテナを起動する。
+cygnus-demoコンテナを再起動する。
 
 ```bash
 $ docker-compose up -d
