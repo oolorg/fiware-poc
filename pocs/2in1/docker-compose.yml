@@ -13,7 +13,6 @@ services:
         - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
         - CKAN_SITE_URL=http://ckan-demo:5001
         - POSTGRES_PASSWORD=ckan
-    image: ckan/ckan:latest
     links:
       - postgres-demo
       - redis-demo
@@ -34,12 +33,6 @@ services:
     build:
       context: ../open-data-poc/ckan-demo
       dockerfile: postgresql/Dockerfile
-      args:
-        - DS_RO_PASS=${DS_RO_PASS}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    environment:
-      - DS_RO_PASS=${DS_RO_PASS}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   solr-demo:
     container_name: solr-demo
@@ -111,7 +104,6 @@ services:
       dockerfile: idas/Dockerfile
 #      args:
 #        -
-    image: idas/iotagent-json:latest
     depends_on:
         - mosquitto
     expose:
@@ -129,7 +121,6 @@ services:
     build:
       context: ../sensor-data-poc/platform-v3
       dockerfile: mosquitto/Dockerfile
-    image: mosquitto/mosquitto:latest
     expose:
       - "1883"
     ports:
