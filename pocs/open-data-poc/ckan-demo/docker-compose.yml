@@ -13,7 +13,6 @@ services:
         - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
         - CKAN_SITE_URL=http://ckan-demo:5000
         - POSTGRES_PASSWORD=ckan
-    image: ckan/ckan:latest
     links:
       - postgres-demo
       - redis-demo
@@ -34,12 +33,6 @@ services:
     build:
       context: ./
       dockerfile: postgresql/Dockerfile
-      args:
-        - DS_RO_PASS=${DS_RO_PASS}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    environment:
-      - DS_RO_PASS=${DS_RO_PASS}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   solr-demo:
     container_name: solr-demo
