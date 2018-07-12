@@ -24,6 +24,7 @@ services:
       - CKAN_SITE_URL=http://ckan-demo:5001
       - POSTGRES_PASSWORD=ckan
     privileged: true
+    restart: always
 
   postgres-demo:
     container_name: postgres-demo
