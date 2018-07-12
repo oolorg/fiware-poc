@@ -62,7 +62,7 @@ services:
 
   cygnus-demo:
     container_name: cygnus-demo
-    image: fiware/cygnus-ngsi:1.7.1
+    image: fiware/cygnus-ngsi:1.9.0
     expose: 
       - "5050"
       - "8081"
