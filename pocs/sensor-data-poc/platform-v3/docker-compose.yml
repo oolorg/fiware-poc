@@ -38,7 +38,7 @@ services:
     build:
       context: ./
       dockerfile: idas/Dockerfile
-    image: idas/iotagent-json:latest
+    image: ool/iotagent-json:latest
     depends_on:
         - mongodb-idas-demo
         - mosquitto-demo
