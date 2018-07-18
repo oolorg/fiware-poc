@@ -11,19 +11,21 @@ services:
         - CKAN_SOLR_URL=http://solr-demo:8983/solr/ckan
         - CKAN_REDIS_URL=redis://redis-demo:6379/1
         - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
-        - CKAN_SITE_URL=http://ckan-demo:5001
+        - CKAN_SITE_URL=http://ckan-demo:5000
         - POSTGRES_PASSWORD=ckan
     image: ool/ckan:2.8.0.1
-    expose:
-      - "5000"
+    depends_on:
+      - postgres-demo
+      - redis-demo
+      - solr-demo
     ports:
-      - "0.0.0.0:5001:5000"
+      - "0.0.0.0:5000:5000"
     environment:
       - CKAN_SQLALCHEMY_URL=postgresql://ckan:ckan@postgres-demo/ckan
       - CKAN_SOLR_URL=http://solr-demo:8983/solr/ckan
       - CKAN_REDIS_URL=redis://redis-demo:6379/1
       - CKAN_DATAPUSHER_URL=http://datapusher-demo:8800
-      - CKAN_SITE_URL=http://ckan-demo:5001
+      - CKAN_SITE_URL=http://ckan-demo:5000
       - POSTGRES_PASSWORD=ckan
     privileged: true
     restart: always
@@ -34,8 +36,6 @@ services:
       context: ../open-data-poc/ckan-demo
       dockerfile: postgresql/Dockerfile
     image: ool/postgres:9.3.1
-    expose:
-      - "5432"
 
   solr-demo:
     container_name: solr-demo
@@ -43,20 +43,14 @@ services:
       context: ../open-data-poc/ckan-demo
       dockerfile: solr/Dockerfile
     image: ool/solr:6.6.2.1A
-    expose:
-      - "8983"
 
   redis-demo:
     container_name: redis-demo
     image: redis:4.0.10
-    expose:
-      - "6379"
 
   orion-demo:
     container_name: orion-demo
     image: fiware/orion:1.14.0
-    expose:
-      - "1026"
     ports:
       - "1026:1026"
     command: -dbhost mongodb-orion-demo
@@ -64,17 +58,11 @@ services:
   mongodb-orion-demo:
     container_name: mongodb-orion-demo
     image: mongo:3.4
-    expose:
-      - "27017"
     command: --nojournal --smallfiles
 
   cygnus-demo:
     container_name: cygnus-demo
     image: fiware/cygnus-ngsi:1.9.0
-    expose: 
-      - "5050"
-      - "5080"
-      - "8081"
     ports:
       - "5050:5050"
       - "8081:8081"
@@ -91,8 +79,6 @@ services:
     image: fiware/sth-comet:2.3.0
     depends_on:
       - mongodb-comet-demo
-    expose:
-      - "8666"
     ports:
       - "8666:8666"
     environment:
@@ -105,8 +91,6 @@ services:
   mongodb-comet-demo:
     container_name: mongodb-comet-demo
     image: mongo:3.4
-    expose:
-        - "27017"
     command: --nojournal
 
   idas-demo:
@@ -117,8 +101,6 @@ services:
     image: ool/idas:1.7.0.1
     depends_on:
         - mosquitto-demo
-    expose:
-        - "4041"
     ports:
         - "4041:4041"
     environment:
@@ -130,8 +112,6 @@ services:
   mongodb-idas-demo:
     container_name: mongodb-idas-demo
     image: mongo:3.4
-    expose:
-        - "27017"
     command: --nojournal --smallfiles
 
   mosquitto-demo:
@@ -140,8 +120,6 @@ services:
       context: ../sensor-data-poc/platform-v3
       dockerfile: mosquitto/Dockerfile
     image: ool/mosquitto:1.4.15.1
-    expose:
-      - "1883"
     ports:
       - "1883:1883"
     environment:
