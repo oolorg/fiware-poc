@@ -23,7 +23,7 @@
 var config = {};
 
 config.mqtt = {
-    host: 'mosquitto',
+    host: 'mosquitto-demo',
     port: 1883,
     thinkingThingsPlugin: true
 };
@@ -32,7 +32,7 @@ config.iota = {
     logLevel: 'DEBUG',
     timestamp: true,
     contextBroker: {
-        host: 'orion',
+        host: 'orion-demo',
         port: '1026'
     },
     server: {
@@ -42,14 +42,14 @@ config.iota = {
         type: 'mongodb'
     },
     mongodb: {
-        host: 'mongodb',
+        host: 'mongodb-idas-demo',
         port: '27017',
         db: 'iotagentjson'
     },
     types: {},
     service: 'howtoService',
     subservice: '/howto',
-    providerUrl: 'http://idas:4041',
+    providerUrl: 'http://idas-demo:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
     defaultResource: '/iot/json'

@@ -1,48 +1,63 @@
 version: '3'
 
 services:
-  mongodb:
-    container_name: mongodb
+  mongodb-orion-demo:
+    container_name: mongodb-orion-demo
     image: mongo:3.4
     expose:
         - "27017"
-    command: --smallfiles
+    command: --nojournal --smallfiles
 
-  orion:
-    container_name: orion
+  mongodb-idas-demo:
+    container_name: mongodb-idas-demo
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --nojournal --smallfiles
+
+  mongodb-comet-demo:
+    container_name: mongodb-comet-demo
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --nojournal
+
+  orion-demo:
+    container_name: orion-demo
     image: fiware/orion:1.14.0
     depends_on:
-        - mongodb
+        - mongodb-orion-demo
     expose:
         - "1026"
     ports:
         - "1026:1026"
-    command: -dbhost mongodb
+    command: -dbhost mongodb-orion-demo
 
-  idas:
-    container_name: idas
+  idas-demo:
+    container_name: idas-demo
     build:
       context: ./
       dockerfile: idas/Dockerfile
-    image: idas/iotagent-json:latest
+    image: ool/iotagent-json:1.7.0.1
     depends_on:
-        - mosquitto
+        - mongodb-idas-demo
+        - mosquitto-demo
     expose:
         - "4041"
     ports:
         - "4041:4041"
     environment:
-        - IOTA_MQTT_HOST=mosquitto
+        - IOTA_MQTT_HOST=mosquitto-demo
         - IOTA_MQTT_PORT=1883
         - IOTA_MQTT_USERNAME=iota
         - IOTA_MQTT_PASSWORD=password
 
-  mosquitto:
-    container_name: mosquitto
+  mosquitto-demo:
+    container_name: mosquitto-demo
     build:
       context: ./
       dockerfile: mosquitto/Dockerfile
-    image: mosquitto/mosquitto:latest
+    image: ool/mosquitto:1.4.15.1
     expose:
         - "1883"
     ports:
@@ -51,21 +66,21 @@ services:
         - IOT_USERNAME=iota
         - IOT_PASS=password
 
-  cygnus:
-    container_name: cygnus
+  cygnus-demo:
+    container_name: cygnus-demo
     image: fiware/cygnus-ngsi:1.9.0
     depends_on:
-        - mongodb
+        - mongodb-comet-demo
     expose:
         - "5050"
     environment:
-        - CYGNUS_MONGO_HOSTS=mongodb:27017
+        - CYGNUS_MONGO_HOSTS=mongodb-comet-demo:27017
 
-  comet:
-    container_name: comet
+  comet-demo:
+    container_name: comet-demo
     image: fiware/sth-comet:2.3.0
     depends_on:
-        - mongodb
+        - mongodb-comet-demo
     expose:
         - "8666"
     ports: 
@@ -74,17 +89,17 @@ services:
         - STH_HOST=0.0.0.0
         - DEFAULT_SERVICE=myhome
         - DEFAULT_SERVICE_PATH=/environment  
-        - DB_URI=mongodb:27017
+        - DB_URI=mongodb-comet-demo:27017
         - LOGOPS_LEVEL=DEBUG
 
-#  graph:
-#    container_name: graph
+#  graph-demo:
+#    container_name: graph-demo
 #    build:
 #      context: ./
 #      dockerfile: graph/Dockerfile
-#    image: graph/graph:latest
+#    image: graph/graph:1.0.0.1
 #    depends_on:
-#        - comet
+#        - comet-demo
 #    expose:
 #        - "81"
 #    ports:
