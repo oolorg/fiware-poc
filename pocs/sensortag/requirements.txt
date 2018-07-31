@@ -1,0 +1,2 @@
+git+https://github.com/IanHarvey/bluepy.git@v/1.2.0
+git+https://github.com/eclipse/paho.mqtt.python.git@v1.3.1
