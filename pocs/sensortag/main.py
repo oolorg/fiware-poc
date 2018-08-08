@@ -1,17 +1,47 @@
 from json import dumps
+from pprint import pprint
 from time import sleep
 
+from bluepy.btle import BTLEException
 from bluepy.sensortag import KeypressDelegate
 from bluepy.sensortag import SensorTag
 from paho.mqtt.client import Client, MQTTv311
 
-HOST = ''
+HOST = 'fiware'
 PORT = 1883
-USERNAME = ''
-PASSWORD = ''
+USERNAME = 'iota'
+PASSWORD = 'password'
 
-TOPIC1 = "/service/SensorTag1/attrs"
-TOPIC2 = "/service/SensorTag2/attrs"
+TOPIC1 = "/testapikey/SensorTag1/attrs"
+TOPIC2 = "/testapikey/SensorTag2/attrs"
+
+
+def sensor_enabler(tag):
+    tag.humidity.enable()
+    tag.barometer.enable()
+    tag.accelerometer.enable()
+    tag.magnetometer.enable()
+    tag.gyroscope.enable()
+    tag.battery.enable()
+    tag.keypress.enable()
+    tag.setDelegate(KeypressDelegate())
+    if tag.lightmeter is not None:
+        tag.lightmeter.enable()
+    else:
+        print("Warning: no lightmeter on SensorTag " + tag)
+
+
+def read_sensor_data(tag):
+    data = {}
+    data.update({"humidity": tag.humidity.read()})
+    data.update({"barometer": tag.barometer.read()})
+    data.update({"accelerometer": tag.accelerometer.read()})
+    data.update({"magnetometer": tag.magnetometer.read()})
+    data.update({"gyroscope": tag.gyroscope.read()})
+    data.update({"lightmeter": tag.lightmeter.read()})
+    data.update({"battery": tag.battery.read()})
+
+    return data
 
 
 def main():
@@ -20,65 +50,25 @@ def main():
     client.username_pw_set(USERNAME, password=PASSWORD)
     client.connect(HOST, port=PORT, keepalive=60)
 
-    host1 = "XX:XX:XX:XX:XX:XX"
-    host2 = "YY:YY:YY:YY:YY:YY"
+    host1 = "98:07:2D:35:7B:00"
+    host2 = "98:07:2D:40:95:83"
 
     print("Connecting to SensorTags")
     tag1 = SensorTag(host1)
     tag2 = SensorTag(host2)
 
-    tag1.IRtemperature.enable()
-    tag2.IRtemperature.enable()
-    tag1.humidity.enable()
-    tag2.humidity.enable()
-    tag1.barometer.enable()
-    tag2.barometer.enable()
-    tag1.accelerometer.enable()
-    tag2.accelerometer.enable()
-    tag1.magnetometer.enable()
-    tag2.magnetometer.enable()
-    tag1.gyroscope.enable()
-    tag2.gyroscope.enable()
-    tag1.battery.enable()
-    tag2.battery.enable()
-    tag1.keypress.enable()
-    tag1.setDelegate(KeypressDelegate())
-    tag2.keypress.enable()
-    tag2.setDelegate(KeypressDelegate())
-    if tag1.lightmeter is not None:
-        tag1.lightmeter.enable()
-    else:
-        print("Warning: no lightmeter on SensorTag1")
-    if tag2.lightmeter is not None:
-        tag2.lightmeter.enable()
-    else:
-        print("Warning: no lightmeter on SensorTag1")
+    sensor_enabler(tag1)
+    sensor_enabler(tag2)
 
     sleep(1.0)
 
     try:
         while True:
-            data1 = {}
-            data2 = {}
-            data1.update({"temperature": tag1.IRtemperature.read()})
-            data2.update({"temperature": tag2.IRtemperature.read()})
-            data1.update({"humidity": tag1.humidity.read()})
-            data2.update({"humidity": tag2.humidity.read()})
-            data1.update({"barometer": tag1.barometer.read()})
-            data2.update({"barometer": tag2.barometer.read()})
-            data1.update({"accelerometer": tag1.accelerometer.read()})
-            data2.update({"accelerometer": tag2.accelerometer.read()})
-            data1.update({"magnetometer": tag1.magnetometer.read()})
-            data2.update({"magnetometer": tag2.magnetometer.read()})
-            data1.update({"gyroscope": tag1.gyroscope.read()})
-            data2.update({"gyroscope": tag2.gyroscope.read()})
-            data1.update({"lightmeter": tag1.lightmeter.read()})
-            data2.update({"lightmeter": tag2.lightmeter.read()})
-            data1.update({"battery": tag1.battery.read()})
-            data2.update({"battery": tag2.battery.read()})
-            tag1.waitForNotifications()
-            tag2.waitForNotifications()
+            data1 = read_sensor_data(tag1)
+            data2 = read_sensor_data(tag2)
             sleep(1.0)
+            pprint({"SensorTag1": data1})
+            pprint({"SensorTag2": data2})
             client.publish(TOPIC1, payload=dumps(data1))
             client.publish(TOPIC2, payload=dumps(data2))
             sleep(30)
@@ -89,4 +79,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        try:
+            main()
+        except BTLEException as e:
+            print(e)
