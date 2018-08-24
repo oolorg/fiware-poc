@@ -52,7 +52,7 @@ config.iota = {
     providerUrl: 'http://idas-demo:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
-    defaultResource: '/iot/json'
+    defaultResource: ''
 };
 
 config.configRetrieval = true;
