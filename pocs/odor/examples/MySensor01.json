@@ -1,0 +1,53 @@
+{
+    "devices": [
+        {
+            "attributes": [
+                {
+                    "name": "airQualityLevel",
+                    "object_id": "aql",
+                    "type": "Text"
+                },
+                {
+                    "name": "airQualityIndex",
+                    "object_id": "aqi",
+                    "type": "Number"
+                },
+                {
+                    "name": "relativeHumidity",
+                    "object_id": "h",
+                    "type": "Number"
+                },
+                {
+                    "name": "temperature",
+                    "object_id": "t",
+                    "type": "Number"
+                },
+                {
+                    "name": "TimeInstant",
+                    "object_id": "time",
+                    "type": "DateTime"
+                }
+            ],
+            "device_id": "MySensor01",
+            "entity_name": "urn:ngsi-ld:AirQualityObserved:KanekadanMySensor01",
+            "entity_type": "AirQualityObserved",
+            "static_attributes": [
+                {
+                    "name": "address",
+                    "type": "PostalAddress",
+                    "value": {
+                        "addressCountry": "JP",
+                        "addressLocality": "Okinawa",
+                        "streetAddress": "61, Kanekadan, Uruma-shi"
+                    }
+                },
+                {
+                    "name": "reliability",
+                    "type": "Number",
+                    "value": "0.9"
+                }
+            ],
+            "transport": "MQTT"
+        }
+    ]
+}
