@@ -1,0 +1,22 @@
+FROM alpine:3.8
+
+ARG HOST
+ARG USERNAME
+ARG PASSWORD
+ARG TOPIC
+ARG MESSAGE
+ARG PUB_INTERVAL
+ARG DEVICE_ID
+ENV HOST ${HOST:-localhost}
+ENV USERNAME ${USERNAME:-iota}
+ENV PASSWORD ${PASSWORD:-password}
+ENV TOPIC ${TOPIC:-"/test"}
+ENV MESSAGE ${MESSAGE:-"{value:1}"}
+ENV PUB_INTERVAL ${PUB_INTERVAL:-5}
+ENV DEVICE_ID ${DEVICE_ID:-device00}
+
+COPY pub.sh /home/
+
+RUN apk --update add mosquitto-clients
+
+CMD ["/home/pub.sh"]
