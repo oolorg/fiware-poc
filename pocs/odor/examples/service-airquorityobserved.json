@@ -1,0 +1,9 @@
+{
+    "services": [
+        {
+            "resource": "",
+            "apikey": "APIKEY_ABCD",
+            "type": "AirQualityObserved"
+        }
+    ]
+}

@@ -1,6 +1,9 @@
 {
     "devices": [
         {
+            "device_id": "SensorTag-02",
+            "entity_name": "urn:ngsi-ld:Device:SensorTag-02",
+            "entity_type": "Device",
             "attributes": [
                 {
                     "name": "TimeInstant",
@@ -18,9 +21,6 @@
                     "type": "Text"
                 }
             ],
-            "device_id": "SensorTag-01",
-            "entity_name": "urn:ngsi-ld:Device:SensorTag-01",
-            "entity_type": "Device",
             "static_attributes": [
                 {
                     "name": "category",
@@ -30,19 +30,12 @@
                 {
                     "name": "controlledProperty",
                     "type": "Text",
-                    "value": [
-                        "temperature",
-                        "humidity",
-                        "barometer",
-                        "accelerometer",
-                        "magnetometer",
-                        "lightmeter"
-                    ]
+                    "value": ["temperature", "humidity", "barometer", "accelerometer", "magnetometer", "gyroscope", "lightmeter"]
                 },
                 {
                     "name": "macAddress",
                     "type": "Text",
-                    "value": ""
+                    "value": "98:07:2D:35:7B:00"
                 }
             ],
             "transport": "MQTT"

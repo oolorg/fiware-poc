@@ -1,0 +1,9 @@
+{
+    "services": [
+        {
+            "resource": "",
+            "apikey": "APIKEY_DCBA",
+            "type": "Device"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "devices": [
+        {
+            "device_id": "SensorTag-01",
+            "entity_name": "urn:ngsi-ld:Device:SensorTag-01",
+            "entity_type": "Device",
+            "attributes": [
+                {
+                    "name": "TimeInstant",
+                    "object_id": "time",
+                    "type": "DateTime"
+                },
+                {
+                    "name": "batteryLevel",
+                    "object_id": "bl",
+                    "type": "Number"
+                },
+                {
+                    "name": "value",
+                    "object_id": "v",
+                    "type": "Text"
+                }
+            ],
+            "static_attributes": [
+                {
+                    "name": "category",
+                    "type": "Text",
+                    "value": ["sensor"]
+                },
+                {
+                    "name": "controlledProperty",
+                    "type": "Text",
+                    "value": ["temperature", "humidity", "barometer", "accelerometer", "magnetometer", "gyroscope", "lightmeter"]
+                },
+                {
+                    "name": "macAddress",
+                    "type": "Text",
+                    "value": "98:07:2D:40:95:83"
+                }
+            ],
+            "transport": "MQTT"
+        }
+    ]
+}
