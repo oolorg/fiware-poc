@@ -1,0 +1,17 @@
+{
+    "description": "CYGNUS Subscription",
+    "subject": {
+        "entities": [
+            {
+                "idPattern": ".*"
+            }
+        ]
+    },
+    "notification": {
+        "http": {
+            "url": "http://cygnus-demo:5050/notify"
+        },
+        "attrsFormat": "legacy"
+    },
+    "expires": "2040-01-01T14:00:00.00Z"
+}
