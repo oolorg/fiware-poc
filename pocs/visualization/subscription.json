@@ -1,0 +1,29 @@
+{
+    "description": "Test subscription",
+    "subject": {
+        "entities": [
+        {
+            "idPattern": ".*",
+            "type": "AirQualityObserved"
+        }
+        ],
+        "condition": {
+            "attrs": [
+                "airQualityIndex",
+                "temperture",
+                "relativeHumidity"
+            ]
+        }
+    },
+    "notification": {
+        "http": {
+            "url": "http://quantumleap:8668/v2/notify"
+        },
+        "attrs": [
+            "airQualityIndex",
+            "temperature",
+            "relativeHumidity"
+        ]
+    },
+    "throttling": 5
+}
