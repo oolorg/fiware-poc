@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Creating service."
+
 curl -X POST 'http://localhost:4041/iot/services' -H "Fiware-Service: ool" -H "Fiware-ServicePath: /" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
     "services": [
         {
@@ -9,3 +11,6 @@ curl -X POST 'http://localhost:4041/iot/services' -H "Fiware-Service: ool" -H "F
         }
     ]
 }'
+
+echo "Created service."
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-logpath=../../log/
+logpath=${TEST_HOME}/pocs/performance-test/log/
 
 date "+%Y/%m/%d %H:%M:%S.%N" >> ${logpath}metrics-mosquitto.log
 docker exec mosquitto-demo /usr/bin/mosquitto_sub -t \$SYS/broker/publish/messages/received -C 1 >> ${logpath}metrics-mosquitto.log

@@ -1,10 +1,12 @@
 #!/bin/bash
 
+export TEST_HOME=/home/user098/fiware-poc
+
 ./01-create-service.sh
 
 sleep 10
 
-./02-create-device.sh 100
+./02-create-device.sh 10
 
 sleep 60
 

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-logpath=../../log/
+logpath=${TEST_HOME}/pocs/performance-test/log/
 
 for i in `docker ps --format '{{.Names}}'`
 do
-   cp -p `sudo docker inspect ${i} | grep LogPath | cut -d "\"" -f 4` ./${logpath}${i}.log
+   sudo cp -p `sudo docker inspect ${i} | grep LogPath | cut -d "\"" -f 4` ${logpath}${i}.log
 
 done

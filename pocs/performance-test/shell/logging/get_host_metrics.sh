@@ -3,7 +3,7 @@
 INTERVAL=$1
 NUMBER_OF_COUNT=$2
 
-logpath=../../log/
+logpath=${TEST_HOME}/pocs/performance-test/log/
 
 sar -P ALL -o ${logpath}`hostname`-cpu.sardata ${INTERVAL} ${NUMBER_OF_COUNT} 1>/dev/null &
 sar -r -o ${logpath}`hostname`-mem.sardata ${INTERVAL} ${NUMBER_OF_COUNT} 1>/dev/null &

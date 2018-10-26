@@ -1,6 +1,6 @@
 #!/bin/bash
 
-logpath=../../log/
+logpath=${TEST_HOME}/pocs/performance-test/log/
 
 while :
 do
