@@ -1,4 +1,4 @@
-#?/bin/bash
+#!/bin/bash
 
 ./metrics-mosquitto.sh
 ./get_host_metrics.sh 1 1140

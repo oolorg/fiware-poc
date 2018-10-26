@@ -1,10 +1,20 @@
 #!/bin/bash
 
+logpath=../../log/
+
 while :
 do
-    date >> metrics-cygnus.log
-    curl -sS localhost:41414/metrics | jq . >> metrics-cygnus.log
-    echo "source:`curl -sS localhost:41414/metrics | jq '.["SOURCE.http-source"]'.EventAcceptedCount`" >> metrics-cygnus.log
-    echo "channel:`curl -sS localhost:41414/metrics | jq '.["CHANNEL.mongo-channel"]'.EventTakeSuccessCount`" >> metrics-cygnus.log
-    echo "" >>metrics-cygnus.log
+    date "+%Y/%m/%d %H:%M:%S.%N" >> ${logpath}metrics-cygnus-http-source.log
+     curl -sS localhost:41414/metrics | jq '.["SOURCE.http-source"]'>> ${logpath}metrics-cygnus-http-source.log
+    echo "" >>${logpath}metrics-cygnus-http-source.log
+
+    date "+%Y/%m/%d %H:%M:%S.%N" >> ${logpath}metrics-cygnus-mongo-channel.log
+     curl -sS localhost:41414/metrics | jq '.["CHANNEL.mongo-channel"]'>> ${logpath}metrics-cygnus-mongo-channel.log
+    echo "" >>${logpath}metrics-cygnus-mongo-channel.log
+
+    date "+%Y/%m/%d %H:%M:%S.%N" >> ${logpath}metrics-cygnus-sth-channel.log
+     curl -sS localhost:41414/metrics | jq '.["CHANNEL.sth-channel"]'>> ${logpath}metrics-cygnus-sth-channel.log
+    echo "" >>${logpath}metrics-cygnus-sth-channel.log
+
+    sleep 1
 done

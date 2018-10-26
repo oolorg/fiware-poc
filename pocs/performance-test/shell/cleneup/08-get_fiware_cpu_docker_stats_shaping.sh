@@ -1,10 +1,12 @@
 #!/bin/bash
 
+logpath=../../log/
+
 for i in `docker ps --format '{{.Names}}'`
 do
     echo ${i}
-    cat fiware-cpu.log | grep " ${i} " | while read line
+    cat ${logpath}fiware_cpu_docker_stats.log | grep " ${i} " | while read line
     do
-        echo $line |awk -v 'OFS=:' '{print $3,$4,$7,$8,$10,$11,$13}' >>${i}.cpu
+        echo $line |awk -v 'OFS=:' '{print $3,$4,$7,$8,$10,$11,$13}' >>${logpath}${i}-cpu.log
     done
 done
