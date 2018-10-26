@@ -1,22 +1,20 @@
-FROM alpine:3.8
+FROM python:3.6-alpine
 
 ARG HOST
 ARG USERNAME
 ARG PASSWORD
-ARG TOPIC
-ARG MESSAGE
+ARG APIKEY
 ARG PUB_INTERVAL
 ARG DEVICE_ID
 ENV HOST ${HOST:-localhost}
 ENV USERNAME ${USERNAME:-iota}
 ENV PASSWORD ${PASSWORD:-password}
-ENV TOPIC ${TOPIC:-"/test"}
-ENV MESSAGE ${MESSAGE:-"{value:1}"}
+ENV APIKEY ${APIKEY:-apikey}
 ENV PUB_INTERVAL ${PUB_INTERVAL:-5}
 ENV DEVICE_ID ${DEVICE_ID:-device00}
 
-COPY pub.sh /home/
+COPY dummy_device_app.py /home/dummy_device_app.py
 
-RUN apk --update add mosquitto-clients
+RUN pip install paho-mqtt
 
-CMD ["/home/pub.sh"]
+CMD ["python", "-u", "/home/dummy_device_app.py"]
