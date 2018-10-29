@@ -19,3 +19,4 @@ do
       dummy_device
 done
 
+./get-syslog.sh &
