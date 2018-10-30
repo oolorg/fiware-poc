@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import json
 import os
@@ -25,26 +24,37 @@ client = mqtt.Client(protocol=mqtt.MQTTv311, client_id=cid)
 
 class DummyDevice(object):
 
+    def __init__(self):
+        self.message_num = msg_num
+        self.seq = 0
+
+    def send(self):
+        
+        topic = "/{}/{}/attrs".format(apikey, cid)
+        data = "/{}/{}/{}/seq/{}".format(vmid, apikey, device_id, "%05d" % self.seq)
+        client.connect(host, port=port, keepalive=60)
+        client.publish(topic, payload=json.dumps({"m": data}))
+        client.disconnect()
+        self.seq += 1
+        self.message_num -= 1
+        now = datetime.now().strftime("%S.%f")
+        print(str(now) + " Send message succesfull.")
+        
+
     def start(self):
-        dylay = 0
-        message_num = msg_num
-        seq = 0
-        while(message_num > 0):
-            now = int(datetime.now().strftime("%S")) % send_interval
-            if now == 0:
-                dylay = random.randrange(0, send_interval, 1)
-            if now == dylay:
-                topic = "/{}/{}/attrs".format(apikey, cid)
-                data = "/{}/{}/{}/seq/{}".format(vmid, apikey, device_id, "%05d" % seq)
-                client.connect(host, port=port, keepalive=60)
-                client.publish(topic, payload=json.dumps({"m": data}))
-                client.disconnect()
-                message_num -= 1
-                seq += 1
-                print(str(now) + " Send message succesfull.")
-            else:
-                print(now)
-            time.sleep(1)
+        delay = random.randrange(0, send_interval, 1)
+        time.sleep(delay)
+        flag =0
+        while True:
+            now = float(datetime.now().strftime("%S.%f")) % send_interval
+            time.sleep(0.4)
+            if (send_interval / 2) >= now and flag == 0:
+                self.send()
+                flag = 1
+            elif (send_interval / 2) <= now and flag == 1:
+                flag = 0
+            if self.message_num == 0:
+                break
 
 
 def on_connect(client, userdata, flags, respons_code):
