@@ -1,3 +1,4 @@
+
 from datetime import datetime
 import json
 import os
@@ -34,10 +35,9 @@ class DummyDevice(object):
                 dylay = random.randrange(0, send_interval, 1)
             if now == dylay:
                 topic = "/{}/{}/attrs".format(apikey, cid)
-                data = {"vmid": vmid, "device_id": device_id, "seq": "%05d" % seq}
+                data = "/{}/{}/{}/seq/{}".format(vmid, apikey, device_id, "%05d" % seq)
                 client.connect(host, port=port, keepalive=60)
-                client.publish(topic, payload=json.dumps(
-                    {"m": "{}".format(json.dumps(data))}).replace('\\"',"\""))
+                client.publish(topic, payload=json.dumps({"m": data}))
                 client.disconnect()
                 message_num -= 1
                 seq += 1

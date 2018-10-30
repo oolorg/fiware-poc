@@ -6,7 +6,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 sleep 10
 
-./02-create-device.sh 10
+./02-create-device.sh 75
 
 sleep 60
 

@@ -16,5 +16,8 @@ ${TEST_HOME}/pocs/performance-test/shell/cleneup/copy_all_docker_logs.sh
 ${TEST_HOME}/pocs/performance-test/shell/cleneup/get_data_from_comet.sh ${NUMBER_OF_CONTAINERS}
 
 docker cp cygnus-demo:/gc.log ${TEST_HOME}/pocs/performance-test/log/cygnus-gc.log
+docker cp cygnus-demo:/heap-dump.hprof ${TEST_HOME}/pocs/performance-test/log/cygnus-heap-dump.hprof
+
+
 
 
