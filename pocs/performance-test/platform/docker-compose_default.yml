@@ -1,0 +1,104 @@
+version: '3'
+
+services:
+  mongodb-orion-demo:
+    container_name: mongodb-orion-demo
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --nojournal
+
+  mongodb-idas-demo:
+    container_name: mongodb-idas-demo
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --nojournal
+
+  mongodb-comet-demo:
+    container_name: mongodb-comet-demo
+    image: mongo:3.4
+    expose:
+        - "27017"
+    command: --nojournal
+
+  orion-demo:
+    container_name: orion-demo
+    image: fiware/orion:1.15.0
+    depends_on:
+        - mongodb-orion-demo
+    expose:
+        - "1026"
+    ports:
+        - "1026:1026"
+    command: -dbhost mongodb-orion-demo -statCounters -statSemWait -statTiming
+
+  idas-demo:
+    container_name: idas-demo
+    build:
+      context: ./
+      dockerfile: idas/Dockerfile
+    image: ool/iotagent-json:1.8.0.1
+    depends_on:
+        - mongodb-idas-demo
+        - mosquitto-demo
+    expose:
+        - "4041"
+    ports:
+        - "4041:4041"
+    environment:
+        - IOTA_MQTT_HOST=mosquitto-demo
+        - IOTA_MQTT_PORT=1883
+        - IOTA_MQTT_USERNAME=iota
+        - IOTA_MQTT_PASSWORD=password
+
+  mosquitto-demo:
+    container_name: mosquitto-demo
+    build:
+      context: ./
+      dockerfile: mosquitto/Dockerfile
+    image: ool/mosquitto:1.4.15.1
+    expose:
+        - "1883"
+    ports:
+        - "1883:1883"
+    environment:
+        - IOT_USERNAME=iota
+        - IOT_PASS=password
+
+  cygnus-demo:
+    container_name: cygnus-demo
+    build:
+      context: ./
+      dockerfile: cygnus-ngsi/Dockerfile
+    image: ool/cygnus-ngsi:1.9.0.20
+    depends_on:
+        - mongodb-comet-demo
+    expose:
+        - "5050"
+        - "5080"
+        - "41414"
+    ports:
+        - "5050:5050"
+        - "5080:5080"
+        - "41414:41414"
+    environment:
+        - CYGNUS_MONGO_HOSTS=mongodb-comet-demo:27017
+
+  comet-demo:
+    container_name: comet-demo
+    build:
+      context: ./
+      dockerfile: comet/Dockerfile
+    image: ool/sth-comet:2.4.0.1
+    depends_on:
+        - mongodb-comet-demo
+    expose:
+        - "8666"
+    ports: 
+        - "8666:8666"
+    environment:
+        - STH_HOST=0.0.0.0
+        - DB_URI=mongodb-comet-demo:27017
+#        - LOGOPS_LEVEL=DEBUG
+

@@ -120,14 +120,26 @@ if [ "$CYGNUS_MONGO_HOSTS" != "" ]; then
         cp -p /opt/fiware-cygnus/docker/cygnus-ngsi/agent.conf ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
         sed -i '/'${CYGNUS_AGENT_NAME}'.sources.http-source.port/c '${CYGNUS_AGENT_NAME}'.sources.http-source.port = '5051 ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
     fi
-    sed -i 's/'${CYGNUS_AGENT_NAME}'.sinks =/'${CYGNUS_AGENT_NAME}'.sinks = mongo-sink sth-sink /g' ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i 's/'${CYGNUS_AGENT_NAME}'.sinks =/'${CYGNUS_AGENT_NAME}'.sinks = mongo-sink sth-sink1 sth-sink2 sth-sink3 sth-sink4 sth-sink5 /g' ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
     sed -i 's/'${CYGNUS_AGENT_NAME}'.channels =/'${CYGNUS_AGENT_NAME}'.channels = mongo-channel sth-channel /g' ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
     sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
     sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
     sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
-    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
-    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
-    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink1.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink1.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink1.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink1.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink1.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink1.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink2.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink2.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink2.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink2.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink2.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink2.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink3.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink3.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink3.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink3.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink3.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink3.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink4.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink4.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink4.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink4.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink4.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink4.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink5.mongo_hosts/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink5.mongo_hosts = '${CYGNUS_MONGO_HOSTS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink5.mongo_username/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink5.mongo_username = '${CYGNUS_MONGO_USER} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
+    sed -i '/'${CYGNUS_AGENT_NAME}'.sinks.sth-sink5.mongo_password/c '${CYGNUS_AGENT_NAME}'.sinks.sth-sink5.mongo_password = '${CYGNUS_MONGO_PASS} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
     # The following are optional and disabled by default
     if [ "$CYGNUS_MONGO_ENABLE_ENCODING" != "" ]; then
         sed -i '/#'${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.enable_encoding/c '${CYGNUS_AGENT_NAME}'.sinks.mongo-sink.enable_encoding = '${CYGNUS_MONGO_ENABLE_ENCODING} ${FLUME_HOME}/conf/${AGENT_CONF_FILE}
@@ -418,7 +430,7 @@ fi
 
 if [ "${CYGNUS_MULTIAGENT,,}" == "false" ]; then
     # Run the Cygnus command
-    ${FLUME_HOME}/bin/cygnus-flume-ng agent --conf ${CYGNUS_CONF_PATH} -f ${CYGNUS_CONF_FILE} -n ${CYGNUS_AGENT_NAME} -p ${CYGNUS_API_PORT} -Dflume.root.logger=${CYGNUS_LOG_LEVEL},${CYGNUS_LOG_APPENDER} -Duser.timezone=UTC -Dfile.encoding=UTF-8 -Dflume.monitoring.type=${CYGNUS_MONITORING_TYPE} -Dflume.monitoring.port=41414 -Xloggc:gc.log -XX:+PrintGCDateStamps -XX:+PrintGCDetails &
+    ${FLUME_HOME}/bin/cygnus-flume-ng agent --conf ${CYGNUS_CONF_PATH} -f ${CYGNUS_CONF_FILE} -n ${CYGNUS_AGENT_NAME} -p ${CYGNUS_API_PORT} -Xmx1000m -Dflume.root.logger=${CYGNUS_LOG_LEVEL},${CYGNUS_LOG_APPENDER} -Duser.timezone=UTC -Dfile.encoding=UTF-8 -Dflume.monitoring.type=${CYGNUS_MONITORING_TYPE} -Dflume.monitoring.port=41414 -Xloggc:gc.log -XX:+PrintGCDateStamps -XX:+PrintGCDetails &
 fi
 
 

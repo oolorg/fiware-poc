@@ -4,19 +4,19 @@ export TEST_HOME=/home/user098/fiware-poc
 
 ../logging/start_logging.sh
 
-sleep 300
+sleep 5
 
 ./01-create-service.sh
 
-sleep 10
+sleep 5
 
 ./02-create-device.sh 1
 
-sleep 20
+sleep 5
 
 ./03-create-subscription.sh
 
-sleep 300
+sleep 5
 
 # ../logging/start_logging.sh
 #
