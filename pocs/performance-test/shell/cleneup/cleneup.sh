@@ -9,6 +9,7 @@ sudo kill -9 `ps -ef | grep metrics-orion.sh | grep -v "grep" | awk '{print $2}'
 sudo kill -9 `ps -ef | grep localhost:2376/containers/mongodb-comet-demo/stats | grep -v "grep" | awk '{print $2}'`
 sudo kill -9 `ps -ef | grep sar | grep -v "grep" | awk '{print $2}'`
 sudo kill -9 `ps -ef | grep stats-cygnus.sh | grep -v "grep" | awk '{print $2}'`
+sudo kill -9 `ps -ef | grep iotop.sh | grep -v "grep" | awk '{print $2}'`
 
 ${TEST_HOME}/pocs/performance-test/shell/logging/metrics-mosquitto.sh
 ${TEST_HOME}/pocs/performance-test/shell/logging/statistics-orion.sh
