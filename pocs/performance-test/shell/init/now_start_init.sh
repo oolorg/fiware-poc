@@ -10,7 +10,7 @@ sleep 5
 
 sleep 5
 
-./02-create-device.sh 1
+./02-create-device.sh 10
 
 sleep 5
 
