@@ -6,7 +6,7 @@ COPY mosquitto/startMosquitto.sh /bin
 RUN yum update -y && yum install -y wget \
   && yum install -y epel-release \
   && yum update -y epel-release \
-  && yum install -y mosquitto \
+  && yum install -y mosquitto-1.4.15-2.el7 \
   && chmod 755 /bin/startMosquitto.sh \
   && mkdir /var/log/mosquitto \
   && chown mosquitto:mosquitto /var/log/mosquitto \

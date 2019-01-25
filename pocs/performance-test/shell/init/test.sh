@@ -2,7 +2,7 @@
 
 echo "Creating devices"
 
-for i in `seq -f %05g 11 80`
+for i in `seq -f %05g 1 10`
 do
     curl -X POST 'http://localhost:4041/iot/devices' -H "Fiware-Service: ool" -H "Fiware-ServicePath: /" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d "{
         \"devices\": [
