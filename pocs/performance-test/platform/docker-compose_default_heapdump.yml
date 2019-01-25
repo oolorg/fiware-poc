@@ -37,11 +37,7 @@ services:
     container_name: idas-demo
     build:
       context: ./
-<<<<<<< HEAD
       dockerfile: idas_1.8.0.1/Dockerfile
-=======
-      dockerfile: idas/Dockerfile
->>>>>>> 47ecb026e2a3f16fb5a1f72bc461591bdf904c70
     image: ool/iotagent-json:1.8.0.1
     depends_on:
         - mongodb-idas-demo
@@ -72,12 +68,9 @@ services:
 
   cygnus-demo:
     container_name: cygnus-demo
-<<<<<<< HEAD
-=======
     build:
       context: ./
       dockerfile: cygnus-ngsi/Dockerfile
->>>>>>> 47ecb026e2a3f16fb5a1f72bc461591bdf904c70
     image: ool/cygnus-ngsi:1.9.0.21
     depends_on:
         - mongodb-comet-demo
