@@ -37,8 +37,8 @@ services:
     container_name: idas-demo
     build:
       context: ./
-      dockerfile: idas_1.8.0.1/Dockerfile
-    image: ool/iotagent-json:1.8.0.1
+      dockerfile: idas_1.8.0.4_info/Dockerfile
+    image: ool/iotagent-json:1.8.0.4
     depends_on:
         - mongodb-idas-demo
         - mosquitto-demo
@@ -68,10 +68,7 @@ services:
 
   cygnus-demo:
     container_name: cygnus-demo
-    build:
-      context: ./
-      dockerfile: cygnus-ngsi/Dockerfile
-    image: ool/cygnus-ngsi:1.9.0.21
+    image: ool/cygnus-ngsi:1.9.0.25
     depends_on:
         - mongodb-comet-demo
     expose:
