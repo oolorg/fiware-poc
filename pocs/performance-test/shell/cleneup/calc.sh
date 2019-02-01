@@ -1,8 +1,13 @@
+
+export TEST_HOME=/home/user098/fiware-poc
+logpath=${TEST_HOME}/pocs/performance-test/log/
+
 # 擬似デバイスの数
-numberOfDevice=10
+# numberOfDevice=500
+numberOfDevice=$1
 # 集計間隔
-interval="1 hours"
-#interval="1 minutes"
+#interval="1 hours"
+interval="5 minutes"
 #interval="30 minutes"
 
 # 最初のデータの時刻を取得する
@@ -22,7 +27,7 @@ do
         count=`curl -sX GET "http://localhost:8666/STH/v1/contextEntities/type/sensor/id/sensor:vm1device${id}/attributes/messages?lastN=5000&dateFrom=${dateFrom}&dateTo=${dateTo}" -H 'fiware-service:ool' -H 'fiware-servicepath:/' | jq -c '.contextResponses[].contextElement.attributes[].values | length'`
         sum=`expr ${sum} + ${count}`
     done
-    echo ${sum} >> xxxx
+    echo ${dateFrom},${dateTo},${sum} >> ${logpath}1h-${numberOfDevice}-throughput.csv
 
     dateFrom=`date -d "${dateTo}" +%Y-%m-%dT%H:%M:%SZ`
     dateTo=`date -d "${dateTo} ${interval}" +%Y-%m-%dT%H:%M:%SZ`
