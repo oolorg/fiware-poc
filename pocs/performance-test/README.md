@@ -153,7 +153,7 @@ git clone https://github.com/oolorg/fiware-poc.git
 
 ## dockerのインストール
 
-[[FIWAREサーバのインストール]の[dockerのインストール]](#dockerのインストール)手順に従いdockerのインスールを行う
+[[FIWAREサーバの構築]の[dockerのインストール]](#dockerのインストール)手順に従いdockerのインスールを行う
 
 ## 負荷試験用のVMを起動するために必要なパッケージのインストール
 
