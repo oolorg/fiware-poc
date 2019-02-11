@@ -55,7 +55,7 @@ $ sudo apt-get update
 $ apt-cache madison docker-ce
 ```
 
-`docker-ce=18.06.1~ce~3-0~ubuntu`バージョンをインストール
+特定バージョン(`docker-ce=18.06.1~ce~3-0~ubuntu`)のdockerをインストール
 
 ```
 $ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
@@ -80,14 +80,14 @@ $ docker --version
 Docker version 18.06.1-ce, build e68fc7a
 ```
 
-## docker-composeのインストール
+## Docker Composeのインストール
 
 公式手順に従いインストールを行う
 https://docs.docker.com/compose/install/#install-compose
 
 ### インストール手順
 
-特定バージョンのDocker Composeをダウンロード
+特定バージョン(1.22.0)のDocker Composeをダウンロード
 
 ```
 $ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
