@@ -11,13 +11,13 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 パッケージインデックスを更新
 
 ```
-sudo apt-get update
+$ sudo apt-get update
 ```
 
 HTTPS経由でリポジトリを使用できるようにするためのパッケージをインストール
 
 ```
-sudo apt-get install \
+$ sudo apt-get install \
   apt-transport-https \
   ca-certificates \
   curl \
@@ -25,19 +25,19 @@ sudo apt-get install \
 ```
 
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 Dockerの公式GPGキーを追加
 
 ```
-sudo apt-key fingerprint 0EBFCD88
+$ sudo apt-key fingerprint 0EBFCD88
 ```
 
 フィンガープリント9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88の最後の8文字を検索して、フィンガープリントを持つキーが手元にあることを確認
 
 ```
-sudo add-apt-repository \
+$ sudo add-apt-repository \
  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
  $(lsb_release -cs) \
  stable"
@@ -46,31 +46,31 @@ sudo add-apt-repository \
 パッケージインデックスを更新
 
 ```
-sudo apt-get update
+$ sudo apt-get update
 ```
 
 リポジトリで利用可能なバージョンを一覧表示
 
 ```
-apt-cache madison docker-ce
+$ apt-cache madison docker-ce
 ```
 
 `docker-ce=18.06.1~ce~3-0~ubuntu`バージョンをインストール
 
 ```
-sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
+$ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 dockerグループを作成
 
 ```
-sudo groupadd docker
+$ sudo groupadd docker
 ```
 
 自分のユーザーをdockerグループに追加
 
 ```
-sudo usermod -aG docker $USER
+$ sudo usermod -aG docker $USER
 ```
 
 ログアウトし再ログイン後バージョンの確認
@@ -90,19 +90,19 @@ https://docs.docker.com/compose/install/#install-compose
 特定バージョンのDocker Composeをダウンロード
 
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
 実行可能権限をバイナリに適用
 
 ```
-sudo chmod +x /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 /usr/binパスにシンボリックリンクの作成
 
 ```
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
 バージョンの確認
@@ -120,7 +120,7 @@ docker-compose version 1.22.0, build f46880fe
 - mosquitto-clients
 
 ```
-sudo apt install sysstat iotop jq mosquitto-clients
+$ sudo apt install sysstat iotop jq mosquitto-clients
 ```
 
 ## ログ取得に必要な設定
@@ -130,18 +130,18 @@ sudo apt install sysstat iotop jq mosquitto-clients
 /lib/systemd/system/docker.serviceの[ExecStart=/usr/bin/dockerd -H fd://]を[ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376]に書き換える
 
 ```
-sudo vim /lib/systemd/system/docker.service
+$ sudo vim /lib/systemd/system/docker.service
 ```
 
 ```
-sudo systemctl daemon-reload
-sudo systemctl restart docker
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
 ```
 
 ## gitのクローン
 
 ```
-git clone https://github.com/oolorg/fiware-poc.git
+$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
 ---
@@ -162,13 +162,13 @@ git clone https://github.com/oolorg/fiware-poc.git
 - bc
 
 ```
-sudo apt install jq sysstat bc
+$ sudo apt install $ jq sysstat bc
 ```
 
 ## gitのクローン
 
 ```
-git clone https://github.com/oolorg/fiware-poc.git
+$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
 ## 疑似デバイス用コンテナイメージのビルド
@@ -176,13 +176,13 @@ git clone https://github.com/oolorg/fiware-poc.git
 ### 送信データが文字列のコンテナ
 
 ```
-cd fiware-poc/pocs/publish_container_startup_interval
-docker build . -t dummy_device_startup_interval
+$ cd fiware-poc/pocs/publish_container_startup_interval
+$ docker build . -t dummy_device_startup_interval
 ```
 
 ### 送信データが数値のコンテナ
 
 ```
-cd fiware-poc/pocs/publish_container_startup_interval_number
-docker build . -t dummy_device_startup_interval_number
+$ cd fiware-poc/pocs/publish_container_startup_interval_number
+$ docker build . -t dummy_device_startup_interval_number
 ```
