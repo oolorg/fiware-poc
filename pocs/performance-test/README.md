@@ -55,7 +55,7 @@ sudo apt-get update
 apt-cache madison docker-ce
 ```
 
-docker-ce=18.06.1~ce~3-0~ubuntuバージョンをインストール
+`docker-ce=18.06.1~ce~3-0~ubuntu`バージョンをインストール
 
 ```
 sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
