@@ -69,9 +69,9 @@ services:
   cygnus-demo:
     container_name: cygnus-demo
     build:
-      context: ./cygnus-ngsi_default_heapdump_1.9.0.2/
+      context: ./cygnus-ngsi_aggregate-on_1.9.0.1/
       dockerfile: Dockerfile
-    image: ool/cygnus-ngsi:1.9.0.2
+    image: ool/cygnus-ngsi:1.9.0.1
     depends_on:
         - mongodb-comet-demo
     expose:
