@@ -115,12 +115,11 @@ docker-compose version 1.22.0, build f46880fe
 ## 負荷試験スクリプトを実行するために必要なパッケージのインストール
 
 - sysstat
-- iotop
 - jq
 - mosquitto-clients
 
 ```
-$ sudo apt install sysstat iotop jq mosquitto-clients
+$ sudo apt install sysstat jq mosquitto-clients
 ```
 
 ## ログ取得に必要な設定
@@ -147,9 +146,9 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 ---
 
 
-# 擬似デバイスサーバの構築
+# 負荷サーバの構築
 
-負荷試験用疑似デバイスコンテナを起動するための負荷試験用サーバ(ubuntu)を物理または仮想で用意する。
+負荷サーバを構築するためのマシン(ubuntu)を物理または仮想で用意する。
 
 ## dockerのインストール
 
@@ -162,7 +161,7 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 - bc
 
 ```
-$ sudo apt install $ jq sysstat bc
+$ sudo apt install jq sysstat bc
 ```
 
 ## gitのクローン
