@@ -160,9 +160,6 @@ $ sudo systemctl restart docker
 $ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
----
-
-
 ### 負荷サーバの構築
 
 |項目|Version|
@@ -196,6 +193,8 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 $ cd fiware-poc/pocs/performance-test/dummy_device
 $ docker build . -t dummy_device
 ```
+
+---
 
 ## 負荷試験実施手順
 
