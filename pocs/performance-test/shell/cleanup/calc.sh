@@ -1,5 +1,3 @@
-
-export TEST_HOME=/home/user098/fiware-poc
 logpath=${TEST_HOME}/pocs/performance-test/log/
 
 # 擬似デバイスの数
