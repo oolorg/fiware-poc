@@ -8,7 +8,8 @@
 
 ![コンポーネント構成](img/ComponentComposition.jpg)
 
-# FIWAREサーバの構築
+## 環境構築
+### FIWAREサーバの構築
 
 |項目|Version|
 |:-:|:-:|
@@ -16,12 +17,12 @@
 |docker|18.06.1-ce, build e68fc7a|
 |docker-compose|1.22.0, build f46880fe|
 
-## Dockerのインストール
+#### Dockerのインストール
 
 公式手順に従いインストールを行う
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-### インストール手順
+##### インストール手順
 
 パッケージインデックスを更新
 
@@ -96,12 +97,12 @@ $ docker --version
 Docker version 18.06.1-ce, build e68fc7a
 ```
 
-## Docker Composeのインストール
+#### Docker Composeのインストール
 
 公式手順に従いインストールを行う
 https://docs.docker.com/compose/install/#install-compose
 
-### インストール手順
+##### インストール手順
 
 特定バージョン(1.22.0)のDocker Composeをダウンロード
 
@@ -128,7 +129,7 @@ $ docker-compose --version
 docker-compose version 1.22.0, build f46880fe
 ```
 
-## 検証を実施するために必要なパッケージのインストール
+#### 検証を実施するために必要なパッケージのインストール
 
 - sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
 - jq　(JSON形式のデータの整形・抽出のため)
@@ -138,9 +139,9 @@ docker-compose version 1.22.0, build f46880fe
 $ sudo apt install sysstat jq mosquitto-clients
 ```
 
-## 検証に必要な設定の実施
+#### 検証に必要な設定の実施
 
-### DockerのAPIを有効化　(詳細ログを取得する際に使用するため。(通常の試験では使用しない。))
+##### DockerのAPIを有効化　(詳細ログを取得する際に使用するため。(通常の試験では使用しない。))
 
 /lib/systemd/system/docker.serviceの[ExecStart=/usr/bin/dockerd -H fd://]を[ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376]に書き換える
 
@@ -153,7 +154,7 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
 
-## gitのクローン
+#### gitのクローン
 
 ```
 $ git clone https://github.com/oolorg/fiware-poc.git
@@ -162,18 +163,18 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 ---
 
 
-# 負荷サーバの構築
+### 負荷サーバの構築
 
 |項目|Version|
 |:-:|:-:|
 |OS|Ubuntu 16.04 LTS|
 |docker|18.06.1-ce, build e68fc7a|
 
-## Dockerのインストール
+#### Dockerのインストール
 
 [[FIWAREサーバの構築]の[dockerのインストール]](#dockerのインストール)手順に従いdockerのインスールを行う
 
-## 負荷をかけるために必要なパッケージのインストール
+#### 負荷をかけるために必要なパッケージのインストール
 
 - sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
 - jq　(JSON形式のデータの整形・抽出のため)
@@ -183,19 +184,21 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 $ sudo apt install sysstat jq bc
 ```
 
-## gitのクローン
+#### gitのクローン
 
 ```
 $ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
-## 疑似デバイス用コンテナイメージのビルド
+#### 疑似デバイス用コンテナイメージのビルド
 
 ```
 $ cd fiware-poc/pocs/performance-test/dummy_device
 $ docker build . -t dummy_device
 ```
 
-# 負荷試験実施手順
+## 負荷試験実施手順
+
+負荷試験実施シーケンス
 
 ![負荷試験実施シーケンス](img/PerformanceTestSequence.jpg)
