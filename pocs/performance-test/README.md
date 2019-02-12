@@ -159,7 +159,7 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 |OS|Ubuntu 16.04 LTS|
 |docker|18.06.1-ce, build e68fc7a|
 
-負荷サーバを構築するためのマシン(ubuntu)を物理または仮想で用意する。
+負荷サーバを構築するためのマシン(ubuntu)を物理または仮想で用意する
 
 ## Dockerのインストール
 
