@@ -121,9 +121,9 @@ docker-compose version 1.22.0, build f46880fe
 
 ## 負荷試験スクリプトを実行するために必要なパッケージのインストール
 
-- sysstat
-- jq
-- mosquitto-clients
+- sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
+- jq　(JSON形式のデータの整形・抽出のため)
+- mosquitto-clients　(MQTTメッセージ送信のため)
 
 ```
 $ sudo apt install sysstat jq mosquitto-clients
@@ -166,12 +166,12 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 
 ## 負荷をかけるために必要なパッケージのインストール
 
-- jq
-- sysstat
-- bc
+- sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
+- jq　(JSON形式のデータの整形・抽出のため)
+- bc　(複雑な計算実施のため)
 
 ```
-$ sudo apt install jq sysstat bc
+$ sudo apt install sysstat jq bc
 ```
 
 ## gitのクローン
