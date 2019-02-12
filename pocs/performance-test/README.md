@@ -161,7 +161,7 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 
 負荷サーバを構築するためのマシン(ubuntu)を物理または仮想で用意する。
 
-## dockerのインストール
+## Dockerのインストール
 
 [[FIWAREサーバの構築]の[dockerのインストール]](#dockerのインストール)手順に従いdockerのインスールを行う
 
