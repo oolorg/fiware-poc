@@ -191,16 +191,7 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 
 ## 疑似デバイス用コンテナイメージのビルド
 
-### 送信データが文字列のコンテナ
-
 ```
-$ cd fiware-poc/pocs/publish_container_startup_interval
-$ docker build . -t dummy_device_startup_interval
-```
-
-### 送信データが数値のコンテナ
-
-```
-$ cd fiware-poc/pocs/publish_container_startup_interval_number
-$ docker build . -t dummy_device_startup_interval_number
+$ cd fiware-poc/pocs/performance-test/dummy_device
+$ docker build . -t dummy_device
 ```
