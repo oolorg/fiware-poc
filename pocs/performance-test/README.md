@@ -71,6 +71,7 @@ dockerグループを作成
 
 ```
 $ sudo groupadd docker
+groupadd: group 'docker' already exists
 ```
 
 自分のユーザーをdockerグループに追加
