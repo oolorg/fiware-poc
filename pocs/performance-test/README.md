@@ -119,7 +119,7 @@ $ docker-compose --version
 docker-compose version 1.22.0, build f46880fe
 ```
 
-## 負荷試験スクリプトを実行するために必要なパッケージのインストール
+## 検証を実施するために必要なパッケージのインストール
 
 - sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
 - jq　(JSON形式のデータの整形・抽出のため)
@@ -129,9 +129,9 @@ docker-compose version 1.22.0, build f46880fe
 $ sudo apt install sysstat jq mosquitto-clients
 ```
 
-## ログ取得に必要な設定の実施
+## 検証に必要な設定の実施
 
-### dockerのAPIを有効化
+### DockerのAPIを有効化　(詳細ログを取得する際に使用するため。(通常の試験では使用しない。))
 
 /lib/systemd/system/docker.serviceの[ExecStart=/usr/bin/dockerd -H fd://]を[ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376]に書き換える
 
