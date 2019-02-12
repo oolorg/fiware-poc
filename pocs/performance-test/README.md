@@ -128,14 +128,14 @@ docker-compose version 1.22.0, build f46880fe
 $ sudo apt install sysstat jq mosquitto-clients
 ```
 
-## ログ取得に必要な設定
+## ログ取得に必要な設定の実施
 
 ### dockerのAPIを有効化
 
 /lib/systemd/system/docker.serviceの[ExecStart=/usr/bin/dockerd -H fd://]を[ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2376]に書き換える
 
 ```
-$ sudo vim /lib/systemd/system/docker.service
+$ sudo vi /lib/systemd/system/docker.service
 ```
 
 ```
