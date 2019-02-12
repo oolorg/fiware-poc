@@ -1,3 +1,7 @@
+# 負荷検証
+
+![構成例](img/ConfigurationExample.jpg)
+![コンポーネント構成](img/ComponentComposition.jpg)
 
 # FIWAREサーバの構築
 
