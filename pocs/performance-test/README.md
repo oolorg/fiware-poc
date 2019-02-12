@@ -1,6 +1,12 @@
 
 # FIWAREサーバの構築
 
+|項目|Version|
+|:-:|:-:|
+|OS|Ubuntu 16.04 LTS|
+|docker|18.06.1-ce, build e68fc7a|
+|docker-compose|1.22.0, build f46880fe|
+
 ## Dockerのインストール
 
 公式手順に従いインストールを行う
@@ -147,6 +153,11 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 
 
 # 負荷サーバの構築
+
+|項目|Version|
+|:-:|:-:|
+|OS|Ubuntu 16.04 LTS|
+|docker|18.06.1-ce, build e68fc7a|
 
 負荷サーバを構築するためのマシン(ubuntu)を物理または仮想で用意する。
 
