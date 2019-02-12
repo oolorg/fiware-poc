@@ -1,7 +1,7 @@
 
 # FIWAREサーバの構築
 
-## dockerのインストール
+## Dockerのインストール
 
 公式手順に従いインストールを行う
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
@@ -55,7 +55,7 @@ $ sudo apt-get update
 $ apt-cache madison docker-ce
 ```
 
-特定バージョン(`docker-ce=18.06.1~ce~3-0~ubuntu`)のdockerをインストール
+特定バージョン(`docker-ce=18.06.1~ce~3-0~ubuntu`)のDockerをインストール
 
 ```
 $ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
