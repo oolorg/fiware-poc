@@ -36,8 +36,8 @@ services:
   idas-demo:
     container_name: idas-demo
     build:
-      context: ./
-      dockerfile: idas_1.8.0.1_info/Dockerfile
+      context: ./idas_info_1.8.0.1/
+      dockerfile: Dockerfile
     image: ool/iotagent-json:1.8.0.1
     depends_on:
         - mongodb-idas-demo
@@ -55,8 +55,8 @@ services:
   mosquitto-demo:
     container_name: mosquitto-demo
     build:
-      context: ./
-      dockerfile: mosquitto/Dockerfile
+      context: ./mosquitto_1.4.15.1/
+      dockerfile: Dockerfile
     image: ool/mosquitto:1.4.15.1
     expose:
         - "1883"
@@ -68,7 +68,10 @@ services:
 
   cygnus-demo:
     container_name: cygnus-demo
-    image: ool/cygnus-ngsi:1.9.0.25
+    build:
+      context: ./cygnus-ngsi_default_heapdump_1.9.0.2/
+      dockerfile: Dockerfile
+    image: ool/cygnus-ngsi:1.9.0.2
     depends_on:
         - mongodb-comet-demo
     expose:
@@ -85,8 +88,8 @@ services:
   comet-demo:
     container_name: comet-demo
     build:
-      context: ./
-      dockerfile: comet/Dockerfile
+      context: ./comet_2.4.0.1/
+      dockerfile: Dockerfile
     image: ool/sth-comet:2.4.0.1
     depends_on:
         - mongodb-comet-demo
