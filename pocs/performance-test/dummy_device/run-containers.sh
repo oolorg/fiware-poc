@@ -22,5 +22,3 @@ do
     --log-driver=syslog \
     dummy_device
 done
-
-./get-syslog.sh &
