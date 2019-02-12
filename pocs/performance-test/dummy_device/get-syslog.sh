@@ -1,8 +1,8 @@
 #!/bin/bash
 
-logpath=../performance-test/log/
+logpath=../log/
 
-mkdir ../performance-test/log
+mkdir ../log
 tail -f /var/log/syslog > ${logpath}`hostname`-syslog.log &
 
 while [ $((`/usr/bin/docker ps|wc|awk '{print $1}'`)) -gt 1 ]
