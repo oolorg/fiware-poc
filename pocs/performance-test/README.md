@@ -272,7 +272,7 @@ $ ./start_init.sh {デバイス数} {subscriptionファイル名}
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
 
 ```
-$ cd fiware-poc/pocs/performace-test/shell/cleanup
+$ cd fiware-poc/pocs/performance-test/shell/cleanup
 $ ./cleanup.sh {デバイス数}
 ```
 
