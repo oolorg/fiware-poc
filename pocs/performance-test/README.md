@@ -215,6 +215,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 擬似デバイスコンテナ起動シェルの実行に必要な項目を決定する
 
+負荷のシナリオのイメージ
 ![負荷のシナリオ](img/PerformanceScenario.jpg)
 
 |項目|説明|算出方法|例|
