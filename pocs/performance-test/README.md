@@ -186,3 +186,11 @@ $ docker build . -t dummy_device
 負荷試験実施シーケンス
 
 ![負荷試験実施シーケンス](img/PerformanceTestSequence.jpg)
+
+### 1.事前準備
+### 2.Docker Composeの起動
+### 3.擬似デバイスコンテナ起動シェルの実行
+### 4.試験開始シェルの実行
+### 5.試験後のログ取得シェルの実行
+### 6.Docker Composeの停止
+### 7.擬似デバイスコンテナの削除シェルの実行
