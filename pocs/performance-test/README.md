@@ -263,7 +263,7 @@ $ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間�
 事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
 
 ```
-$ cd fiware-poc/pocs/performace-test/shell/init
+$ cd fiware-poc/pocs/performance-test/shell/init
 $ ./start_init.sh {デバイス数} {subscriptionファイル名}
 ```
 
