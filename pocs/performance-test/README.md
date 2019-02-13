@@ -188,9 +188,107 @@ $ docker build . -t dummy_device
 ![負荷試験実施シーケンス](img/PerformanceTestSequence.jpg)
 
 ### 1.事前準備
-### 2.Docker Composeの起動
-### 3.擬似デバイスコンテナ起動シェルの実行
-### 4.試験開始シェルの実行
-### 5.試験後のログ取得シェルの実行
-### 6.Docker Composeの停止
-### 7.擬似デバイスコンテナの削除シェルの実行
+
+#### 負荷実施シェルの編集　【FIWAREサーバ】
+
+`fiware-poc/porc/performance-test/shell/init/start_init.sh`の
+
+`export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
+
+記載例
+
+```
+export TEST_HOME=/home/user098/fiware-poc
+```
+
+#### Docker Composeファイルの決定　【作業対象なし】
+
+検証したい内容により以下2ファイルのどちらかを使用するか決定する。
+
+- Cygnusの集計情報が有効な場合
+`docker-compose_aggregate-on.yml`
+
+- Cygnusの集計情報が有効な場合
+`docker-compose_aggregate-off.yml` 
+
+#### 負荷のシナリオの決定　【作業対象なし】
+
+擬似デバイスコンテナ起動シェルの実行に必要な項目を決定する
+
+![負荷のシナリオ]()
+
+|項目|説明|算出方法|例|
+|:-:|:-:|:-:|:-:|
+|**デバイス数**|起動するデバイスの台数|決めた値|100|
+|**データ送信間隔**|1デバイスあたりのデータの送信間隔(秒)|決めた値|1秒|
+|**データ送信回数**|1デバイスあたりのデータ送信回数|(デバイス起動時間＋測定時間＋ランニング時間×2＋デバイス停止時間)/データ送信間隔|87400回|
+|**デバイス起動合計時間**|全てのデバイスが起動するのにかける時間(秒)|デバイス数×デバイス起動間隔|400秒|
+|**送信データタイプ**|送信データの内容([string] or [number])|決めた値|string|
+|デバイス起動間隔|1デバイスあたりの起動間隔(秒)|決めた値|4秒|
+|ランニング時間|負荷が定常状態にするためのランニング時間(秒)|決めた値|300秒|
+|測定時間|試験データの対象とする測定時間(秒)|決めた値|86400秒|
+
+#### subscriptionファイルの決定　【作業対象なし】
+
+検証したい内容により以下2ファイルのどちらかを使用するか決定する。
+
+- Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
+`03-create-subscription-all.sh`
+
+- Cometに特定の属性値(messages)のみ蓄積する場合
+`03-create-subscription-messages.sh` 
+
+
+### 2.Docker Composeの起動　【FIWAREサーバ】
+
+事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを起動する
+
+```
+$ cd fiware-poc/pocs/performance-test/platformedit
+$ docker-compose -f {Docker Compose ファイル名} up -d
+```
+
+### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバ】
+
+事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
+
+```
+$ cd fiware-poc/pocs/performance-test/dummy_device
+$ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
+```
+
+### 4.試験開始シェルの実行　【FIWAREサーバ】
+
+事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
+
+```
+$ cd fiware-poc/pocs/performace-test/shell/init
+$ ./start_init.sh {デバイス数} {subscriptionファイル名}
+```
+
+### 5.試験後のログ取得シェルの実行　【FIWAREサーバ】
+
+事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
+
+```
+$ cd fiware-poc/pocs/performace-test/shell/cleanup
+$ ./cleanup.sh {デバイス数}
+```
+
+### 6.Docker Composeの停止　【FIWAREサーバ】
+
+事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを停止する
+
+```
+$ cd fiware-poc/pocs/performance-test/platformedit
+$ docker-compose -f {Docker Compose ファイル名} down
+```
+
+### 7.擬似デバイスコンテナの削除シェルの実行　【負荷サーバ】
+
+下記コマンドで、試験後のログ取得シェルを実行する
+
+```
+$ cd fiware-poc/pocs/performance-test/dummy_device
+$ ./del_containers.sh
+```
