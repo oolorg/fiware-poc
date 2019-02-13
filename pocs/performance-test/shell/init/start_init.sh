@@ -10,7 +10,7 @@ sleep 60
 
 sleep 10
 
-./02-create-device.sh 100
+./02-create-device.sh 10
 
 sleep 20
 
