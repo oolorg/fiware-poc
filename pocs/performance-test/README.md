@@ -191,7 +191,7 @@ $ docker build . -t dummy_device
 
 #### 負荷実施シェルの編集　【FIWAREサーバ】
 
-`fiware-poc/porc/performance-test/shell/init/start_init.sh`の
+`fiware-poc/pocs/performance-test/shell/init/start_init.sh`の
 
 `export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
 
