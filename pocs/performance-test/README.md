@@ -27,13 +27,13 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 パッケージインデックスを更新
 
 ```
-$ sudo apt-get update
+~$ sudo apt-get update
 ```
 
 HTTPS経由でリポジトリを使用できるようにするためのパッケージをインストール
 
 ```
-$ sudo apt-get install \
+~$ sudo apt-get install \
   apt-transport-https \
   ca-certificates \
   curl \
@@ -41,19 +41,19 @@ $ sudo apt-get install \
 ```
 
 ```
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
 Dockerの公式GPGキーを追加
 
 ```
-$ sudo apt-key fingerprint 0EBFCD88
+~$ sudo apt-key fingerprint 0EBFCD88
 ```
 
 フィンガープリント9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88の最後の8文字を検索して、フィンガープリントを持つキーが手元にあることを確認
 
 ```
-$ sudo add-apt-repository \
+~$ sudo add-apt-repository \
  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
  $(lsb_release -cs) \
  stable"
@@ -62,39 +62,39 @@ $ sudo add-apt-repository \
 パッケージインデックスを更新
 
 ```
-$ sudo apt-get update
+~$ sudo apt-get update
 ```
 
 リポジトリで利用可能なバージョンを一覧表示
 
 ```
-$ apt-cache madison docker-ce
+~$ apt-cache madison docker-ce
 ```
 
 特定バージョン(`docker-ce=18.06.1~ce~3-0~ubuntu`)のDockerをインストール
 
 ```
-$ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
+~$ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 dockerグループを作成
 　`groupadd: group 'docker' already exists`と表示されるが問題ない
  
 ```
-$ sudo groupadd docker
+~$ sudo groupadd docker
 groupadd: group 'docker' already exists
 ```
 
 自分のユーザーをdockerグループに追加
 
 ```
-$ sudo usermod -aG docker $USER
+~$ sudo usermod -aG docker $USER
 ```
 
 ログアウトし再ログイン後バージョンの確認
 
 ```
-$ docker --version
+~$ docker --version
 Docker version 18.06.1-ce, build e68fc7a
 ```
 
@@ -108,25 +108,25 @@ https://docs.docker.com/compose/install/#install-compose
 特定バージョン(1.22.0)のDocker Composeをダウンロード
 
 ```
-$ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+~$ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
 実行可能権限をバイナリに適用
 
 ```
-$ sudo chmod +x /usr/local/bin/docker-compose
+~$ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 /usr/binパスにシンボリックリンクの作成
 
 ```
-$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+~$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
 バージョンの確認
 
 ```
-$ docker-compose --version
+~$ docker-compose --version
 docker-compose version 1.22.0, build f46880fe
 ```
 
@@ -137,13 +137,13 @@ docker-compose version 1.22.0, build f46880fe
 - mosquitto-clients　(shell/init/start_init.shでMQTTメッセージ送信のために使用)
 
 ```
-$ sudo apt install sysstat jq mosquitto-clients
+~$ sudo apt install sysstat jq mosquitto-clients
 ```
 
 #### gitのクローン
 
 ```
-$ git clone https://github.com/oolorg/fiware-poc.git
+~$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
 ### 負荷サーバの構築
@@ -164,20 +164,20 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 - bc　(dummy_device/run-containers.shで複雑な計算実施のために使用)
 
 ```
-$ sudo apt install sysstat jq bc
+~$ sudo apt install sysstat jq bc
 ```
 
 #### gitのクローン
 
 ```
-$ git clone https://github.com/oolorg/fiware-poc.git
+~$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
 #### 疑似デバイス用コンテナイメージのビルド
 
 ```
-$ cd fiware-poc/pocs/performance-test/dummy_device
-$ docker build . -t dummy_device
+~$ cd fiware-poc/pocs/performance-test/dummy_device
+~/fiware-poc/pocs/performance-test/dummy_device$ docker build . -t dummy_device
 ```
 
 ---
@@ -253,19 +253,19 @@ $ docker-compose -f {Docker Compose ファイル名} up -d
 各コンポーネントの起動確認を実施し、起動していないコンポーネントがある場合は再度`docker-compose -f {Docker Compose ファイル名} up -d`コマンドを実行し、その後起動確認を行う
 
 ```
-$ docker-compose -f {Docker Compose ファイル名} ps
+~$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
 起動していないコンポーネントがある場合のみ実施
 
 ```
-$ docker-compose -f {Docker Compose ファイル名} up -d
+~$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
 各コンポーネントの起動確認を実施
 
 ```
-$ docker-compose -f {Docker Compose ファイル名} ps
+~$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
 ### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバ】
@@ -273,7 +273,7 @@ $ docker-compose -f {Docker Compose ファイル名} ps
 事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
 ```
-$ cd fiware-poc/pocs/performance-test/dummy_device
+~$ cd fiware-poc/pocs/performance-test/dummy_device
 $ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
 ```
 
@@ -282,7 +282,7 @@ $ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間�
 事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
 
 ```
-$ cd fiware-poc/pocs/performance-test/shell/init
+~$ cd fiware-poc/pocs/performance-test/shell/init
 $ ./start_init.sh {デバイス数} {subscriptionファイル名}
 ```
 
@@ -291,7 +291,7 @@ $ ./start_init.sh {デバイス数} {subscriptionファイル名}
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
 
 ```
-$ cd fiware-poc/pocs/performance-test/shell/cleanup
+~$ cd fiware-poc/pocs/performance-test/shell/cleanup
 $ ./cleanup.sh {デバイス数}
 ```
 
@@ -300,7 +300,7 @@ $ ./cleanup.sh {デバイス数}
 事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを停止する
 
 ```
-$ cd fiware-poc/pocs/performance-test/platformedit
+~$ cd fiware-poc/pocs/performance-test/platformedit
 $ docker-compose -f {Docker Compose ファイル名} down
 ```
 
@@ -309,6 +309,6 @@ $ docker-compose -f {Docker Compose ファイル名} down
 下記コマンドで、試験後のログ取得シェルを実行する
 
 ```
-$ cd fiware-poc/pocs/performance-test/dummy_device
+~$ cd fiware-poc/pocs/performance-test/dummy_device
 $ ./del_containers.sh
 ```
