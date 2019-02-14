@@ -209,7 +209,7 @@ export TEST_HOME=/home/user098/fiware-poc
 - Cygnusの集計情報が有効な場合
 `docker-compose_aggregate-on.yml`
 
-- Cygnusの集計情報が有効な場合
+- Cygnusの集計情報が無効な場合
 `docker-compose_aggregate-off.yml` 
 
 #### 負荷のシナリオの決定　【作業対象なし】
