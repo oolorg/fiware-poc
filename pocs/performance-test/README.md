@@ -46,13 +46,13 @@ HTTPS経由でリポジトリを使用できるようにするためのパッケ
 
 Dockerの公式GPGキーを追加
 
-```
+```bash
 ~$ sudo apt-key fingerprint 0EBFCD88
 ```
 
 フィンガープリント9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88の最後の8文字を検索して、フィンガープリントを持つキーが手元にあることを確認
 
-```
+```bash
 ~$ sudo add-apt-repository \
  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
  $(lsb_release -cs) \
@@ -61,39 +61,39 @@ Dockerの公式GPGキーを追加
 
 パッケージインデックスを更新
 
-```
+```bash
 ~$ sudo apt-get update
 ```
 
 リポジトリで利用可能なバージョンを一覧表示
 
-```
+```bash
 ~$ apt-cache madison docker-ce
 ```
 
 特定バージョン(`docker-ce=18.06.1~ce~3-0~ubuntu`)のDockerをインストール
 
-```
+```bash
 ~$ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 dockerグループを作成
 　`groupadd: group 'docker' already exists`と表示されるが問題ない
  
-```
+```bash
 ~$ sudo groupadd docker
 groupadd: group 'docker' already exists
 ```
 
 自分のユーザーをdockerグループに追加
 
-```
+```bash
 ~$ sudo usermod -aG docker $USER
 ```
 
 ログアウトし再ログイン後バージョンの確認
 
-```
+```bash
 ~$ docker --version
 Docker version 18.06.1-ce, build e68fc7a
 ```
@@ -107,25 +107,25 @@ https://docs.docker.com/compose/install/#install-compose
 
 特定バージョン(1.22.0)のDocker Composeをダウンロード
 
-```
+```bash
 ~$ sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
 実行可能権限をバイナリに適用
 
-```
+```bash
 ~$ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 /usr/binパスにシンボリックリンクの作成
 
-```
+```bash
 ~$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
 バージョンの確認
 
-```
+```bash
 ~$ docker-compose --version
 docker-compose version 1.22.0, build f46880fe
 ```
@@ -136,13 +136,13 @@ docker-compose version 1.22.0, build f46880fe
 - jq　(shell/cleanup/calc.shでスループットを取得するシェルの中でJSONから値を抽出するために使用)
 - mosquitto-clients　(shell/init/start_init.shでMQTTメッセージ送信のために使用)
 
-```
+```bash
 ~$ sudo apt install sysstat jq mosquitto-clients
 ```
 
 #### gitのクローン
 
-```
+```bash
 ~$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
@@ -163,19 +163,19 @@ docker-compose version 1.22.0, build f46880fe
 - jq　(shell/cleanup/calc.shでスループットを取得するシェルの中でJSONから値を抽出するために使用)
 - bc　(dummy_device/run-containers.shで複雑な計算実施のために使用)
 
-```
+```bash
 ~$ sudo apt install sysstat jq bc
 ```
 
 #### gitのクローン
 
-```
+```bash
 ~$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
 #### 疑似デバイス用コンテナイメージのビルド
 
-```
+```bash
 ~$ cd fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ docker build . -t dummy_device
 ```
@@ -245,26 +245,26 @@ export TEST_HOME=/home/user098/fiware-poc
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを起動する
 
-```
+```bash
 $ cd fiware-poc/pocs/performance-test/platformedit
-$ docker-compose -f {Docker Compose ファイル名} up -d
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
 各コンポーネントの起動確認を実施し、起動していないコンポーネントがある場合は再度`docker-compose -f {Docker Compose ファイル名} up -d`コマンドを実行し、その後起動確認を行う
 
-```
+```bash
 ~$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
 起動していないコンポーネントがある場合のみ実施
 
-```
+```bash
 ~$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
 各コンポーネントの起動確認を実施
 
-```
+```bash
 ~$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
@@ -272,43 +272,43 @@ $ docker-compose -f {Docker Compose ファイル名} up -d
 
 事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
-```
+```bash
 ~$ cd fiware-poc/pocs/performance-test/dummy_device
-$ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
+~/fiware-poc/pocs/performance-test/dummy_device$ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
 ```
 
 ### 4.試験開始シェルの実行　【FIWAREサーバ】
 
 事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
 
-```
+```bash
 ~$ cd fiware-poc/pocs/performance-test/shell/init
-$ ./start_init.sh {デバイス数} {subscriptionファイル名}
+~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh {デバイス数} {subscriptionファイル名}
 ```
 
 ### 5.試験後のログ取得シェルの実行　【FIWAREサーバ】
 
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
 
-```
-~$ cd fiware-poc/pocs/performance-test/shell/cleanup
-$ ./cleanup.sh {デバイス数}
+```bash
+~$ cd fiware-poc/pocs/performance-test/shell/after_logging
+~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh {デバイス数}
 ```
 
 ### 6.Docker Composeの停止　【FIWAREサーバ】
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを停止する
 
-```
+```bash
 ~$ cd fiware-poc/pocs/performance-test/platformedit
-$ docker-compose -f {Docker Compose ファイル名} down
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} down
 ```
 
 ### 7.擬似デバイスコンテナの削除シェルの実行　【負荷サーバ】
 
 下記コマンドで、試験後のログ取得シェルを実行する
 
-```
+```bash
 ~$ cd fiware-poc/pocs/performance-test/dummy_device
-$ ./del_containers.sh
+~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
 ```
