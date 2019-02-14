@@ -235,10 +235,10 @@ export TEST_HOME=/home/user098/fiware-poc
 検証したい内容により以下2ファイルのどちらかを使用するか決定する。
 
 - Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
-`03-create-subscription-all.sh`
+`messages-timeinstant`
 
 - Cometに特定の属性値(messages)のみ蓄積する場合
-`03-create-subscription-messages.sh` 
+`messages` 
 
 
 ### 2.Docker Composeの起動　【FIWAREサーバ】
