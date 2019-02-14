@@ -4,6 +4,7 @@ services:
   mongodb-orion-demo:
     container_name: mongodb-orion-demo
     image: mongo:3.4
+    restart: always
     expose:
         - "27017"
     command: --nojournal
@@ -11,6 +12,7 @@ services:
   mongodb-idas-demo:
     container_name: mongodb-idas-demo
     image: mongo:3.4
+    restart: always
     expose:
         - "27017"
     command: --nojournal
@@ -18,6 +20,7 @@ services:
   mongodb-comet-demo:
     container_name: mongodb-comet-demo
     image: mongo:3.4
+    restart: always
     expose:
         - "27017"
     command: --nojournal
@@ -25,6 +28,7 @@ services:
   orion-demo:
     container_name: orion-demo
     image: fiware/orion:1.15.0
+    restart: always
     depends_on:
         - mongodb-orion-demo
     expose:
@@ -39,6 +43,7 @@ services:
       context: ./idas_info_1.8.0.1/
       dockerfile: Dockerfile
     image: ool/iotagent-json:1.8.0.1
+    restart: always
     depends_on:
         - mongodb-idas-demo
         - mosquitto-demo
@@ -58,6 +63,7 @@ services:
       context: ./mosquitto_1.4.15.1/
       dockerfile: Dockerfile
     image: ool/mosquitto:1.4.15.1
+    restart: always
     expose:
         - "1883"
     ports:
@@ -72,6 +78,7 @@ services:
       context: ./cygnus-ngsi_aggregate-on_1.9.0.1/
       dockerfile: Dockerfile
     image: ool/cygnus-ngsi:1.9.0.1
+    restart: always
     depends_on:
         - mongodb-comet-demo
     expose:
@@ -91,6 +98,7 @@ services:
       context: ./comet_2.4.0.1/
       dockerfile: Dockerfile
     image: ool/sth-comet:2.4.0.1
+    restart: always
     depends_on:
         - mongodb-comet-demo
     expose:
@@ -101,4 +109,3 @@ services:
         - STH_HOST=0.0.0.0
         - DB_URI=mongodb-comet-demo:27017
 #        - LOGOPS_LEVEL=DEBUG
-

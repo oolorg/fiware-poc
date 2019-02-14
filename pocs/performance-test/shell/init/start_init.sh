@@ -5,7 +5,7 @@ export TEST_HOME=/home/user098/fiware-poc
 NUMBER_OF_CONTAINERS=$1
 SUBSCRIPTION_STATUS=$2
 
-../logging/start_logging.sh
+../before_logging/before_logging.sh
 
 sleep 60
 
