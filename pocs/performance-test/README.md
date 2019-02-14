@@ -26,7 +26,7 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 パッケージインデックスを更新
 
-```
+```bash
 ~$ sudo apt-get update
 ```
 
