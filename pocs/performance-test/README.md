@@ -78,7 +78,8 @@ $ sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 dockerグループを作成
-
+　`groupadd: group 'docker' already exists`と表示されるが問題ない
+ 
 ```
 $ sudo groupadd docker
 groupadd: group 'docker' already exists
@@ -131,9 +132,9 @@ docker-compose version 1.22.0, build f46880fe
 
 #### 検証を実施するために必要なパッケージのインストール
 
-- sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
-- jq　(JSON形式のデータの整形・抽出のため)
-- mosquitto-clients　(MQTTメッセージ送信のため)
+- sysstat　(shell/logging/host_metrics.shでシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
+- jq　(shell/cleanup/calc.shでスループットを取得するシェルの中でJSONから値を抽出するために使用)
+- mosquitto-clients　(shell/init/start_init.shでMQTTメッセージ送信のために使用)
 
 ```
 $ sudo apt install sysstat jq mosquitto-clients
@@ -158,9 +159,9 @@ $ git clone https://github.com/oolorg/fiware-poc.git
 
 #### 負荷をかけるために必要なパッケージのインストール
 
-- sysstat　(システムの状態(CPU,メモリ,ディスクI/Oなど)監視のため)
-- jq　(JSON形式のデータの整形・抽出のため)
-- bc　(複雑な計算実施のため)
+- sysstat　(shell/logging/host_metrics.shでシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
+- jq　(shell/cleanup/calc.shでスループットを取得するシェルの中でJSONから値を抽出するために使用)
+- bc　(dummy_device/run-containers.shで複雑な計算実施のために使用)
 
 ```
 $ sudo apt install sysstat jq bc
