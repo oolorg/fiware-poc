@@ -253,19 +253,19 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 各コンポーネントの起動確認を実施し、起動していないコンポーネントがある場合は再度`docker-compose -f {Docker Compose ファイル名} up -d`コマンドを実行し、その後起動確認を行う
 
 ```bash
-~$ docker-compose -f {Docker Compose ファイル名} ps
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
 起動していないコンポーネントがある場合のみ実施
 
 ```bash
-~$ docker-compose -f {Docker Compose ファイル名} up -d
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
 各コンポーネントの起動確認を実施
 
 ```bash
-~$ docker-compose -f {Docker Compose ファイル名} ps
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
 ### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバ】
