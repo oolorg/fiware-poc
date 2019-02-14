@@ -32,7 +32,7 @@ https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 HTTPS経由でリポジトリを使用できるようにするためのパッケージをインストール
 
-```
+```bash
 ~$ sudo apt-get install \
   apt-transport-https \
   ca-certificates \
@@ -40,7 +40,7 @@ HTTPS経由でリポジトリを使用できるようにするためのパッケ
   software-properties-common
 ```
 
-```
+```bash
 ~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 ```
 
