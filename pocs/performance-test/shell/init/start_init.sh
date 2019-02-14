@@ -17,10 +17,12 @@ sleep 10
 
 sleep 20
 
-if [ ${SUBSCRIPTION_STATUS} = "03-create-subscription-all.sh" ]; then
-    ./03-create-subscription-all.sh
-else
+if [ ${SUBSCRIPTION_STATUS} = "messages-timeinstant" ]; then
+    ./03-create-subscription-messages-timeinstant.sh
+elif [ ${SUBSCRIPTION_STATUS} = "messages" ]; then
     ./03-create-subscription-messages.sh
+else
+    echo "error subscription"
 fi
 
 sleep 60
