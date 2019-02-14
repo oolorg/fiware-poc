@@ -209,7 +209,7 @@ export TEST_HOME=/home/user098/fiware-poc
 - Cygnusの集計情報が有効な場合
 `docker-compose_aggregate-on.yml`
 
-- Cygnusの集計情報が有効な場合
+- Cygnusの集計情報が無効な場合
 `docker-compose_aggregate-off.yml` 
 
 #### 負荷のシナリオの決定　【作業対象なし】
@@ -235,10 +235,10 @@ export TEST_HOME=/home/user098/fiware-poc
 検証したい内容により以下2ファイルのどちらかを使用するか決定する。
 
 - Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
-`03-create-subscription-all.sh`
+`messages-timeinstant`
 
 - Cometに特定の属性値(messages)のみ蓄積する場合
-`03-create-subscription-messages.sh` 
+`messages` 
 
 
 ### 2.Docker Composeの起動　【FIWAREサーバ】
