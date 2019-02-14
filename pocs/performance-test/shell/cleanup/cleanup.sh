@@ -18,4 +18,10 @@ ${TEST_HOME}/pocs/performance-test/shell/cleanup/comet-data.sh ${NUMBER_OF_CONTA
 ${TEST_HOME}/pocs/performance-test/shell/cleanup/calc.sh ${NUMBER_OF_CONTAINERS}
 
 docker cp cygnus-demo:/gc.log ${TEST_HOME}/pocs/performance-test/log/cygnus-gc.log
-docker cp cygnus-demo:/heap-dump.hprof ${TEST_HOME}/pocs/performance-test/log/cygnus-heap-dump.hprof
+docker cp cygnus-demo:/heap-dump.hprof ${TEST_HOME}/pocs/performance-test/log/cygnus-heap-dump.hprof &>/dev/null
+
+if [ $? = 0 ];then
+    echo "Cygnus OutOfMemoryError"
+else
+    echo "OK"
+fi
