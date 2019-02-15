@@ -196,7 +196,7 @@ docker-compose version 1.22.0, build f46880fe
 
 `export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
 
-記載例
+(記載例)
 
 ```
 export TEST_HOME=/home/user098/fiware-poc
@@ -250,7 +250,8 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
-実施例
+(実施例)
+
 ```
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml up -d
 Creating network "platformedit_default" with the default driver
@@ -270,7 +271,7 @@ Creating comet-demo         ... done
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
-実施例
+(実施例)
 
 ```bash
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml ps
@@ -295,7 +296,7 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
 ```
 
-実施例
+(実施例)
 
 ```
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh 192.168.28.50 10 1 10 10 string
@@ -311,7 +312,7 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 ~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh {デバイス数} {subscriptionファイル名}
 ```
 
-実施例
+(実施例)
 
 ```
 ~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh 10 messages_timeinstant
@@ -332,7 +333,7 @@ Created subscription.
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh {デバイス数}
 ```
 
-実施例
+(実施例)
 
 ```
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh 10
@@ -348,7 +349,7 @@ OK
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} down
 ```
 
-実施例
+(実施例)
 
 ```
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml down
@@ -380,7 +381,7 @@ Removing network platformedit_default
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
 ```
 
-実施例
+(実施例)
 
 ```
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
