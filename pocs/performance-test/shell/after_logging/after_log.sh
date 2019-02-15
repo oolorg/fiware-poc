@@ -4,13 +4,9 @@ export TEST_HOME=/home/user098/fiware-poc
 NUMBER_OF_CONTAINERS=$1
 
 sudo kill -9 `ps -ef | grep get_fiware_docker_stats.sh | grep -v "grep" | awk '{print $2}'`
-sudo kill -9 `ps -ef | grep get_cygnus_metrics.sh | grep -v "grep" | awk '{print $2}'`
-sudo kill -9 `ps -ef | grep get_orion_metrics.sh | grep -v "grep" | awk '{print $2}'`
 sudo kill -9 `ps -ef | grep sar | grep -v "grep" | awk '{print $2}'`
-sudo kill -9 `ps -ef | grep get_cygnus_stats.sh | grep -v "grep" | awk '{print $2}'`
 
 ${TEST_HOME}/pocs/performance-test/shell/before_logging/get_mosquitto_metrics.sh
-${TEST_HOME}/pocs/performance-test/shell/before_logging/get_orion_statictics.sh
 ${TEST_HOME}/pocs/performance-test/shell/before_logging/get_orion_subscription.sh
 
 ${TEST_HOME}/pocs/performance-test/shell/after_logging/get_docker_log.sh
