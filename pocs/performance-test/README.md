@@ -324,6 +324,27 @@ Creating subscription.
 Created subscription.
 ```
 
+【負荷サーバ】で試験終了判定シェルを実行し試験が終了したことを確認する
+'doing'は試験中　
+'done'は試験終了
+
+
+```bash
+~$ cd fiware-poc/pocs/performance-test/dummy_device
+~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
+```
+
+(実施例)
+
+```
+~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
+doing
+
+./judge_test_end.sh
+done
+```
+
+
 ### 5.試験後のログ取得シェルの実行　【FIWAREサーバ】
 
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
