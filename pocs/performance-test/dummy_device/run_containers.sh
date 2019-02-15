@@ -18,11 +18,14 @@ do
     -e DEVICE_ID=device`printf %05g ${i}` \
     -e SEND_INTERVAL=${SEND_INTERVAL} \
     -e MESSAGE_NUM=${MESSAGE_NUM} \
-    -e STARTUP_INTERVAL=`echo "scale=2; ${STARTUP_TIME}/${NUMBER_OF_CONTAINERS}*${i}+5" | bc` \
+    -e STARTUP_INTERVAL=`expr ${STARTUP_TIME} \* ${i}` \
     -e DATA_TYPE=${DATA_TYPE} \
     --name device`printf %05g ${i}` \
     --log-driver=syslog \
     dummy_device &>/dev/null
 done
 
-expr `docker ps | wc -l` - 1
+EXPECTED_FINISH_TIME=$((${NUMBER_OF_CONTAINERS}*${STARTUP_TIME}*2+${MESSAGE_NUM}+32400))
+
+echo "Expected finish time"
+date --date "${EXPECTED_FINISH_TIME} seconds" "+%m/%d %H:%M:%S"
