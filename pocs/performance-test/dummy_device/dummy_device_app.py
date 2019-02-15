@@ -37,6 +37,9 @@ class DummyDevice(object):
             data = "/{}/{}/{}/seq/{}".format(vmid, apikey, device_id, "%05d" % self.seq)
         elif data_type == "number":
             data = "{}".format( "%05d" % self.seq)
+        else:
+            print("Error data_type")
+            return
         client.connect(host, port=port, keepalive=60)
         client.publish(topic, payload=json.dumps({"m": data}))
         client.disconnect()
