@@ -20,5 +20,7 @@ do
     -e DATA_TYPE=${DATA_TYPE} \
     --name device`printf %05g ${i}` \
     --log-driver=syslog \
-    dummy_device
+    dummy_device &>/dev/null
 done
+
+expr `docker ps | wc -l` - 1
