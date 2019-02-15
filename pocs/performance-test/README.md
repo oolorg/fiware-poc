@@ -340,7 +340,7 @@ Created subscription.
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
 doing
 
-./judge_test_end.sh
+~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
 done
 ```
 
