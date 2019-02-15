@@ -309,13 +309,8 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/shell/init
-~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh {デバイス数} {subscriptionファイル名}
-```
-
-(実施例)
-
-```
-~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh 10 messages_timeinstant
+~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscriptionファイル名}
+~/fiware-poc/pocs/performance-test/shell/init$   ./start_init.sh 10 messages_timeinstant
 Creating service.
 {}Created service.
 Creating devices
@@ -323,6 +318,8 @@ Creating devices
 Creating subscription.
 Created subscription.
 ```
+
+> `{デバイス数}` と `{subscriptionファイル名}` はテスト項目によって書き換える。
 
 【負荷サーバ】で試験終了判定シェルを実行し試験が終了したことを確認する
 
