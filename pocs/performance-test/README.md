@@ -325,8 +325,8 @@ Created subscription.
 ```
 
 【負荷サーバ】で試験終了判定シェルを実行し試験が終了したことを確認する
-'doing'は試験中　
-'done'は試験終了
+
+`doing`は試験中　 `done`は試験終了
 
 
 ```bash
