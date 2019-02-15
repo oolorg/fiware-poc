@@ -161,7 +161,7 @@ docker-compose version 1.22.0, build f46880fe
 
 - sysstat　(fiware-poc/poc/performance-test/shell/before_logging/host_metrics.shでシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
 - jq　(fiware-poc/poc/performance-test/shell/after_logging/get_throughput.shでスループットを取得するシェルの中でJSONから値を抽出するために使用)
-- bc　(fiware-poc/poc/performance-test/dummy_device/run-containers.shで複雑な計算実施のために使用)
+- bc　(fiware-poc/poc/performance-test/dummy_device/run_containers.shで複雑な計算実施のために使用)
 
 ```bash
 ~$ sudo apt install sysstat jq bc
@@ -207,10 +207,10 @@ export TEST_HOME=/home/user098/fiware-poc
 検証したい内容により以下2ファイルのどちらかを使用するか決定する。
 
 - Cygnusの集計情報が有効な場合
-`docker-compose_aggregate-on.yml`
+`docker_compose_aggregate_on.yml`
 
 - Cygnusの集計情報が無効な場合
-`docker-compose_aggregate-off.yml` 
+`docker_compose_aggregate_off.yml` 
 
 #### 負荷のシナリオの決定　【作業対象なし】
 
@@ -235,7 +235,7 @@ export TEST_HOME=/home/user098/fiware-poc
 検証したい内容により以下2ファイルのどちらかを使用するか決定する。
 
 - Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
-`messages-timeinstant`
+`messages_timeinstant`
 
 - Cometに特定の属性値(messages)のみ蓄積する場合
 `messages` 
@@ -250,22 +250,40 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
-各コンポーネントの起動確認を実施し、起動していないコンポーネントがある場合は再度`docker-compose -f {Docker Compose ファイル名} up -d`コマンドを実行し、その後起動確認を行う
+実施例
+```
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml up -d
+Creating network "platformedit_default" with the default driver
+Creating mongodb-comet-demo ... done
+Creating mongodb-orion-demo ... done
+Creating mosquitto-demo     ... done
+Creating mongodb-idas-demo  ... done
+Creating orion-demo         ... done
+Creating idas-demo          ... done
+Creating cygnus-demo        ... done
+Creating comet-demo         ... done
+```
+
+各コンポーネントの起動確認を実施　(stateがUpになっている)
 
 ```bash
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
 ```
 
-起動していないコンポーネントがある場合のみ実施
+実施例
 
 ```bash
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
-```
-
-各コンポーネントの起動確認を実施
-
-```bash
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml ps
+       Name                     Command               State                                    Ports
+--------------------------------------------------------------------------------------------------------------------------------------
+comet-demo           /bin/sh -c bin/sth               Up      0.0.0.0:8666->8666/tcp
+cygnus-demo          /cygnus-entrypoint.sh            Up      0.0.0.0:41414->41414/tcp, 0.0.0.0:5050->5050/tcp, 0.0.0.0:5080->5080/tcp
+idas-demo            /bin/sh -c bin/iotagent-js ...   Up      0.0.0.0:4041->4041/tcp
+mongodb-comet-demo   docker-entrypoint.sh --noj ...   Up      27017/tcp
+mongodb-idas-demo    docker-entrypoint.sh --noj ...   Up      27017/tcp
+mongodb-orion-demo   docker-entrypoint.sh --noj ...   Up      27017/tcp
+mosquitto-demo       /bin/sh -c /bin/startMosqu ...   Up      0.0.0.0:1883->1883/tcp
+orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026/tcp
 ```
 
 ### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバ】
@@ -274,7 +292,14 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ ./run-containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
+~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
+```
+
+実施例
+
+```
+~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh 192.168.28.50 10 1 10 10 string
+10
 ```
 
 ### 4.試験開始シェルの実行　【FIWAREサーバ】
@@ -286,6 +311,18 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh {デバイス数} {subscriptionファイル名}
 ```
 
+実施例
+
+```
+~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh 10 messages_timeinstant
+Creating service.
+{}Created service.
+Creating devices
+{}{}{}{}{}{}{}{}{}{}Created devices
+Creating subscription.
+Created subscription.
+```
+
 ### 5.試験後のログ取得シェルの実行　【FIWAREサーバ】
 
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
@@ -293,6 +330,13 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/shell/after_logging
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh {デバイス数}
+```
+
+実施例
+
+```
+~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh 10
+OK
 ```
 
 ### 6.Docker Composeの停止　【FIWAREサーバ】
@@ -304,6 +348,29 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} down
 ```
 
+実施例
+
+```
+~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml down
+Stopping cygnus-demo        ... done
+Stopping comet-demo         ... done
+Stopping idas-demo          ... done
+Stopping orion-demo         ... done
+Stopping mongodb-idas-demo  ... done
+Stopping mongodb-comet-demo ... done
+Stopping mosquitto-demo     ... done
+Stopping mongodb-orion-demo ... done
+Removing cygnus-demo        ... done
+Removing comet-demo         ... done
+Removing idas-demo          ... done
+Removing orion-demo         ... done
+Removing mongodb-idas-demo  ... done
+Removing mongodb-comet-demo ... done
+Removing mosquitto-demo     ... done
+Removing mongodb-orion-demo ... done
+Removing network platformedit_default
+```
+
 ### 7.擬似デバイスコンテナの削除シェルの実行　【負荷サーバ】
 
 下記コマンドで、試験後のログ取得シェルを実行する
@@ -311,4 +378,21 @@ $ cd fiware-poc/pocs/performance-test/platformedit
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
+```
+
+実施例
+
+```
+~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
+Remove ec577dec50c7
+Remove 2780f58e8492
+Remove 0e6a15555665
+Remove d734c31ae125
+Remove ad10c3858891
+Remove 0a792aea6b23
+Remove 7c3f4e6b1e86
+Remove 94f217411141
+Remove 7e236c26a9a6
+Remove 7cff629f68d4
+0
 ```
