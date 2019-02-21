@@ -20,7 +20,7 @@ sleep 20
 if [ ${SUBSCRIPTION_STATUS} = "messages_timeinstant" ]; then
     ./03_create_subscription_messages_timeinstant.sh
 elif [ ${SUBSCRIPTION_STATUS} = "messages" ]; then
-    ./03_create-subscription_messages.sh
+    ./03_create_subscription_messages.sh
 else
     echo "error subscription"
 fi
