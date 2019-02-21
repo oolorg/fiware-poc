@@ -160,11 +160,9 @@ docker-compose version 1.22.0, build f46880fe
 #### 負荷をかけるために必要なパッケージのインストール
 
 - sysstat　(fiware-poc/poc/performance-test/shell/before_logging/host_metrics.shでシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
-- jq　(fiware-poc/poc/performance-test/shell/after_logging/get_throughput.shでスループットを取得するシェルの中でJSONから値を抽出するために使用)
-- bc　(fiware-poc/poc/performance-test/dummy_device/run_containers.shで複雑な計算実施のために使用)
 
 ```bash
-~$ sudo apt install sysstat jq bc
+~$ sudo apt install sysstat
 ```
 
 #### gitのクローン
