@@ -132,9 +132,9 @@ docker-compose version 1.22.0, build f46880fe
 
 #### 検証を実施するために必要なパッケージのインストール
 
-- sysstat　(fiware-poc/poc/performance-test/shell/before_logging/host_metrics.shでシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
-- jq　(fiware-poc/poc/performance-test/shell/after_logging/get_throughput.sh、fiware-poc/poc/performance-test/shell/before_logging/get_cygnus_metrics.shでJSONから値を抽出するために使用)
-- mosquitto-clients　(fiware-poc/poc/performance-test/shell/init/start_init.shでMQTTメッセージ送信のために使用)
+- sysstat　([fiware-poc/poc/performance-test/shell/before_logging/get_host_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_host_metrics.sh)でシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
+- jq　([fiware-poc/poc/performance-test/shell/after_logging/get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)、[fiware-poc/poc/performance-test/shell/before_logging/get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)でJSONから値を抽出するために使用)
+- mosquitto-clients　([fiware-poc/poc/performance-test/shell/init/start_init.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/init/start_init.sh)でMQTTメッセージ送信のために使用)
 
 ```bash
 ~$ sudo apt install sysstat jq mosquitto-clients
