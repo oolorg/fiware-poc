@@ -223,6 +223,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 |項目|説明|例|
 |:-:|:-:|:-:|
+|FIWAREサーバIP|負荷をかける対象となるFIWAREサーバのIP|192.168.28.50|
 |デバイス数|起動するデバイスの台数|100|
 |データ送信開始間隔|各デバイスがデータを送信開始する間隔(秒)|4|
 |データ送信間隔|1デバイスあたりのデータの送信間隔(秒)|1|
@@ -241,6 +242,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 |項目|説明|例|
 |:-:|:-:|:-:|
+|FIWAREサーバIP|負荷をかける対象となるFIWAREサーバのIP|192.168.28.50|
 |デバイス数|起動するデバイスの台数|100|
 |データ送信間隔|1デバイスあたりのデータの送信間隔(秒)|1|
 |データ送信回数|1デバイスあたりのデータ送信回数|87400|
@@ -302,11 +304,11 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
-> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{データ送信回数}`、`{デバイス起動合計時間(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
+> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信開始間隔(秒)}`、`{データ送信回数}`、`{デバイス起動合計時間(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
+~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信開始間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
 ~/fiware-poc/pocs/performance-test/dummy_device$   ./run_containers.sh 192.168.28.50 100 1 87400 4 string
 Expected finish time
 02/23 16:20:27
