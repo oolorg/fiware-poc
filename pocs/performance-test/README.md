@@ -247,13 +247,8 @@ export TEST_HOME=/home/user098/fiware-poc
 
 ```bash
 $ cd ~/fiware-poc/pocs/performance-test/platformedit
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
-```
-
-(実施例)
-
-```
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml up -d
+~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル名} up -d
+~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml up -d
 Creating network "platformedit_default" with the default driver
 Creating mongodb-comet-demo ... done
 Creating mongodb-orion-demo ... done
@@ -270,13 +265,8 @@ Creating comet-demo         ... done
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
 ```bash
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
-```
-
-(実施例)
-
-```bash
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml ps
+~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル名} ps
+~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml ps
        Name                     Command               State                                    Ports
 --------------------------------------------------------------------------------------------------------------------------------------
 comet-demo           /bin/sh -c bin/sth               Up      0.0.0.0:8666->8666/tcp
@@ -297,14 +287,8 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
-```
-
-(実施例)
-
-```
-~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh 192.168.28.50 10 1 10 10 string
-10
+~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
+~/fiware-poc/pocs/performance-test/dummy_device$   ./run_containers.sh 192.168.28.50 10 1 10 10 string
 ```
 
 ### 4.試験開始シェルの実行　【FIWAREサーバ】
@@ -327,17 +311,10 @@ Created subscription.
 
 【負荷サーバ】で試験終了判定シェルを実行し試験が終了したことを確認する
 
-`doing`は試験中　 `done`は試験終了
-
+> `doing`は試験中　 `done`は試験終了
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
-```
-
-(実施例)
-
-```
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
 doing
 
@@ -354,13 +331,8 @@ done
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/shell/after_logging
-~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh {デバイス数}
-```
-
-(実施例)
-
-```
-~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh 10
+~/fiware-poc/pocs/performance-test/shell/after_logging$ # ./after_log.sh {デバイス数}
+~/fiware-poc/pocs/performance-test/shell/after_logging$   ./after_log.sh 10
 OK
 ```
 
@@ -372,13 +344,8 @@ OK
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/platformedit
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} down
-```
-
-(実施例)
-
-```
-~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f docker_compose_aggregate_on.yml down
+~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル名} down
+~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml down
 Stopping cygnus-demo        ... done
 Stopping comet-demo         ... done
 Stopping idas-demo          ... done
@@ -404,12 +371,6 @@ Removing network platformedit_default
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
-```
-
-(実施例)
-
-```
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
 Remove ec577dec50c7
 Remove 2780f58e8492
