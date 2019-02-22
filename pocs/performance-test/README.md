@@ -143,6 +143,7 @@ docker-compose version 1.22.0, build f46880fe
 #### gitのクローン
 
 ```bash
+~$ cd ~/
 ~$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
@@ -168,6 +169,7 @@ docker-compose version 1.22.0, build f46880fe
 #### gitのクローン
 
 ```bash
+~$ cd ~/
 ~$ git clone https://github.com/oolorg/fiware-poc.git
 ```
 
@@ -190,7 +192,7 @@ docker-compose version 1.22.0, build f46880fe
 
 #### 負荷実施シェルの編集　【FIWAREサーバ】
 
-`fiware-poc/pocs/performance-test/shell/init/start_init.sh`の
+`fiware-poc/pocs/performance-test/shell/init/start_init.sh`と`fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh`の
 
 `export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
 
