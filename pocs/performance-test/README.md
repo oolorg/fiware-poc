@@ -160,7 +160,7 @@ docker-compose version 1.22.0, build f46880fe
 
 #### 負荷をかけるために必要なパッケージのインストール
 
-- sysstat　(fiware-poc/poc/performance-test/shell/before_logging/host_metrics.shでシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
+- sysstat　([fiware-poc/poc/performance-test/shell/before_logging/get_host_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_host_metrics.sh)でシステムの状態(CPU,メモリ,ディスクI/Oなど)監視のために使用)
 
 ```bash
 ~$ sudo apt install sysstat
@@ -192,7 +192,7 @@ docker-compose version 1.22.0, build f46880fe
 
 #### 負荷実施シェルの編集　【FIWAREサーバ】
 
-`fiware-poc/pocs/performance-test/shell/init/start_init.sh`と`fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh`の
+`[fiware-poc/poc/performance-test/shell/init/start_init.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/init/start_init.sh)`と`[fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/after_log.sh)`の
 
 `export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
 
