@@ -190,10 +190,10 @@ docker-compose version 1.22.0, build f46880fe
 
 ### 1.事前準備
 
-#### 負荷実施シェルの編集　【FIWAREサーバ】
+#### 試験に使用するシェルの編集　【FIWAREサーバ】
 
+試験で使用するシェルに`fiware-poc`ディレクトリのパスを記載する必要があるため、
 [fiware-poc/poc/performance-test/shell/init/start_init.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/init/start_init.sh)と[fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/after_log.sh)の
-
 `export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
 
 (記載例)
