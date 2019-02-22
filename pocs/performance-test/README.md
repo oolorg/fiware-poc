@@ -192,7 +192,7 @@ docker-compose version 1.22.0, build f46880fe
 
 #### 負荷実施シェルの編集　【FIWAREサーバ】
 
-`[fiware-poc/poc/performance-test/shell/init/start_init.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/init/start_init.sh)`と`[fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/after_log.sh)`の
+[fiware-poc/poc/performance-test/shell/init/start_init.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/init/start_init.sh)と[fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/after_log.sh)の
 
 `export TEST_HOME=`にfiware-pocディレクトリの絶対パスを記載する。
 
@@ -374,15 +374,5 @@ Removing network platformedit_default
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
-Remove ec577dec50c7
-Remove 2780f58e8492
-Remove 0e6a15555665
-Remove d734c31ae125
-Remove ad10c3858891
-Remove 0a792aea6b23
-Remove 7c3f4e6b1e86
-Remove 94f217411141
-Remove 7e236c26a9a6
-Remove 7cff629f68d4
-0
+deleted
 ```
