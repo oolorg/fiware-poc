@@ -243,6 +243,8 @@ export TEST_HOME=/home/user098/fiware-poc
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを起動する
 
+> `{Docker Compose ファイル名}` は試験内容によって書き換える。
+
 ```bash
 $ cd fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
@@ -264,6 +266,8 @@ Creating comet-demo         ... done
 ```
 
 各コンポーネントの起動確認を実施　(stateがUpになっている)
+
+> `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
 ```bash
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} ps
@@ -289,6 +293,8 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
+> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{データ送信回数}`、`{デバイス起動合計時間(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
+
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
@@ -305,6 +311,8 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
 
+> `{デバイス数}`、`{subscriptionファイル名}` は試験内容によって書き換える。
+
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/shell/init
 ~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscriptionファイル名}
@@ -316,8 +324,6 @@ Creating devices
 Creating subscription.
 Created subscription.
 ```
-
-> `{デバイス数}` と `{subscriptionファイル名}` はテスト項目によって書き換える。
 
 【負荷サーバ】で試験終了判定シェルを実行し試験が終了したことを確認する
 
@@ -344,6 +350,8 @@ done
 
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
 
+> `{デバイス数}` は試験内容によって書き換える。
+
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/shell/after_logging
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh {デバイス数}
@@ -359,6 +367,8 @@ OK
 ### 6.Docker Composeの停止　【FIWAREサーバ】
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを停止する
+
+> `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
 ```bash
 ~$ cd fiware-poc/pocs/performance-test/platformedit
