@@ -241,9 +241,9 @@ export TEST_HOME=/home/user098/fiware-poc
 `messages` 
 
 
-### 2.Docker Composeの起動　【FIWAREサーバ】
+### 2.FIWAREの起動　【FIWAREサーバ】
 
-事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを起動する
+事前準備で決定した項目に従い、下記コマンドでFIWAREを起動する
 
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
@@ -340,9 +340,9 @@ done
 OK
 ```
 
-### 6.Docker Composeの停止　【FIWAREサーバ】
+### 6.FIWAREの停止　【FIWAREサーバ】
 
-事前準備で決定した項目に従い、下記コマンドでFIWAREサーバを停止する
+事前準備で決定した項目に従い、下記コマンドでFIWAREを停止する
 
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
