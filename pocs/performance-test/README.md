@@ -290,7 +290,9 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
-~/fiware-poc/pocs/performance-test/dummy_device$   ./run_containers.sh 192.168.28.50 10 1 10 10 string
+~/fiware-poc/pocs/performance-test/dummy_device$   ./run_containers.sh 192.168.28.50 100 1 87400 4 string
+Expected finish time
+02/23 16:20:27
 ```
 
 ### 4.試験開始シェルの実行　【FIWAREサーバ】
@@ -302,7 +304,7 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/shell/init
 ~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscriptionファイル名}
-~/fiware-poc/pocs/performance-test/shell/init$   ./start_init.sh 10 messages_timeinstant
+~/fiware-poc/pocs/performance-test/shell/init$   ./start_init.sh 100 messages_timeinstant
 Creating service.
 {}Created service.
 Creating devices
@@ -334,7 +336,7 @@ done
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/shell/after_logging
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ # ./after_log.sh {デバイス数}
-~/fiware-poc/pocs/performance-test/shell/after_logging$   ./after_log.sh 10
+~/fiware-poc/pocs/performance-test/shell/after_logging$   ./after_log.sh 100
 OK
 ```
 
