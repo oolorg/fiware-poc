@@ -174,7 +174,7 @@ docker-compose version 1.22.0, build f46880fe
 #### 疑似デバイス用コンテナイメージのビルド
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/dummy_device
+~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ docker build . -t dummy_device
 ```
 
@@ -246,7 +246,7 @@ export TEST_HOME=/home/user098/fiware-poc
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
 ```bash
-$ cd fiware-poc/pocs/performance-test/platformedit
+$ cd ~/fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} up -d
 ```
 
@@ -296,7 +296,7 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 > `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{データ送信回数}`、`{デバイス起動合計時間(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/dummy_device
+~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {デバイス起動合計時間(秒)} {送信データタイプ}
 ```
 
@@ -314,7 +314,7 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 > `{デバイス数}`、`{subscriptionファイル名}` は試験内容によって書き換える。
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/shell/init
+~$ cd ~/fiware-poc/pocs/performance-test/shell/init
 ~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscriptionファイル名}
 ~/fiware-poc/pocs/performance-test/shell/init$   ./start_init.sh 10 messages_timeinstant
 Creating service.
@@ -331,7 +331,7 @@ Created subscription.
 
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/dummy_device
+~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./judge_test_end.sh
 ```
 
@@ -353,7 +353,7 @@ done
 > `{デバイス数}` は試験内容によって書き換える。
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/shell/after_logging
+~$ cd ~/fiware-poc/pocs/performance-test/shell/after_logging
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ ./after_log.sh {デバイス数}
 ```
 
@@ -371,7 +371,7 @@ OK
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/platformedit
+~$ cd ~/fiware-poc/pocs/performance-test/platformedit
 ~/fiware-poc/pocs/performance-test/platformedit$ docker-compose -f {Docker Compose ファイル名} down
 ```
 
@@ -403,7 +403,7 @@ Removing network platformedit_default
 下記コマンドで、試験後のログ取得シェルを実行する
 
 ```bash
-~$ cd fiware-poc/pocs/performance-test/dummy_device
+~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
 ```
 
