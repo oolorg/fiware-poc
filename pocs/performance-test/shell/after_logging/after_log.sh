@@ -20,5 +20,5 @@ docker cp cygnus-demo:/heap-dump.hprof ${TEST_HOME}/pocs/performance-test/log/cy
 if [ $? = 0 ];then
     echo "Cygnus OutOfMemoryError"
 else
-    echo "OK"
+    echo "Not OutOfMemoryError"
 fi
