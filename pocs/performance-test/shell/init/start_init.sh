@@ -9,18 +9,18 @@ SUBSCRIPTION_STATUS=$2
 
 sleep 60
 
-./01_create_service.sh
+./create_service.sh
 
 sleep 10
 
-./02_create_device.sh ${NUMBER_OF_CONTAINERS}
+./create_device.sh ${NUMBER_OF_CONTAINERS}
 
 sleep 20
 
 if [ ${SUBSCRIPTION_STATUS} = "messages_timeinstant" ]; then
-    ./03_create_subscription_messages_timeinstant.sh
+    ./create_subscription_messages_timeinstant.sh
 elif [ ${SUBSCRIPTION_STATUS} = "messages" ]; then
-    ./03_create_subscription_messages.sh
+    ./create_subscription_messages.sh
 else
     echo "error subscription"
 fi
