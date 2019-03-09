@@ -29,10 +29,10 @@ done
 EXPECTED_FINISH_TIME=$((${NUMBER_OF_CONTAINERS}*${STARTUP_TIME}*2+${MESSAGE_NUM}+32400))
 
 echo "Number of containers"
-echo $((`docker ps |wc-l`-1))
+echo $((`docker ps |wc -l`-1))
 echo ""
 echo "Expected finish time"
 date --date "${EXPECTED_FINISH_TIME} seconds" "+%m/%d %H:%M:%S"
 echo ""
 echo "Number of all MQTT messages"
-echo $((${MESSAGES_NUM}*${NUMBER_OF_CONTAINERS}))
+echo $((${TEST_TIME}/${SEND_INTERVAL}*${NUMBER_OF_CONTAINERS}))
