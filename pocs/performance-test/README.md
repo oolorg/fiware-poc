@@ -21,7 +21,7 @@
                 -  [決める必要がある項目](#決める必要がある項目)
                 -  [上記項目から算出する項目](#上記項目から算出する項目)
                 -  [シェルを実行する際に必要となる項目](#シェルを実行する際に必要となる項目)
-            -  [subscription内容の決定　【作業対象なし】](#subscription内容の決定-【作業対象なし】)
+            -  [subscription内容の決定　【作業対象なし】](#subscription内容の決定作業対象なし)
         -  [2.FIWAREの起動　【FIWAREサーバ】](#2FIWAREの起動FIWAREサーバ)
         -  [3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバ】](#3擬似デバイスコンテナ起動シェルの実行負荷サーバ)
         -  [4.試験開始シェルの実行　【FIWAREサーバ】](#4試験開始シェルの実行FIWAREサーバ)
@@ -275,7 +275,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREを起動する
 
-> `[{Docker Compose ファイル名}](#Docker-Composeファイルの決定作業対象なし)` は試験内容によって書き換える。
+> `{Docker Compose ファイル名}`](#Docker-Composeファイルの決定作業対象なし) は試験内容によって書き換える。
 
 ```bash
 $ cd ~/fiware-poc/pocs/performance-test/platformedit
