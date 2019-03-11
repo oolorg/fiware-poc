@@ -221,7 +221,7 @@ docker-compose version 1.22.0, build f46880fe
 
 ### 1.事前準備
 
-#### 試験に使用するシェルの編集　【FIWAREサーバ】
+#### 試験に使用するシェルの編集　【FIWAREサーバで作業を行う】
 
 試験で使用するシェルに`fiware-poc`ディレクトリのパスを記載する必要があるため、
 [fiware-poc/poc/performance-test/shell/init/start_init.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/init/start_init.sh)と[fiware-poc/pocs/performance-test/shell/after_logging/after_log.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/after_log.sh)の
@@ -291,7 +291,7 @@ export TEST_HOME=/home/user098/fiware-poc
 `messages` 
 
 
-### 2.FIWAREの起動　【FIWAREサーバ】
+### 2.FIWAREの起動　【FIWAREサーバで作業を行う】
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREを起動する
 
@@ -331,7 +331,7 @@ mosquitto-demo       /bin/sh -c /bin/startMosqu ...   Up      0.0.0.0:1883->1883
 orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026/tcp
 ```
 
-### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバ】
+### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバで作業を行う】
 
 事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
@@ -345,7 +345,7 @@ Expected finish time
 02/23 16:20:27
 ```
 
-### 4.試験開始シェルの実行　【FIWAREサーバ】
+### 4.試験開始シェルの実行　【FIWAREサーバで作業を行う】
 
 事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
 
@@ -377,7 +377,7 @@ done
 ```
 
 
-### 5.試験後のログ取得シェルの実行　【FIWAREサーバ】
+### 5.試験後のログ取得シェルの実行　【FIWAREサーバで作業を行う】
 
 事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
 
@@ -390,7 +390,7 @@ done
 OK
 ```
 
-### 6.FIWAREの停止　【FIWAREサーバ】
+### 6.FIWAREの停止　【FIWAREサーバで作業を行う】
 
 事前準備で決定した項目に従い、下記コマンドでFIWAREを停止する
 
@@ -419,7 +419,7 @@ Removing mongodb-orion-demo ... done
 Removing network platformedit_default
 ```
 
-### 7.擬似デバイスコンテナの削除シェルの実行　【負荷サーバ】
+### 7.擬似デバイスコンテナの削除シェルの実行　【負荷サーバで作業を行う】
 
 下記コマンドで、試験後のログ取得シェルを実行する
 
