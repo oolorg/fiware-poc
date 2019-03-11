@@ -34,5 +34,8 @@ echo ""
 echo "Expected finish time"
 date --date "${EXPECTED_FINISH_TIME} seconds" "+%m/%d %H:%M:%S"
 echo ""
-echo "Number of all MQTT messages"
+echo "Numebr of messages sent by one device"
 echo $(((${TEST_TIME}+${NUMBER_OF_CONTAINERS}*${STARTUP_TIME})/${SEND_INTERVAL}))
+echo ""
+echo "Number of messages sent by all devices"
+echo $(((${TEST_TIME}+${NUMBER_OF_CONTAINERS}*${STARTUP_TIME})/${SEND_INTERVAL}*${NUMBER_OF_CONTAINERS}))
