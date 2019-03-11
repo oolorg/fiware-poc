@@ -246,7 +246,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 負荷の条件のイメージ
 
-![負荷の条件](img/PerformanceScenario.jpg)
+![負荷の条件](img/PerformanceTestCondition.jpg)
 
 |項目|説明|例|
 |:-:|:-:|:-:|
