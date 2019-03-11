@@ -410,3 +410,8 @@ Removing network platformedit_default
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
 deleted
 ```
+
+## 取得ログとログの見方
+
+
+## 試験で使用しているシェルの概要
