@@ -237,11 +237,13 @@ export TEST_HOME=/home/user098/fiware-poc
 
 検証したい内容により以下2ファイルのどちらかを使用するか決定する。
 
-- Cygnusの集計情報が有効な場合
-`docker_compose_aggregate_on.yml`
+- `docker_compose_aggregate_on.yml`
+    - Cygnusの集計情報が有効な場合
 
-- Cygnusの集計情報が無効な場合
-`docker_compose_aggregate_off.yml` 
+
+- `docker_compose_aggregate_off.yml` 
+    - Cygnusの集計情報が無効な場合
+
 
 #### 負荷のシナリオの決定　【作業対象なし】
 
@@ -264,10 +266,10 @@ export TEST_HOME=/home/user098/fiware-poc
 検証したい内容により以下のどちらかを使用するか決定する。
 
 - `messages_timeinstant` 
- - Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
+    - Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
 
 - `messages` 
- - Cometに特定の属性値(messages)のみ蓄積する場合
+    - Cometに特定の属性値(messages)のみ蓄積する場合
 
 ### 2.FIWAREの起動　【FIWAREサーバで作業を行う】
 
