@@ -250,46 +250,24 @@ export TEST_HOME=/home/user098/fiware-poc
 負荷のシナリオのイメージ
 ![負荷のシナリオ](img/PerformanceScenario.jpg)
 
-##### 決める必要がある項目
-
-|項目|説明|例|
-|:-:|:-:|:-:|
-|FIWAREサーバIP|負荷をかける対象となるFIWAREサーバのIP|192.168.28.50|
-|デバイス数|起動するデバイスの台数|100|
-|データ送信開始間隔|各デバイスがデータを送信開始する間隔(秒)|4|
-|データ送信間隔|1デバイスあたりのデータの送信間隔(秒)|1|
-|ランニング時間|負荷が定常状態にするためのランニング時間(秒)|300|
-|測定時間|試験データの対象とする測定時間(秒)|86400|
-|送信データタイプ|送信データの内容([string] or [number])|string|
-
-##### 上記項目から算出する項目
-
-|項目|説明|算出方法|例|
-|:-:|:-:|:-:|:-:|
-|データ送信回数|1デバイスあたりのデータ送信回数|(スループット増加時間＋測定時間＋ランニング時間×2)/データ送信間隔|87400|
-|スループット増加時間|スループットが安定するまでの時間(秒)|デバイス数×データ送信開始間隔|400|
-
-##### シェルを実行する際に必要となる項目
-
 |項目|説明|例|
 |:-:|:-:|:-:|
 |FIWAREサーバIP|負荷をかける対象となるFIWAREサーバのIP|192.168.28.50|
 |デバイス数|起動するデバイスの台数|100|
 |データ送信間隔|1デバイスあたりのデータの送信間隔(秒)|1|
-|データ送信回数|1デバイスあたりのデータ送信回数|87400|
+|測定時間|負荷が定常状態になってからの測定時間(秒)|87000|
 |データ送信開始間隔|各デバイスがデータを送信開始する間隔(秒)|4|
 |送信データタイプ|送信データの内容([string] or [number])|string|
 
-#### subscriptionファイルの決定　【作業対象なし】
+#### subscription内容の決定　【作業対象なし】
 
-検証したい内容により以下2ファイルのどちらかを使用するか決定する。
+検証したい内容により以下のどちらかを使用するか決定する。
 
-- Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
-`messages_timeinstant`
+- `messages_timeinstant` 
+ - Cometに全ての属性値(messagesとTimeInstant)を蓄積する場合
 
-- Cometに特定の属性値(messages)のみ蓄積する場合
-`messages` 
-
+- `messages` 
+ - Cometに特定の属性値(messages)のみ蓄積する場合
 
 ### 2.FIWAREの起動　【FIWAREサーバで作業を行う】
 
@@ -335,11 +313,11 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
-> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{データ送信回数}`、`{データ送信開始間隔(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
+> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{測定時間}`、`{データ送信開始間隔(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {データ送信回数} {データ送信開始間隔(秒)} {送信データタイプ}
+~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {測定時間} {データ送信開始間隔(秒)} {送信データタイプ}
 ~/fiware-poc/pocs/performance-test/dummy_device$   ./run_containers.sh 192.168.28.50 100 1 87400 4 string
 Expected finish time
 02/23 16:20:27
@@ -349,11 +327,11 @@ Expected finish time
 
 事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
 
-> `{デバイス数}`、`{subscriptionファイル名}` は試験内容によって書き換える。
+> `{デバイス数}`、`{subscription内容}` は試験内容によって書き換える。
 
 ```bash
 ~$ cd ~/fiware-poc/pocs/performance-test/shell/init
-~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscriptionファイル名}
+~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscription内容}
 ~/fiware-poc/pocs/performance-test/shell/init$   ./start_init.sh 100 messages_timeinstant
 Creating service.
 {}Created service.
