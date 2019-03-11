@@ -268,13 +268,13 @@ export TEST_HOME=/home/user098/fiware-poc
 
 ### 2.FIWAREの起動　【FIWAREサーバで作業を行う】
 
-事前準備で決定した項目に従い、下記コマンドでFIWAREを起動する
+[事前準備で決定した項目](#Docker-Composeファイルの決定作業対象なし)に従い、下記コマンドでFIWAREを起動する
 
->[ `{Docker Compose ファイル名}`](#Docker-Composeファイルの決定作業対象なし) は試験内容によって書き換える。
+> `{Docker Compose ファイル}` は試験内容によって書き換える。
 
 ```bash
 $ cd ~/fiware-poc/pocs/performance-test/platformedit
-~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル名} up -d
+~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル} up -d
 ~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml up -d
 Creating network "platformedit_default" with the default driver
 Creating mongodb-comet-demo ... done
@@ -289,10 +289,10 @@ Creating comet-demo         ... done
 
 各コンポーネントの起動確認を実施　(stateがUpになっている)
 
-> `{Docker Compose ファイル名}` は試験内容によって書き換える。
+> `{Docker Compose ファイル}` は試験内容によって書き換える。
 
 ```bash
-~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル名} ps
+~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル} ps
 ~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml ps
        Name                     Command               State                                    Ports
 --------------------------------------------------------------------------------------------------------------------------------------
@@ -308,7 +308,7 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 ### 3.擬似デバイスコンテナ起動シェルの実行　【負荷サーバで作業を行う】
 
-事前準備で決定した項目に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
+[事前準備で決定した項目](#負荷のシナリオの決定作業対象なし)に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
 > `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{測定時間}`、`{データ送信開始間隔(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
 
@@ -322,7 +322,7 @@ Expected finish time
 
 ### 4.試験開始シェルの実行　【FIWAREサーバで作業を行う】
 
-事前準備で決定した項目に従い、下記コマンドで試験開始シェルを実行する
+[事前準備で決定した項目](#subscription内容の決定作業対象なし)に従い、下記コマンドで試験開始シェルを実行する
 
 > `{デバイス数}`、`{subscription内容}` は試験内容によって書き換える。
 
@@ -354,7 +354,7 @@ done
 
 ### 5.試験後のログ取得シェルの実行　【FIWAREサーバで作業を行う】
 
-事前準備で決定した項目に従い、下記コマンドで試験後のログ取得シェルを実行する
+[事前準備で決定した項目](#負荷のシナリオの決定作業対象なし)に従い、下記コマンドで試験後のログ取得シェルを実行する
 
 > `{デバイス数}` は試験内容によって書き換える。
 
@@ -367,7 +367,7 @@ OK
 
 ### 6.FIWAREの停止　【FIWAREサーバで作業を行う】
 
-事前準備で決定した項目に従い、下記コマンドでFIWAREを停止する
+[事前準備で決定した項目](#Docker-Composeファイルの決定作業対象なし)に従い、下記コマンドでFIWAREを停止する
 
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
