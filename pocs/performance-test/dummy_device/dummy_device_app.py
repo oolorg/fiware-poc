@@ -13,9 +13,9 @@ port = int(os.environ.get('BROKER_PORT', 1883))
 username = os.environ.get('USERNAME')
 password = os.environ.get('PASSWORD')
 apikey = os.environ.get('APIKEY')
-send_interval = int(os.environ.get('SEND_INTERVAL'))
+send_message_interval = int(os.environ.get('SEND_MESSAGE_INTERVAL'))
 msg_num = int(os.environ.get('MESSAGE_NUM', 100))
-startup_interval = float(os.environ.get('STARTUP_INTERVAL', 5))
+wait_time_to_send_message = float(os.environ.get('WAIT_TIME_TO_SEND_MESSAGE', 5))
 data_type = os.environ.get('DATA_TYPE','string')
 
 TOPIC_START = '/start'
@@ -50,16 +50,16 @@ class DummyDevice(object):
         
 
     def start(self):
-        delay = random.randrange(0, send_interval, 1)
+        delay = random.randrange(0, send_message_interval, 1)
         time.sleep(delay)
         flag =0
         while True:
-            now = float(datetime.now().strftime("%S.%f")) % send_interval
+            now = float(datetime.now().strftime("%S.%f")) % send_message_interval
             time.sleep(0.4)
-            if (send_interval / 2) >= now and flag == 0:
+            if (send_message_interval / 2) >= now and flag == 0:
                 self.send()
                 flag = 1
-            elif (send_interval / 2) <= now and flag == 1:
+            elif (send_message_interval / 2) <= now and flag == 1:
                 flag = 0
             if self.message_num == 0:
                 break
@@ -85,8 +85,8 @@ if __name__ == '__main__':
     client.connect(host, port=port, keepalive=60)
     client.loop_forever()
 
-    print( device_id + "sleep " + str(startup_interval) + "s." )
-    time.sleep(startup_interval)
+    print( device_id + "sleep " + str(wait_time_to_send_message) + "s." )
+    time.sleep(wait_time_to_send_message)
     print("Start sending mqtt packets.")
 
     dummy_device = DummyDevice()
