@@ -411,7 +411,7 @@ Removing network platformedit_default
 deleted
 ```
 
-## 取得ログとログの見方
+## ログ取得シェルの概要とログの見方
 
 障害解析用の物理・仮想のモニタリング箇所
 
@@ -421,4 +421,384 @@ deleted
 
 ![モニタリング項目(コンポーネント)](img/MonitoringItemComponent.jpg)
 
-## 試験で使用しているシェルの概要
+### ① 物理ホストのリソース
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_host_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_host_metrics.sh)|物理マシンのリソース(CPU、メモリ)使用率を取得するために、sarコマンドを実行する|データを取得したい間隔(秒)|負荷をかける前|{ホスト名}.sardata|
+
+#### ログの見方
+
+##### CPU使用率
+事前作業(下記コマンドを実行し、取得したい項目ごとのログを取得する)
+　`sadf -T -d -- -u 1 {ホスト名}.sardata | tr ";" , > sar-cpu.log`
+CPU使用率の算出
+　`100%`-`%idle`(CPUがアイドル状態の割合)で算出
+
+実際のログの例
+
+```
+~/fiware-poc/pocs/performance-test/log$ cat sar-cpu.log
+# hostname,interval,timestamp,CPU,%user,%nice,%system,%iowait,%steal,%idle
+compute-c12,1,2019-03-11 07:04:56,-1,1.56,0.00,0.25,0.00,0.00,98.19
+compute-c12,1,2019-03-11 07:04:57,-1,0.53,0.00,0.28,0.00,0.00,99.19
+```
+
+##### メモリ使用率
+
+事前作業(下記コマンドを実行し、取得したい項目ごとのログを取得する)
+　`sadf -T -d -- -r 1 {ホスト名}.sardata | tr ";" , > sar-mem.log`
+
+メモリ使用率の算出
+　(`kbmemused`(メモリ使用量(kb))-`kbbuffers`(バッファ使用量(kb))-`kbcached`(キャッシュ使用量(kb)))/`32836772`(メモリ量(kb))*`100`で算出
+
+実際のログの例
+
+```
+~/fiware-poc/pocs/performance-test/log$ cat sar-mem.log
+# hostname,interval,timestamp,kbmemfree,kbmemused,%memused,kbbuffers,kbcached,kbcommit,%commit,kbactive,kbinact,kbdirty
+compute-c12,1,2019-03-11 07:04:56,27517604,5376424,16.34,431764,3646704,3859780,9.35,2118212,2435512,172
+compute-c12,1,2019-03-11 07:04:57,27522812,5371216,16.33,431764,3646736,3634276,8.80,2111284,2435536,208
+```
+
+### ② Dockerコンテナのリソース
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_fiware_docker_stats.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_fiware_docker_stats.sh)|Dockerコンテナのリソース使用状況を取得するために、docker statsコマンドを繰り返し実行する|なし|負荷をかける前|fiware_docker_stats.log|
+
+#### ログの見方
+
+##### CPU使用率
+
+　`CPU %`の値を参照する
+
+##### メモリ使用率
+
+　`MEM %`の値を参照する
+
+実際のログの例
+
+```
+cat fiware_docker_stats.log
+2019/03/11 07:04:55.076224306
+CONTAINER ID        NAME                 CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
+66bbdd12bb2c        idas-demo            0.00%               74.41MiB / 31.37GiB   0.23%               14.7kB / 11.3kB     0B / 0B             10
+a9720cf76ef3        cygnus-demo          8.02%               55.49MiB / 31.37GiB   0.17%               4.7kB / 8.1kB       0B / 98.3kB         73
+15df4604654c        comet-demo           0.00%               43.59MiB / 31.37GiB   0.14%               14kB / 10.1kB       0B / 0B             10
+0020f4b60d95        orion-demo           0.00%               2.027MiB / 31.37GiB   0.01%               22.7kB / 8.9kB      0B / 0B             4
+4ee76c98ccc5        mongodb-comet-demo   0.86%               31.47MiB / 31.37GiB   0.10%               11.2kB / 13kB       0B / 573kB          17
+4975c03343a5        mosquitto-demo       0.05%               1.074MiB / 31.37GiB   0.00%               6.65kB / 3.18kB     0B / 0B             2
+0fd27f2f471c        mongodb-idas-demo    0.84%               29.8MiB / 31.37GiB    0.09%               11.7kB / 13.5kB     0B / 684kB          17
+5b5e50657c10        mongodb-orion-demo   0.67%               30.27MiB / 31.37GiB   0.09%               9.71kB / 21kB       0B / 750kB          26
+
+2019/03/11 07:04:57.082203136
+CONTAINER ID        NAME                 CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
+66bbdd12bb2c        idas-demo            0.18%               74.42MiB / 31.37GiB   0.23%               15.1kB / 11.5kB     0B / 0B             10
+a9720cf76ef3        cygnus-demo          12.26%              57.11MiB / 31.37GiB   0.18%               8.43kB / 16.2kB     0B / 98.3kB         73
+15df4604654c        comet-demo           0.14%               43.59MiB / 31.37GiB   0.14%               14.3kB / 10.3kB     0B / 0B             10
+0020f4b60d95        orion-demo           0.00%               2.027MiB / 31.37GiB   0.01%               22.7kB / 8.9kB      0B / 0B             4
+4ee76c98ccc5        mongodb-comet-demo   0.96%               31.47MiB / 31.37GiB   0.10%               11.4kB / 13.4kB     0B / 586kB          17
+4975c03343a5        mosquitto-demo       0.06%               1.074MiB / 31.37GiB   0.00%               6.65kB / 3.18kB     0B / 0B             2
+0fd27f2f471c        mongodb-idas-demo    0.88%               29.8MiB / 31.37GiB    0.09%               12kB / 13.9kB       0B / 684kB          17
+5b5e50657c10        mongodb-orion-demo   0.89%               30.38MiB / 31.37GiB   0.09%               9.71kB / 21kB       0B / 750kB          26
+```
+
+### ③ Dockerコンテナのログ
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_docker_log.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_docker_log.sh)|全てのDockerコンテナのログファイルを保存するために、ログファイルをログ格納ディレクトリにコピーする|なし|負荷をかけた後|docker_log_{コンテナ名}.log|
+
+#### ログの見方
+
+各dockerコンテナで動かしているプロセスのログの見方に則る
+
+### ④ Mosquittoのメッセージの送受信数
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_mosquitto_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_mosquitto_metrics.sh)|Mosquittoのメッセージの受信数と送信数を取得するために、Mosquittoの情報を取得するコマンドを実行する|なし|負荷をかける前後|mosquitto_metrics.log|
+
+#### ログの見方
+
+##### メッセージ受信数
+`received messages`の値を参照する
+※負荷をかけた後の値は、`データ数` + `1`(負荷スタートの合図に使用されるMQTTメッセージの受信数)になる
+
+##### メッセージ送信数
+`sent messages`の値を参照する
+※負荷をかけた後の値は、`データ数` + `デバイス数`(負荷スタートの合図に使用されるMQTTメッセージの送信数) + `2`(Mossquittoの情報取得コマンドの実行によるデータの送信数)になる
+
+実際のログの例
+```
+~/fiware-poc/pocs/performance-test/log$ cat mosquitto_metrics.log
+2019/03/11 07:04:52.120904950
+received messages
+0
+sent messages
+0
+
+2019/03/11 07:12:56.643571767
+received messages
+2001
+sent messages
+2012
+```
+
+
+### ⑤ Orionの通知の送信数
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_orion_subscription.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_orion_subscription.sh)|OrionのSubscriptionの通知回数を取得するために、OrionのSubscription情報を取得するコマンドを実行する|なし|負荷をかける前後|orion_subscription.log|
+
+#### ログの見方
+
+##### subscriptionの通知回数
+
+notificationの`timesSent`の値を参照する
+※※負荷をかけた後の値は、`データ数` +  `1`(subscription作成数)となる
+
+実際のログの例
+
+```
+~/fiware-poc/pocs/performance-test/log$ cat orion_subscription.log
+2019/03/11 07:04:52.745417309
+[]
+
+2019/03/11 07:12:57.267650448
+[
+    {
+        "id": "5c8608f6136343c7d4720159",
+        "description": "CYGNUS Subscription",
+        "expires": "2040-01-01T14:00:00.00Z",
+        "status": "active",
+        "subject": {
+            "entities": [
+                {
+                    "idPattern": ".*"
+                }
+            ],
+            "condition": {
+                "attrs": []
+            }
+        },
+        "notification": {
+            "timesSent": 2001,
+            "lastNotification": "2019-03-11T07:12:30.00Z",
+            "attrs": [],
+            "attrsFormat": "legacy",
+            "http": {
+                "url": "http://cygnus-demo:5050/notify"
+            },
+            "lastSuccess": "2019-03-11T07:12:30.00Z"
+        }
+    }
+]
+```
+
+### ⑥ CygnusのJavaのプロセス
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_cygnus_gclog.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_cygnus_gclog.sh)|CygnusのGCのログファイルを、ログ格納ディレクトリにコピーする|なし|負荷をかけた後|cygnus-gc.log|
+
+#### ログの見方
+
+1.下記URLからgcviewerをダウンロードする
+　https://sourceforge.net/projects/gcviewer/files/gcviewer-1.36-SNAPSHOT.jar/download
+2.gcviewer-1.36-SNAPSHOT.jarをダブルクリックで起動する
+3.「File」→「Open File」からcygnus-gc.logを選択する
+4.グラフからヒープメモリ使用量の増加傾向をみる
+
+### ⑦ Cygnusの統計情報
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_mongo_channel.log|
+
+#### ログの見方(Source)
+
+##### 書き込まれたイベント数
+
+`EventReceivedCount`の値を参照する
+
+実際のログの例
+
+```
+~/fiware-poc/pocs/performance-test/log$ cat cygnus_metrics_http_source.log
+2019/03/11 07:04:55.073527796
+{
+  "EventReceivedCount": "0",
+  "AppendBatchAcceptedCount": "0",
+  "Type": "SOURCE",
+  "AppendReceivedCount": "0",
+  "EventAcceptedCount": "0",
+  "StartTime": "1552287728259",
+  "AppendAcceptedCount": "0",
+  "OpenConnectionCount": "0",
+  "AppendBatchReceivedCount": "0",
+  "StopTime": "0"
+}
+
+2019/03/11 07:04:56.250817285
+{
+  "EventReceivedCount": "0",
+  "AppendBatchAcceptedCount": "0",
+  "Type": "SOURCE",
+  "AppendReceivedCount": "0",
+  "EventAcceptedCount": "0",
+  "StartTime": "1552287728259",
+  "AppendAcceptedCount": "0",
+  "OpenConnectionCount": "0",
+  "AppendBatchReceivedCount": "0",
+  "StopTime": "0"
+}
+```
+
+#### ログの見方(Channel)
+
+##### チャネル使用数
+
+`ChannelSize`の値を参照する
+
+##### チャネル使用率
+
+`ChannelFillPercentage`の値を参照する
+
+##### 書き込まれたイベント数
+
+`EventPutSuccessCount`の値を参照する
+
+##### 書き込んだイベント数
+
+`EventTakeSuccessCount`の値を参照する
+
+実際のログの例
+
+```
+~/fiware-poc/pocs/performance-test/log$ cat cygnus_metrics_mongo_channel.log
+2019/03/11 07:04:55.204489976
+{
+  "ChannelCapacity": "1000",
+  "ChannelFillPercentage": "0.0",
+  "Type": "CHANNEL",
+  "EventTakeSuccessCount": "0",
+  "ChannelSize": "0",
+  "EventTakeAttemptCount": "29",
+  "StartTime": "1552287728101",
+  "EventPutSuccessCount": "0",
+  "EventPutAttemptCount": "0",
+  "StopTime": "0"
+}
+
+2019/03/11 07:04:56.275832357
+{
+  "ChannelCapacity": "1000",
+  "ChannelFillPercentage": "0.0",
+  "Type": "CHANNEL",
+  "EventTakeSuccessCount": "0",
+  "ChannelSize": "0",
+  "EventTakeAttemptCount": "29",
+  "StartTime": "1552287728101",
+  "EventPutSuccessCount": "0",
+  "EventPutAttemptCount": "0",
+  "StopTime": "0"
+}
+```
+
+
+
+### ⑧ Cometに蓄積されたRawデータ数
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_comet_data.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_comet_data.sh)|全てのデバイスの蓄積Rawデータを取得するために、全デバイスの蓄積Rawデータを取得する|デバイス数|負荷をかけた後|comet_data.log|
+
+#### ログの見方
+
+##### 全デバイスの蓄積Rawデータ数
+
+ログファイルの行数をカウントすることで全デバイスの蓄積Rawデータ数を取得する
+
+実際のログの例
+```
+~/fiware-poc/pocs/performance-test/log$ cat comet_data.log |wc -l
+2000
+```
+
+### ⑨ スループット
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間当たりに受信したデータ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
+
+#### ログの見方
+
+事前にいる作業
+見るポイントとその説明
+
+### その他の取得ログ
+
+#### ログ取得シェルの概要
+
+|ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
+|:-:|:-:|:-:|:-:|:-:|
+|[get_veth.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_veth.sh)|Dockerコンテナが使用している、仮想インターフェース名を取得するためのコマンドを実行する|なし|負荷をかける前|veth.log|
+
+#### ログの見方
+
+##### Dockerコンテナが使用している仮想インターフェース
+
+コンテナIDとvethの対応を見る
+
+実際のログの例
+
+```
+~/fiware-poc/pocs/performance-test/log$ cat veth.log
+66bbdd12bb2c:vethc1cfebd
+
+a9720cf76ef3:veth786c4aa
+
+15df4604654c:veth3f41b1b
+
+0020f4b60d95:vetha192274
+
+4ee76c98ccc5:vethb81b7a4
+
+4975c03343a5:veth7f42a87
+
+0fd27f2f471c:vethe77cb37
+
+5b5e50657c10:vethb134d77
+
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                                                                      NAMES
+66bbdd12bb2c        ool/iotagent-json:1.8.0.1   "/bin/sh -c 'bin/iot…"   23 hours ago        Up 23 hours         0.0.0.0:4041->4041/tcp                                                     idas-demo
+a9720cf76ef3        ool/cygnus-ngsi:1.9.0.1     "/cygnus-entrypoint.…"   23 hours ago        Up 23 hours         0.0.0.0:5050->5050/tcp, 0.0.0.0:5080->5080/tcp, 0.0.0.0:41414->41414/tcp   cygnus-demo
+15df4604654c        ool/sth-comet:2.4.0.1       "/bin/sh -c bin/sth"     23 hours ago        Up 23 hours         0.0.0.0:8666->8666/tcp                                                     comet-demo
+0020f4b60d95        fiware/orion:1.15.0         "/usr/bin/contextBro…"   23 hours ago        Up 23 hours         0.0.0.0:1026->1026/tcp                                                     orion-demo
+4ee76c98ccc5        mongo:3.4                   "docker-entrypoint.s…"   23 hours ago        Up 23 hours         27017/tcp                                                                  mongodb-comet-demo
+4975c03343a5        ool/mosquitto:1.4.15.1      "/bin/sh -c /bin/sta…"   23 hours ago        Up 23 hours         0.0.0.0:1883->1883/tcp                                                     mosquitto-demo
+0fd27f2f471c        mongo:3.4                   "docker-entrypoint.s…"   23 hours ago        Up 23 hours         27017/tcp                                                                  mongodb-idas-demo
+5b5e50657c10        mongo:3.4                   "docker-entrypoint.s…"   23 hours ago        Up 23 hours         27017/tcp                                                                  mongodb-orion-demo
+```
+
