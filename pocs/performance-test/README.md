@@ -772,7 +772,7 @@ notificationの`timesSent`の値を参照する
 ##### 単位時間当たりの受信データ数
 
 sumの値を参照する。
-※スループット(msg/s)は`sum`/`datoTo-dateFrom`で算出する
+※スループット(msg/s)は`sum` / `datoTo` - `dateFrom`で算出する
 
 実際のログの例
 
