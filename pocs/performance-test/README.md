@@ -413,5 +413,12 @@ deleted
 
 ## 取得ログとログの見方
 
+障害解析用の物理・仮想のモニタリング箇所
+
+![モニタリング項目(物理・仮想)](img/MonitoringItemPysicalVirtual.jpg)
+
+障害解析用のコンポーネントのモニタリング箇所
+
+![モニタリング項目(コンポーネント)](img/MonitoringItemComponent.jpg)
 
 ## 試験で使用しているシェルの概要
