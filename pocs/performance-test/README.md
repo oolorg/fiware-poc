@@ -313,14 +313,23 @@ orion-demo           /usr/bin/contextBroker -fg ...   Up      0.0.0.0:1026->1026
 
 [事前準備で決定した項目](#負荷の条件の決定作業対象なし)に従い、下記コマンドで擬似デバイスコンテナ起動シェルを実行する
 
-> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{測定時間}`、`{データ送信開始間隔(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
+> `{FIWAREサーバIP}`、` {デバイス数}`、`{データ送信間隔(秒)}`、`{測定時間(秒)}`、`{データ送信開始間隔(秒)}`、`{送信データタイプ}`は試験内容によって書き換える。
 
 ```bash
-~$ cd ~/fiware-poc/pocs/performance-test/dummy_device
-~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {測定時間} {データ送信開始間隔(秒)} {送信データタイプ}
-~/fiware-poc/pocs/performance-test/dummy_device$   ./run_containers.sh 192.168.28.50 100 1 87400 4 string
+~/fiware-poc/pocs/performance-test/dummy_device$ # ./run_containers.sh {FIWAREサーバIP} {デバイス数} {データ送信間隔(秒)} {測定時間(秒)} {データ送信開始間隔(秒)} {送信データタイプ}
+~/fiware-poc/pocs/performance-test/dummy_device$ 　./run_containers.sh 192.168.28.50 100 1 87000 4 string
+
+Number of containers
+100
+
 Expected finish time
-02/23 16:20:27
+03/13 16:27:48
+
+Numebr of messages sent by one device
+87400
+
+Number of messages sent by all devices
+8740000
 ```
 
 ### 4.試験開始シェルの実行　【FIWAREサーバで作業を行う】
@@ -330,13 +339,11 @@ Expected finish time
 > `{デバイス数}`、`{subscription内容}` は試験内容によって書き換える。
 
 ```bash
-~$ cd ~/fiware-poc/pocs/performance-test/shell/init
-~/fiware-poc/pocs/performance-test/shell/init$ # ./start_init.sh {デバイス数} {subscription内容}
-~/fiware-poc/pocs/performance-test/shell/init$   ./start_init.sh 100 messages_timeinstant
+~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh 100 messages_timeinstant
 Creating service.
 {}Created service.
 Creating devices
-{}{}{}{}{}{}{}{}{}{}Created devices
+{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}Created devices
 Creating subscription.
 Created subscription.
 ```
@@ -439,7 +446,7 @@ CPU使用率の算出
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat sar-cpu.log
 # hostname,interval,timestamp,CPU,%user,%nice,%system,%iowait,%steal,%idle
 compute-c12,1,2019-03-11 07:04:56,-1,1.56,0.00,0.25,0.00,0.00,98.19
@@ -458,7 +465,7 @@ compute-c12,1,2019-03-11 07:04:57,-1,0.53,0.00,0.28,0.00,0.00,99.19
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat sar-mem.log
 # hostname,interval,timestamp,kbmemfree,kbmemused,%memused,kbbuffers,kbcached,kbcommit,%commit,kbactive,kbinact,kbdirty
 compute-c12,1,2019-03-11 07:04:56,27517604,5376424,16.34,431764,3646704,3859780,9.35,2118212,2435512,172
@@ -485,7 +492,7 @@ compute-c12,1,2019-03-11 07:04:57,27522812,5371216,16.33,431764,3646736,3634276,
 
 実際のログの例
 
-```
+```bash
 cat fiware_docker_stats.log
 2019/03/11 07:04:55.076224306
 CONTAINER ID        NAME                 CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O           PIDS
@@ -533,18 +540,20 @@ a9720cf76ef3        cygnus-demo          12.26%              57.11MiB / 31.37GiB
 #### ログの見方
 
 ##### メッセージ受信数
+
 `received messages`の値を参照する
 
 ※負荷をかけた後の値は、`データ数` + `1`(負荷スタートの合図に使用されるMQTTメッセージの受信数)になる
 
 ##### メッセージ送信数
+
 `sent messages`の値を参照する
 
 ※負荷をかけた後の値は、`データ数` + `デバイス数`(負荷スタートの合図に使用されるMQTTメッセージの送信数) + `2`(Mossquittoの情報取得コマンドの実行によるデータの送信数)になる
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat mosquitto_metrics.log
 2019/03/11 07:04:52.120904950
 received messages
@@ -558,7 +567,6 @@ received messages
 sent messages
 2012
 ```
-
 
 ### ⑤ Orionの通知の送信数
 
@@ -578,7 +586,7 @@ notificationの`timesSent`の値を参照する
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat orion_subscription.log
 2019/03/11 07:04:52.745417309
 []
@@ -646,7 +654,7 @@ notificationの`timesSent`の値を参照する
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat cygnus_metrics_http_source.log
 2019/03/11 07:04:55.073527796
 {
@@ -697,7 +705,7 @@ notificationの`timesSent`の値を参照する
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat cygnus_metrics_mongo_channel.log
 2019/03/11 07:04:55.204489976
 {
@@ -746,7 +754,7 @@ notificationの`timesSent`の値を参照する
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat comet_data.log |wc -l
 2000
 ```
@@ -780,7 +788,7 @@ notificationの`timesSent`の値を参照する
 
 実際のログの例
 
-```
+```bash
 ~/fiware-poc/pocs/performance-test/log$ cat veth.log
 66bbdd12bb2c:vethc1cfebd
 
