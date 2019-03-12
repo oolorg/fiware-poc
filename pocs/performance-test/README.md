@@ -32,9 +32,9 @@
         - [④ Mosquittoのメッセージの送受信数](#-mosquittoのメッセージの送受信数)
         - [⑤ Orionの通知の送信数](#-orionの通知の送信数)
         - [⑥ CygnusのJavaのプロセス](#-cygnusのjavaのプロセス)
-        - [⑦ Cygnusの統計情報](#-cygnusのjavaのプロセス)
-        - [⑧ Cometに蓄積されたRawデータ数](#-cygnusのjavaのプロセス)
-        - [⑨ スループット](#-cygnusのjavaのプロセス)
+        - [⑦ Cygnusの統計情報](#-cygnusの統計情報)
+        - [⑧ Cometに蓄積されたRawデータ数](#-cometに蓄積されたrawデータ数)
+        - [⑨ スループット](#-スループット)
 
 # 負荷検証
 
