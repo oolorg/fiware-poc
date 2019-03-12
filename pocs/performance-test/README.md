@@ -361,7 +361,6 @@ doing
 done
 ```
 
-
 ### 5.試験後のログ取得シェルの実行　【FIWAREサーバで作業を行う】
 
 [事前準備で決定した項目](#負荷のシナリオの決定作業対象なし)に従い、下記コマンドで試験後のログ取得シェルを実行する
@@ -413,6 +412,8 @@ Removing network platformedit_default
 ~/fiware-poc/pocs/performance-test/dummy_device$ ./del_containers.sh
 deleted
 ```
+
+---
 
 ## ログ取得シェルの概要とログの見方
 
@@ -735,8 +736,6 @@ notificationの`timesSent`の値を参照する
   "StopTime": "0"
 }
 ```
-
-
 
 ### ⑧ Cometに蓄積されたRawデータ数
 
