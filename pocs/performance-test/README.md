@@ -432,9 +432,13 @@ deleted
 #### ログの見方
 
 ##### CPU使用率
+
 事前作業(下記コマンドを実行し、取得したい項目ごとのログを取得する)
+
 　`sadf -T -d -- -u 1 {ホスト名}.sardata | tr ";" , > sar-cpu.log`
+ 
 CPU使用率の算出
+
 　`100%`-`%idle`(CPUがアイドル状態の割合)で算出
 
 実際のログの例
@@ -449,9 +453,11 @@ compute-c12,1,2019-03-11 07:04:57,-1,0.53,0.00,0.28,0.00,0.00,99.19
 ##### メモリ使用率
 
 事前作業(下記コマンドを実行し、取得したい項目ごとのログを取得する)
+
 　`sadf -T -d -- -r 1 {ホスト名}.sardata | tr ";" , > sar-mem.log`
 
 メモリ使用率の算出
+
 　(`kbmemused`(メモリ使用量(kb))-`kbbuffers`(バッファ使用量(kb))-`kbcached`(キャッシュ使用量(kb)))/`32836772`(メモリ量(kb))*`100`で算出
 
 実際のログの例
@@ -532,13 +538,16 @@ a9720cf76ef3        cygnus-demo          12.26%              57.11MiB / 31.37GiB
 
 ##### メッセージ受信数
 `received messages`の値を参照する
+
 ※負荷をかけた後の値は、`データ数` + `1`(負荷スタートの合図に使用されるMQTTメッセージの受信数)になる
 
 ##### メッセージ送信数
 `sent messages`の値を参照する
+
 ※負荷をかけた後の値は、`データ数` + `デバイス数`(負荷スタートの合図に使用されるMQTTメッセージの送信数) + `2`(Mossquittoの情報取得コマンドの実行によるデータの送信数)になる
 
 実際のログの例
+
 ```
 ~/fiware-poc/pocs/performance-test/log$ cat mosquitto_metrics.log
 2019/03/11 07:04:52.120904950
@@ -568,7 +577,8 @@ sent messages
 ##### subscriptionの通知回数
 
 notificationの`timesSent`の値を参照する
-※※負荷をかけた後の値は、`データ数` +  `1`(subscription作成数)となる
+
+※負荷をかけた後の値は、`データ数` +  `1`(subscription作成数)となる
 
 実際のログの例
 
@@ -618,11 +628,11 @@ notificationの`timesSent`の値を参照する
 
 #### ログの見方
 
-1.下記URLからgcviewerをダウンロードする
+1. 下記URLからgcviewerをダウンロードする
 　https://sourceforge.net/projects/gcviewer/files/gcviewer-1.36-SNAPSHOT.jar/download
-2.gcviewer-1.36-SNAPSHOT.jarをダブルクリックで起動する
-3.「File」→「Open File」からcygnus-gc.logを選択する
-4.グラフからヒープメモリ使用量の増加傾向をみる
+2. gcviewer-1.36-SNAPSHOT.jarをダブルクリックで起動する
+3. 「File」→「Open File」からcygnus-gc.logを選択する
+4. グラフからヒープメモリ使用量の増加傾向をみる
 
 ### ⑦ Cygnusの統計情報
 
@@ -739,6 +749,7 @@ notificationの`timesSent`の値を参照する
 ログファイルの行数をカウントすることで全デバイスの蓄積Rawデータ数を取得する
 
 実際のログの例
+
 ```
 ~/fiware-poc/pocs/performance-test/log$ cat comet_data.log |wc -l
 2000
