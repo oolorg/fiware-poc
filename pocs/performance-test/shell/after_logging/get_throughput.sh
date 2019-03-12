@@ -16,6 +16,8 @@ dateFrom=`date -d "${startDate}" +%Y-%m-%dT%H:%M:%SZ`
 #dateTo=`date -d "${dateFrom} 1 minutes" +%Y-%m-%dT%H:%M:%SZ`
 dateTo=`date -d "${dateFrom} ${interval}" +%Y-%m-%dT%H:%M:%SZ`
 
+echo dateFrom,dateTo,numberOfData  >> ${logpath}throughput.csv
+
 while :
 do
     # 一定時間内に蓄積されたデータ数の総数を計算
@@ -25,7 +27,7 @@ do
         count=`curl -sX GET "http://localhost:8666/STH/v1/contextEntities/type/sensor/id/sensor:vm1device${id}/attributes/messages?lastN=5000&dateFrom=${dateFrom}&dateTo=${dateTo}" -H 'fiware-service:ool' -H 'fiware-servicepath:/' | jq -c '.contextResponses[].contextElement.attributes[].values | length'`
         sum=`expr ${sum} + ${count}`
     done
-    echo ${dateFrom},${dateTo},${sum} >> ${logpath}${numberOfDevice}-throughput.csv
+    echo ${dateFrom},${dateTo},${sum} >> ${logpath}throughput.csv
 
     dateFrom=`date -d "${dateTo}" +%Y-%m-%dT%H:%M:%SZ`
     dateTo=`date -d "${dateTo} ${interval}" +%Y-%m-%dT%H:%M:%SZ`
