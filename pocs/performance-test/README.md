@@ -765,14 +765,22 @@ notificationの`timesSent`の値を参照する
 
 |ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
 |:-:|:-:|:-:|:-:|:-:|
-|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間当たりに受信したデータ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
+|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間あたりの受信データ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
 
 #### ログの見方
 
-事前にいる作業
-見るポイントとその説明
+##### 単位時間当たりの受信データ数
 
-### その他の取得ログ
+sumの値を参照する。
+※スループット(msg/s)は`sum`/`datoTo-dateFrom`で算出する
+
+実際のログの例
+
+```bash
+
+```
+
+### その他の取得ログ(Dcokerコンテナと仮想インターフェースの対応)
 
 #### ログ取得シェルの概要
 
