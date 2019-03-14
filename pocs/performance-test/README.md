@@ -371,7 +371,7 @@ done
 ~$ cd ~/fiware-poc/pocs/performance-test/shell/after_logging
 ~/fiware-poc/pocs/performance-test/shell/after_logging$ # ./after_log.sh {デバイス数}
 ~/fiware-poc/pocs/performance-test/shell/after_logging$   ./after_log.sh 100
-OK
+Not OutOfMemoryError
 ```
 
 ### 6.FIWAREの停止　【FIWAREサーバで作業を行う】
@@ -564,9 +564,9 @@ sent messages
 
 2019/03/11 07:12:56.643571767
 received messages
-2001
+8740001
 sent messages
-2012
+8740102
 ```
 
 ### ⑤ Orionの通知の送信数
@@ -589,13 +589,13 @@ notificationの`timesSent`の値を参照する
 
 ```bash
 ~/fiware-poc/pocs/performance-test/log$ cat orion_subscription.log
-2019/03/11 07:04:52.745417309
+2019/03/12 07:07:17.159199029
 []
 
-2019/03/11 07:12:57.267650448
+2019/03/14 02:16:04.069754675
 [
     {
-        "id": "5c8608f6136343c7d4720159",
+        "id": "5c875b07645739759048a3e5",
         "description": "CYGNUS Subscription",
         "expires": "2040-01-01T14:00:00.00Z",
         "status": "active",
@@ -610,14 +610,14 @@ notificationの`timesSent`の値を参照する
             }
         },
         "notification": {
-            "timesSent": 2001,
-            "lastNotification": "2019-03-11T07:12:30.00Z",
+            "timesSent": 8740001,
+            "lastNotification": "2019-03-13T07:33:18.00Z",
             "attrs": [],
             "attrsFormat": "legacy",
             "http": {
                 "url": "http://cygnus-demo:5050/notify"
             },
-            "lastSuccess": "2019-03-11T07:12:30.00Z"
+            "lastSuccess": "2019-03-13T07:33:18.00Z"
         }
     }
 ]
@@ -657,31 +657,31 @@ notificationの`timesSent`の値を参照する
 
 ```bash
 ~/fiware-poc/pocs/performance-test/log$ cat cygnus_metrics_http_source.log
-2019/03/11 07:04:55.073527796
+2019/03/14 02:16:01.164716832
 {
-  "EventReceivedCount": "0",
-  "AppendBatchAcceptedCount": "0",
+  "EventReceivedCount": "8740000",
+  "AppendBatchAcceptedCount": "8740000",
   "Type": "SOURCE",
   "AppendReceivedCount": "0",
-  "EventAcceptedCount": "0",
-  "StartTime": "1552287728259",
+  "EventAcceptedCount": "8740000",
+  "StartTime": "1552374199851",
   "AppendAcceptedCount": "0",
   "OpenConnectionCount": "0",
-  "AppendBatchReceivedCount": "0",
+  "AppendBatchReceivedCount": "8740000",
   "StopTime": "0"
 }
 
-2019/03/11 07:04:56.250817285
+2019/03/14 02:16:02.226265628
 {
-  "EventReceivedCount": "0",
-  "AppendBatchAcceptedCount": "0",
+  "EventReceivedCount": "8740000",
+  "AppendBatchAcceptedCount": "8740000",
   "Type": "SOURCE",
   "AppendReceivedCount": "0",
-  "EventAcceptedCount": "0",
-  "StartTime": "1552287728259",
+  "EventAcceptedCount": "8740000",
+  "StartTime": "1552374199851",
   "AppendAcceptedCount": "0",
   "OpenConnectionCount": "0",
-  "AppendBatchReceivedCount": "0",
+  "AppendBatchReceivedCount": "8740000",
   "StopTime": "0"
 }
 ```
@@ -708,31 +708,31 @@ notificationの`timesSent`の値を参照する
 
 ```bash
 ~/fiware-poc/pocs/performance-test/log$ cat cygnus_metrics_mongo_channel.log
-2019/03/11 07:04:55.204489976
+2019/03/14 02:16:01.185328295
 {
   "ChannelCapacity": "1000",
   "ChannelFillPercentage": "0.0",
   "Type": "CHANNEL",
-  "EventTakeSuccessCount": "0",
   "ChannelSize": "0",
-  "EventTakeAttemptCount": "29",
-  "StartTime": "1552287728101",
-  "EventPutSuccessCount": "0",
-  "EventPutAttemptCount": "0",
+  "EventTakeSuccessCount": "8740000",
+  "EventTakeAttemptCount": "8751262",
+  "StartTime": "1552374199567",
+  "EventPutAttemptCount": "8740000",
+  "EventPutSuccessCount": "8740000",
   "StopTime": "0"
 }
 
-2019/03/11 07:04:56.275832357
+2019/03/14 02:16:02.247119648
 {
   "ChannelCapacity": "1000",
   "ChannelFillPercentage": "0.0",
   "Type": "CHANNEL",
-  "EventTakeSuccessCount": "0",
   "ChannelSize": "0",
-  "EventTakeAttemptCount": "29",
-  "StartTime": "1552287728101",
-  "EventPutSuccessCount": "0",
-  "EventPutAttemptCount": "0",
+  "EventTakeSuccessCount": "8740000",
+  "EventTakeAttemptCount": "8751262",
+  "StartTime": "1552374199567",
+  "EventPutAttemptCount": "8740000",
+  "EventPutSuccessCount": "8740000",
   "StopTime": "0"
 }
 ```
