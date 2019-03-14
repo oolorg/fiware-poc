@@ -755,7 +755,7 @@ notificationの`timesSent`の値を参照する
 
 ```bash
 ~/fiware-poc/pocs/performance-test/log$ cat comet_data.log |wc -l
-2000
+8740000
 ```
 
 ### ⑨ スループット
