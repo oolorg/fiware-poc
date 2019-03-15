@@ -276,10 +276,10 @@ export TEST_HOME=/home/user098/fiware-poc
 > `{Docker Compose ファイル}` は試験内容によって書き換える。
 
 ```bash
-$ cd ~/fiware-poc/pocs/performance-test/platformedit
-~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル} up -d
-~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml up -d
-Creating network "platformedit_default" with the default driver
+$ cd ~/fiware-poc/pocs/performance-test/platform
+~/fiware-poc/pocs/performance-test/platform$ # docker-compose -f {Docker Compose ファイル} up -d
+~/fiware-poc/pocs/performance-test/platform$   docker-compose -f docker_compose_aggregate_on.yml up -d
+Creating network "platform_default" with the default driver
 Creating mongodb-comet-demo ... done
 Creating mongodb-orion-demo ... done
 Creating mosquitto-demo     ... done
@@ -295,8 +295,8 @@ Creating comet-demo         ... done
 > `{Docker Compose ファイル}` は試験内容によって書き換える。
 
 ```bash
-~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル} ps
-~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml ps
+~/fiware-poc/pocs/performance-test/platform$ # docker-compose -f {Docker Compose ファイル} ps
+~/fiware-poc/pocs/performance-test/platform$   docker-compose -f docker_compose_aggregate_on.yml ps
        Name                     Command               State                                    Ports
 --------------------------------------------------------------------------------------------------------------------------------------
 comet-demo           /bin/sh -c bin/sth               Up      0.0.0.0:8666->8666/tcp
@@ -381,9 +381,9 @@ Not OutOfMemoryError
 > `{Docker Compose ファイル名}` は試験内容によって書き換える。
 
 ```bash
-~$ cd ~/fiware-poc/pocs/performance-test/platformedit
-~/fiware-poc/pocs/performance-test/platformedit$ # docker-compose -f {Docker Compose ファイル名} down
-~/fiware-poc/pocs/performance-test/platformedit$   docker-compose -f docker_compose_aggregate_on.yml down
+~$ cd ~/fiware-poc/pocs/performance-test/platform
+~/fiware-poc/pocs/performance-test/platform$ # docker-compose -f {Docker Compose ファイル名} down
+~/fiware-poc/pocs/performance-test/platform$   docker-compose -f docker_compose_aggregate_on.yml down
 Stopping cygnus-demo        ... done
 Stopping comet-demo         ... done
 Stopping idas-demo          ... done
@@ -400,7 +400,7 @@ Removing mongodb-idas-demo  ... done
 Removing mongodb-comet-demo ... done
 Removing mosquitto-demo     ... done
 Removing mongodb-orion-demo ... done
-Removing network platformedit_default
+Removing network platform_default
 ```
 
 ### 7.擬似デバイスコンテナの削除シェルの実行　【負荷サーバで作業を行う】
