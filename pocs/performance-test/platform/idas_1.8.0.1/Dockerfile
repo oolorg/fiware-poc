@@ -1,9 +1,0 @@
-
-FROM fiware/iotagent-json:1.8.0
-
-WORKDIR /opt/iotajson
-
-COPY idas_1.8.0.1/config.js /opt/iotajson/config.js
-
-ENTRYPOINT bin/iotagent-json config.js
-
