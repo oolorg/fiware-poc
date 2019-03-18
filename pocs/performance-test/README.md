@@ -772,12 +772,18 @@ notificationの`timesSent`の値を参照する
 
 sumの値を参照する。
 
-※スループット(msg/s)は`sum` / `datoTo` - `dateFrom`で算出する
+※スループット(msg/s)は`numberOfData` / `datoTo` - `dateFrom`で算出する
 
 実際のログの例
 
 ```bash
-
+~/fiware-poc/pocs/performance-test/log$ cat throughput.csv
+dateFrom,dateTo,numberOfData
+2019-03-15T09:33:59Z,2019-03-15T09:38:59Z,11400
+2019-03-15T09:38:59Z,2019-03-15T09:43:59Z,28800
+2019-03-15T09:43:59Z,2019-03-15T09:48:59Z,30000
+2019-03-15T09:48:59Z,2019-03-15T09:53:59Z,30000
+2019-03-15T09:53:59Z,2019-03-15T09:58:59Z,30000
 ```
 
 ### その他の取得ログ(Dcokerコンテナと仮想インターフェースの対応)
