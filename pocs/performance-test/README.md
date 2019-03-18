@@ -269,6 +269,18 @@ export TEST_HOME=/home/user098/fiware-poc
 - `messages` 
     - Cometに特定の属性値(messages)のみ蓄積する場合
 
+#### 参考 DockerComposeファイル・subscription内容・送信データタイプの選択例
+
+DockerComposeファイル・subscription内容・送信データタイプの選択例として3パターンを記載する
+
+|要件|DockerComposeファイル|subscription内容|送信データタイプ|
+|:-:|:-:|:-:|:-:|
+|集計有効、文字列|docker_compose_aggregate_on.yml|messages_timeinstant|string|
+|集計有効、数値のみ|docker_compose_aggregate_on.yml|messages|number|
+|集計無効、文字列|docker_compose_aggregate_off.yml|messages_timeinstant|string|
+
+
+
 ### 2.FIWAREの起動　【FIWAREサーバで作業を行う】
 
 [事前準備で決定した項目](#Docker-Composeファイルの決定作業対象なし)に従い、下記コマンドでFIWAREを起動する
