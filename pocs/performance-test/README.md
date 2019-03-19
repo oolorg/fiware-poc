@@ -447,6 +447,8 @@ deleted
 |:-:|:-:|:-:|:-:|:-:|
 |[get_host_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_host_metrics.sh)|物理マシンのリソース(CPU、メモリ)使用率を取得するために、sarコマンドを実行する|データを取得したい間隔(秒)|負荷をかける前|{ホスト名}.sardata|
 
+※引数として1を与え、1秒間隔で取得
+
 #### ログの見方
 
 ##### CPU使用率
@@ -662,7 +664,7 @@ notificationの`timesSent`の値を参照する
 
 |ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
 |:-:|:-:|:-:|:-:|:-:|
-|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_sth_channel.log|
+|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを1秒間隔で繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_sth_channel.log|
 
 #### ログの見方(Source)
 
@@ -781,7 +783,7 @@ notificationの`timesSent`の値を参照する
 
 |ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
 |:-:|:-:|:-:|:-:|:-:|
-|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間あたりの受信データ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
+|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間(5分(300秒))あたりの受信データ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
 
 #### ログの見方
 
