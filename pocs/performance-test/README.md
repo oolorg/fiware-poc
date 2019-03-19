@@ -240,7 +240,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 擬似デバイスコンテナ起動シェルの実行に必要な項目を決定する
 
-負荷の条件のイメージ
+負荷の条件のイメージ(※1)(※2)
 
 ![負荷の条件](img/PerformanceTestCondition.jpg)
 
@@ -248,16 +248,16 @@ export TEST_HOME=/home/user098/fiware-poc
 |:-:|:-:|:-:|
 |FIWAREサーバIP|負荷をかける対象となるFIWAREサーバのIP|192.168.28.50|
 |デバイス数|起動するデバイスの台数|100|
-|データ送信間隔|1デバイスあたりのデータの送信間隔(秒)|1|
-|測定時間|負荷が定常状態になってからの測定時間(秒) ※任意の予備時間を含む|87000|
+|データ送信間隔(※3)|1デバイスあたりのデータの送信間隔(秒)|1|
+|測定時間|負荷が定常状態になってからの測定時間(秒) |87000|
 |データ送信開始間隔|各デバイスがデータを送信開始する間隔(秒)|4|
 |送信データタイプ|送信データの内容([string] or [number])|string|
 
-※定常スループットに達するまでの負荷の増え方を設定できるように、各擬似デバイスがデータの送信を開始する間隔の指定をできるようにしている。(データ送信開始間隔を0にすることで、負荷を急激に増加させることが可能)
+(※1)スループットの増加時間と減少時間はデータ送信開始間隔とデバイス数で決まるため、個別の設定は未対応
 
-※スループットの増加時間と減少時間はデータ送信開始間隔とデバイス数で決まるため、個別の設定は未対応
+(※2)定常スループットに達するまでの負荷の増え方を設定できるように、各擬似デバイスがデータの送信を開始する間隔の指定をできるようにしている。(データ送信開始間隔を0にすることで、負荷を急激に増加させることが可能)
 
-※データ送信間隔は1秒未満は未対応
+(※3)データ送信間隔は1秒未満は未対応
 
 #### subscription内容の決定　【作業対象なし】
 
@@ -271,7 +271,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 #### 参考 DockerComposeファイル・subscription内容・送信データタイプの選択例
 
-DockerComposeファイル・subscription内容・送信データタイプの選択例として3パターンを記載する
+DockerComposeファイル・subscription内容・送信データタイプの選択例として測定実績のある3パターンを記載する
 
 |要件|DockerComposeファイル|subscription内容|送信データタイプ|
 |:-:|:-:|:-:|:-:|
@@ -351,7 +351,9 @@ Number of messages sent by all devices
 > `{デバイス数}`、`{subscription内容}` は試験内容によって書き換える。
 
 ```bash
-~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh 100 messages_timeinstant
+~$ cd ~/fiware-poc/pocs/performance-test/shell/init
+~/fiware-poc/pocs/performance-test/shell/init$ #./start_init.sh {デバイス数} {subscription内容}
+~/fiware-poc/pocs/performance-test/shell/init$  ./start_init.sh 100 messages_timeinstant
 Creating service.
 {}Created service.
 Creating devices
@@ -445,11 +447,15 @@ deleted
 |:-:|:-:|:-:|:-:|:-:|
 |[get_host_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_host_metrics.sh)|物理マシンのリソース(CPU、メモリ)使用率を取得するために、sarコマンドを実行する|データを取得したい間隔(秒)|負荷をかける前|{ホスト名}.sardata|
 
+※引数として1を与え、1秒間隔で取得
+
 #### ログの見方
 
 ##### CPU使用率
 
-事前作業(下記コマンドを実行し、取得したい項目ごとのログを取得する)
+事前作業
+
+　バイナリデータである`{ホスト名}.sardata`から取得したい項目ごとのログを取得するために下記コマンドを実行する
 
 　`sadf -T -d -- -u 1 {ホスト名}.sardata | tr ";" , > sar-cpu.log`
  
@@ -468,13 +474,15 @@ compute-c12,1,2019-03-11 07:04:57,-1,0.53,0.00,0.28,0.00,0.00,99.19
 
 ##### メモリ使用率
 
-事前作業(下記コマンドを実行し、取得したい項目ごとのログを取得する)
+事前作業
+
+　バイナリデータである`{ホスト名}.sardata`から取得したい項目ごとのログを取得するために下記コマンドを実行する
 
 　`sadf -T -d -- -r 1 {ホスト名}.sardata | tr ";" , > sar-mem.log`
 
 メモリ使用率の算出
 
-　(`kbmemused`(メモリ使用量(kb))-`kbbuffers`(バッファ使用量(kb))-`kbcached`(キャッシュ使用量(kb)))/`32836772`(メモリ量(kb))*`100`で算出
+　(`kbmemused`(メモリ使用量(kB))-`kbbuffers`(バッファ使用量(kB))-`kbcached`(キャッシュ使用量(kB)))/`32894028`(メモリ量(kB)(/proc/meminfoのMemTotal))*`100`で算出
 
 実際のログの例
 
@@ -645,8 +653,7 @@ notificationの`timesSent`の値を参照する
 
 #### ログの見方
 
-1. 下記URLからgcviewerをダウンロードする
-　https://sourceforge.net/projects/gcviewer/files/gcviewer-1.36-SNAPSHOT.jar/download
+1. 下記URLから[gcviewer](https://sourceforge.net/projects/gcviewer/files/gcviewer-1.36-SNAPSHOT.jar/download)をダウンロードする
 2. gcviewer-1.36-SNAPSHOT.jarをダブルクリックで起動する
 3. 「File」→「Open File」からcygnus-gc.logを選択する
 4. グラフからヒープメモリ使用量の増加傾向をみる
@@ -657,7 +664,7 @@ notificationの`timesSent`の値を参照する
 
 |ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
 |:-:|:-:|:-:|:-:|:-:|
-|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_mongo_channel.log|
+|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを1秒間隔で繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_sth_channel.log|
 
 #### ログの見方(Source)
 
@@ -776,13 +783,13 @@ notificationの`timesSent`の値を参照する
 
 |ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
 |:-:|:-:|:-:|:-:|:-:|
-|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間あたりの受信データ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
+|[get_throughput.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/after_logging/get_throughput.sh)|システム全体にかかったスループットを算出するために、Cometにおいて単位時間(5分(300秒))あたりの受信データ数を取得する|デバイス数|負荷をかけた後|throughput.csv|
 
 #### ログの見方
 
 ##### 単位時間当たりの受信データ数
 
-sumの値を参照する。
+numberOfDataの値を参照する。
 
 ※スループット(msg/s)は`numberOfData` / `datoTo` - `dateFrom`で算出する
 
