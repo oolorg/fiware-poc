@@ -351,7 +351,9 @@ Number of messages sent by all devices
 > `{デバイス数}`、`{subscription内容}` は試験内容によって書き換える。
 
 ```bash
-~/fiware-poc/pocs/performance-test/shell/init$ ./start_init.sh 100 messages_timeinstant
+~$ cd ~/fiware-poc/pocs/performance-test/shell/init
+~/fiware-poc/pocs/performance-test/shell/init$ #./start_init.sh {デバイス数} {subscription内容}
+~/fiware-poc/pocs/performance-test/shell/init$  ./start_init.sh 100 messages_timeinstant
 Creating service.
 {}Created service.
 Creating devices
