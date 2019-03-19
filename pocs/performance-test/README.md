@@ -647,8 +647,7 @@ notificationの`timesSent`の値を参照する
 
 #### ログの見方
 
-1. 下記URLからgcviewerをダウンロードする
-　https://sourceforge.net/projects/gcviewer/files/gcviewer-1.36-SNAPSHOT.jar/download
+1. 下記URLから[gcviewer](https://sourceforge.net/projects/gcviewer/files/gcviewer-1.36-SNAPSHOT.jar/download)をダウンロードする
 2. gcviewer-1.36-SNAPSHOT.jarをダブルクリックで起動する
 3. 「File」→「Open File」からcygnus-gc.logを選択する
 4. グラフからヒープメモリ使用量の増加傾向をみる
