@@ -658,7 +658,7 @@ notificationの`timesSent`の値を参照する
 
 |ログ取得シェル|シェルの説明|引数|実施タイミング|ログファイル名|
 |:-:|:-:|:-:|:-:|:-:|
-|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_mongo_channel.log|
+|[get_cygnus_metrics.sh](https://github.com/oolorg/fiware-poc/blob/master/pocs/performance-test/shell/before_logging/get_cygnus_metrics.sh)|CygnusのSourceとChannelの情報を取得するために、Cygnusの統計情報を取得するコマンドを繰り返し実行する|なし|負荷をかける前|cygnus_metrics_http_source.log、cygnus_metrics_mongo_channel.log、cygnus_metrics_sth_channel.log|
 
 #### ログの見方(Source)
 
