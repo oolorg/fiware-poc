@@ -14,6 +14,8 @@ ${TEST_HOME}/pocs/performance-test/shell/after_logging/get_docker_log.sh
 ${TEST_HOME}/pocs/performance-test/shell/after_logging/get_comet_data.sh ${NUMBER_OF_CONTAINERS}
 ${TEST_HOME}/pocs/performance-test/shell/after_logging/get_throughput.sh ${NUMBER_OF_CONTAINERS}
 
+${TEST_HOME}/pocs/performance-test/shell/after_logging/fiware_docker_stats_shaping.sh
+
 ${TEST_HOME}/pocs/performance-test/shell/after_logging/get_cygnus_gclog.sh
 docker cp cygnus-demo:/heap-dump.hprof ${TEST_HOME}/pocs/performance-test/log/cygnus-heap-dump.hprof &>/dev/null
 
