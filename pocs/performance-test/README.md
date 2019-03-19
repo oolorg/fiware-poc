@@ -271,7 +271,7 @@ export TEST_HOME=/home/user098/fiware-poc
 
 #### 参考 DockerComposeファイル・subscription内容・送信データタイプの選択例
 
-DockerComposeファイル・subscription内容・送信データタイプの選択例として3パターンを記載する
+DockerComposeファイル・subscription内容・送信データタイプの選択例として測定実績のある3パターンを記載する
 
 |要件|DockerComposeファイル|subscription内容|送信データタイプ|
 |:-:|:-:|:-:|:-:|
